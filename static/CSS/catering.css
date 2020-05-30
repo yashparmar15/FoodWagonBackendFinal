@@ -1,0 +1,37 @@
+#mainNav{
+    box-shadow: 0px 0px 10px black;
+    z-index: 100000000 ;
+}
+.nav-link{
+    color:black !important;
+}
+.nav-link:hover,.nav-link:active{
+    color: gray !important;
+}
+.toformcatering{
+    margin: auto;
+    margin-bottom: 18px !important;
+    width:fit-content;
+}
+.container{
+   width: 100vw !important;
+}
+.card{
+    margin:20px;
+}
+@media (max-width:500px){
+    .toformcatering{
+        width:150px !important;
+    }
+}
+.chef-heading{
+    font-size: 40px;
+    font-weight: bolder;
+    color: black;
+    text-align: center;
+    margin-top: 100px;
+    
+}
+.card{
+    box-shadow: 0px 0px 1px black  !important;
+}

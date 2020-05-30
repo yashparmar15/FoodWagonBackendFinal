@@ -1,0 +1,64 @@
+
+.nav-item{
+    margin-left: 5px;
+    margin-right: 5px;
+    font-weight: bold;
+    color: aliceblue;
+}
+.dropdown-item{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+.nav-link{
+    color:aliceblue !important;
+}
+.nav-link:hover,.nav-link:active{
+    color:gray !important;
+}
+.dropdown-item{
+    color: black;
+    font-weight: bold;
+}
+.dropdown-item:hover{
+    background-color: grey;
+    font-weight: bold;
+}
+@media only screen and (max-width:992px){
+   nav{
+    background-color: rgba(255,255,255,1) !important;
+   }
+   .nav-link{
+       color: black !important;
+       
+   }
+   .navbar-fixed-top.scrolled {
+    background-color: rgba(255,255,255,1) !important;
+    box-shadow: 0 0 5px rgba(0,0,0,1);
+    transition: background-color 200ms linear;
+    z-index: 100;
+    
+}
+
+}
+.navbar-fixed-top.scrolled {
+    background-color: rgba(255,255,255,0.95) !important;
+    box-shadow: 0 0 5px rgba(0,0,0,0.8);
+    transition: background-color 200ms linear;
+    z-index: 100;
+    
+}
+.nav-link.scrolled{
+   color: #000 !important;
+}
+.nav-link.scrolled:hover{
+    color:gray !important;
+}
+.img-fluid1{
+    animation-name: Nav;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+}
+@keyframes Nav{
+    0%{width:200px}
+    50%{width:220px}
+    100%{width:200px;}
+}

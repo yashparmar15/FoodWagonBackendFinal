@@ -1,0 +1,127 @@
+
+
+
+.body{
+
+    margin: 0;
+  }
+  
+  .box{
+  
+    height: 300px;
+    background-color: white;
+    overflow-x: scroll;
+    overflow-y: hidden;
+  
+    white-space: nowrap;
+  }
+  
+  .box::-webkit-scrollbar{
+    display: none;
+  }
+  .card-a{
+    display: inline-block;
+    background-color:#86F0FF;
+    height: 100%;
+    width:250px ;
+    overflow: hidden;
+    white-space: normal;
+
+    border-radius: 20px;
+  
+  
+   
+  }
+  .card-b{
+    display: inline-block;
+    background-color:rgb(158, 188, 247);
+    height: 100%;
+    width:250px ;
+    overflow: hidden;
+    white-space: normal;
+    border-radius: 20px;
+
+  }
+  .card-c{
+    display: inline-block;
+    background-color:rgb(136, 182, 238);
+    height: 100%;
+    width:250px ;
+    overflow: hidden;
+    white-space: normal;
+    border-radius: 20px;
+
+  }
+  #card-content{
+    font-size: 15px;
+    font-style: italic;
+    font-family: cursive;
+  }
+  
+  
+  .quotel{
+    font-size: 10px;
+    
+    background: #ffc0c0;
+    padding:15px;
+    border-radius: 50%;
+  
+     
+  }
+  .quoter{
+    font-size: 10px;
+    float: right;
+    background: #ffc0c0;
+    padding:15px;
+    border-radius: 50%;
+  
+     
+  }
+  
+  #slideback , #slide{
+    
+    font-size: 20px;
+    border-radius: 50%;
+    
+  }
+  .slideback{
+    font-size:20px
+   
+  }
+
+  
+
+
+
+
+
+  .parallax-container {
+    position: relative;
+    overflow: hidden;
+    height: 500px;
+    
+  }
+  
+  .parallax-container .parallax {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+  }
+  
+  .parallax-container .parallax img {
+    
+    opacity: 0;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+   
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+    -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+  }

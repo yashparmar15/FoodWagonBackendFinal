@@ -1,0 +1,256 @@
+.page-title {
+    padding-top: 50px;
+
+}
+
+.anime{
+      font-size: 40px ;
+      font-weight: bolder;
+      color: #bd783a !important;
+      text-shadow: 0 0 2px black;
+}
+
+.progressbar-title{
+  font-weight: bolder;
+} 
+@media (max-width:800px){
+  .hid{
+    display:none;
+  }
+} 
+@media (max-width:600px){
+  .anime{
+    font-size: 30px;
+  }
+  .section-title{
+    font-size: 25px !important;
+  }
+}
+
+  .breadcrumb {
+    background-color: transparent !important;
+    -ms-flex-pack: center;
+    justify-content: center;
+  }
+
+  .breadcrumb li,
+.breadcrumb a {
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  margin: 0 10px;
+}
+
+.breadcrumb a {
+  position: relative;
+}
+
+.breadcrumb a::before {
+  position: absolute;
+  content: '/';
+  right: -17px;
+  top: 2px;
+  height: 12px;
+}
+#content {
+    margin-left: -40px;
+}
+
+
+.section-title-sm {
+    margin-bottom: 10px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    color: #666;
+  }
+
+
+
+.card-header{
+    
+    height:70px;
+}
+
+.card-link{
+    padding-top: 20px;padding-bottom: 20px;
+}
+#card-content{
+
+    padding-left: 20px;
+}
+
+/* progress bar */
+
+.counter
+{
+    background-color: #eaecf0;
+    text-align: center;
+}
+.employees,.customer,.design,.order
+{
+    margin-top: 70px;
+    margin-bottom: 70px;
+}
+.counter-count
+{
+    font-size: 18px;
+    background-color: #00b3e7;
+    border-radius: 50%;
+    position: relative;
+    color: #ffffff;
+    text-align: center;
+    line-height: 92px;
+    width: 92px;
+    height: 92px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    display: inline-block;
+}
+
+.employee-p,.customer-p,.order-p,.design-p
+{
+    font-size: 24px;
+    color: #fdfafa;
+    line-height: 34px;
+    text-align: center  ;
+}
+#progress-icon{
+
+    color:white;
+    
+}
+
+#progress-icon:hover{
+
+  color:red;
+  
+}
+
+
+
+
+
+
+.body{
+
+  margin: 0;
+}
+
+.box{
+
+  height: 100%;
+  background-color: white;
+  overflow-x: scroll;
+  overflow-y: hidden;
+
+  white-space: nowrap;
+}
+
+.box::-webkit-scrollbar{
+  display: none;
+}
+.card-a{
+  display: inline-block;
+  background-color:#86F0FF;
+  height: 100%;
+  width:300px ;
+  overflow: hidden;
+  white-space: normal;
+
+
+ 
+}
+.card-b{
+  display: inline-block;
+  background-color:rgb(158, 188, 247);
+  height: 100%;
+  width:300px ;
+  overflow: hidden;
+  white-space: normal;
+}
+.card-c{
+  display: inline-block;
+  background-color:rgb(136, 182, 238);
+  height: 100%;
+  width:300px ;
+  overflow: hidden;
+  white-space: normal;
+}
+#card-content{
+  font-size: 20px;
+  font-style: italic;
+  font-family: cursive;
+}
+
+
+.quotel{
+  font-size: 30px;
+  
+  background: #ffc0c0;
+  padding:20px;
+  border-radius: 50%;
+
+   
+}
+.quoter{
+  font-size: 30px;
+  float: right;
+  background: #ffc0c0;
+  padding:20px;
+  border-radius: 50%;
+
+   
+}
+
+#slideback , #slide{
+  
+  font-size: 20px;
+  border-radius: 50%;
+  
+}
+.slideback{
+  font-size:20px
+ 
+}
+
+
+
+
+
+
+
+
+
+.parallax-container {
+  position: relative;
+  overflow: hidden;
+  height: 500px;
+  
+}
+
+.parallax-container .parallax {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+}
+
+.parallax-container .parallax img {
+  
+  opacity: 0;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+ 
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
