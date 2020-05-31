@@ -82,7 +82,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'Foodwagon',
         'USER': 'postgres',
-        'PASSWORD': '',
+        'PASSWORD': 'P@ssw0rd',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
@@ -140,3 +140,4 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'yashparmar157000@gmail.com'
 EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_TLS = True
+
