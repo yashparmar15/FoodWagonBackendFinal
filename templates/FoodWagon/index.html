@@ -1,715 +1,1328 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>FOODWAGON</title>
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.png' %}"/>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <!-- Google fonts-->
-        <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css" />
-        <!-- Third party plugin CSS-->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" rel="stylesheet" />
-        
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>FOODWAGON</title>
+    <!-- Favicon-->
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="{% static 'img/favicon.png' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <!-- Google fonts-->
+    <link
+      href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <!-- Third party plugin CSS-->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css"
+      rel="stylesheet"
+    />
 
+    <!--Core theme CSS (includes Bootstrap)-->
+    <link rel="stylesheet" href="{% static 'CSS/floating-wpp.css' %}" />
+    <link rel="stylesheet" href="{% static 'CSS/bootstarp.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'CSS/nav.css' %}" />
+    <link rel="stylesheet" href="{% static 'CSS/login.css' %}" />
+    <link rel="stylesheet" href="{% static 'CSS/home.css' %}" />
+    <link rel="stylesheet" href="{% static 'CSS/about.css' %}" />
+    <link rel="stylesheet" href="{% static 'CSS/contact.css' %}" />
+    <link rel="stylesheet" href="{% static 'CSS/footer.css' %}" />
+    <!-- <link rel="stylesheet" href="CSS/materialize.css"> -->
 
-        <!--Core theme CSS (includes Bootstrap)-->
-        <link rel="stylesheet" href="{% static 'CSS/floating-wpp.css' %}"> 
-        <link rel="stylesheet" href="{% static 'CSS/bootstarp.min.css' %}">
-        <link rel="stylesheet" href="{% static 'CSS/nav.css' %}">
-        <link rel="stylesheet" href="{% static 'CSS/login.css' %}">
-        <link rel="stylesheet" href="{% static 'CSS/home.css' %}">
-        <link rel="stylesheet" href="{% static 'CSS/about.css' %}">
-        <link rel="stylesheet" href="{% static 'CSS/contact.css' %}">  
-        <link rel="stylesheet" href="{% static 'CSS/footer.css' %}">
-        <!-- <link rel="stylesheet" href="CSS/materialize.css"> -->
-        
-        <style>
-            .no-js #loader { display: none;  }
-            .js #loader { display: block; position: absolute; left: 100px; top: 0; }
-            .se-pre-con {
-                position: fixed;
-                left: 0px;
-                top: 0px;
-                width: 100%;
-                height: 100%;
-                z-index: 9999;
-                background: url("{% static './img/Preloader_2.gif' %}") center no-repeat #fff;
-            }
-            </style>
-            
-            <script src="{% static './JS/forpre1.js' %}"></script>
-            <script src="{% static './JS/forpre2.js' %}"></script>
-            <script>
-                $(window).load(function() {
-                    $(".se-pre-con").fadeOut("slow");;
-                });
-            </script>
-        
-    </head>
-    <body id="page-top">
-        <div id="myButton" style="z-index: 100000;"></div>
-        <div class="se-pre-con"></div>
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3 navbar-fixed-top" id="mainNav" style="z-index: 1000;background-color:transparent;">
-            <div class="container">
-                <a class="navbar-brand js-scroll-trigger" href="#page-top"><img class="img-fluid1 img-fluid" src="static/img/FoodWagon.png" width="200" height="40"  alt="FOODWAGON" /></a><button class="navbar-toggler navbar-toggler-right" style="background-color: aliceblue;" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon" style="color: aliceblue;"></span></button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ml-auto my-2 my-lg-0">
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#home"><i class="fa fa-home"></i> Home</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about"><i class="fa fa-info"></i>  About</a></li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle js-scroll-trigger" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-cogs"></i>  Services
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                              <a class="dropdown-item" href="/catering">Catering</a>
-                              <a class="dropdown-item" href="/venue">Select Venue</a>
-                              <a class="dropdown-item" href="/restaurent">Restaurant Outlets</a>
-                              <a class="dropdown-item" href="/foodtruck">Food Trucks</a>
-                            </div>
-                          </li>
-                        
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#contact-section"><i class="fa fa-phone"></i>  Contact</a></li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle js-scroll-trigger" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-sign-in"></i>  Login
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                              <a class="dropdown-item" href="/login">Sign In</a>
-                              <a class="dropdown-item" href="/register">Register</a>
-                              <a class="dropdown-item" href="/admin">Admin Login</a>
-                            </div>
-                          </li>
-                          <form class="form-inline my-2 my-lg-0">
-               
-                                <a class="btn btn-success btn-sm ml-3" href="/cart">
-                                    <i class="fa fa-shopping-cart"></i> Cart
-                                    <span class="badge badge-light">3</span>
-                                </a>
-                            </form>
-                    </ul>
+    <style>
+      .modal-backdrop {
+        position: relative;
+        z-index: 999999999999 !important;
+      }
+
+      .no-js #loader {
+        display: none;
+      }
+      .js #loader {
+        display: block;
+        position: absolute;
+        left: 100px;
+        top: 0;
+      }
+      .se-pre-con {
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        background: url("{% static './img/Preloader_2.gif' %}") center no-repeat
+          #fff;
+      }
+    </style>
+
+    <script src="{% static './JS/forpre1.js' %}"></script>
+    <script src="{% static './JS/forpre2.js' %}"></script>
+    <script>
+      $(window).load(function () {
+        $('.se-pre-con').fadeOut('slow');
+      });
+    </script>
+  </head>
+  <body id="page-top">
+    <div id="myButton" style="z-index: 100000;"></div>
+    <div class="se-pre-con"></div>
+    <nav
+      class="navbar navbar-expand-lg navbar-light fixed-top py-3 navbar-fixed-top"
+      id="mainNav"
+      style="z-index: 1000; background-color: transparent;"
+    >
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top"
+          ><img
+            class="img-fluid1 img-fluid"
+            src="static/img/FoodWagon.png"
+            width="200"
+            height="40"
+            alt="FOODWAGON" /></a
+        ><button
+          class="navbar-toggler navbar-toggler-right"
+          style="background-color: aliceblue;"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarResponsive"
+          aria-controls="navbarResponsive"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon" style="color: aliceblue;"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto my-2 my-lg-0">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#home"
+                ><i class="fa fa-home"></i> Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#about"
+                ><i class="fa fa-info"></i> About</a
+              >
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle js-scroll-trigger"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <i class="fa fa-cogs"></i> Services
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/catering">Catering</a>
+                <a class="dropdown-item" href="/venue">Select Venue</a>
+                <a class="dropdown-item" href="/restaurent"
+                  >Restaurant Outlets</a
+                >
+                <a class="dropdown-item" href="/foodtruck">Food Trucks</a>
+              </div>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#contact-section"
+                ><i class="fa fa-phone"></i> Contact</a
+              >
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle js-scroll-trigger"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <i class="fa fa-sign-in"></i>
+                {% if request.user.is_authenticated %} Logout {% else %} Login
+                {% endif %}
+              </a>
+
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                {% if request.user.is_authenticated %}
+                <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                {% else %}
+                <a class="dropdown-item" href="/login">Sign In</a>
+                <a class="dropdown-item" href="/register">Register</a>
+                <a class="dropdown-item" href="/adminlogin">Admin Login</a>
+                {% endif %}
+              </div>
+            </li>
+            <form class="form-inline my-2 my-lg-0">
+              {% if user.is_authenticated %}
+              <a class="btn btn-success btn-sm ml-3" href="/cart">
+                <i class="fa fa-shopping-cart"></i> Cart
+                <span class="badge badge-light">3</span>
+              </a>
+              {% else %}
+              <button
+                type="button"
+                class="btn btn-success btn-sm ml-3"
+                data-toggle="modal"
+                data-target="#exampleModal"
+              >
+                <i class="fa fa-shopping-cart"></i>&nbsp; Cart
+              </button>
+
+              <!-- Modal -->
+              <div
+                class="modal fade"
+                id="exampleModal"
+                tabindex="-1"
+                role="dialog"
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">
+                        Please Login
+                      </h5>
+                      <button
+                        type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close"
+                      >
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <a href="/login">Login</a>
+                    </div>
+                  </div>
                 </div>
-            </div>
-        </nav>
-        <header class="masthead" id="home" style="background-color:black !important;background-repeat:no-repeat !important; background-size:cover !important;">
-            <div class="container h-100 " >
-                <div class="row h-100 align-items-center justify-content-center text-center">
-                    <div class="col-lg-10 align-self-end">
-                        <h1 class="text-uppercase text-white font-weight-bold sha1">Global Platform for Local Food</h1>
-                        <form action="/service/" method = "POST">
-                        {%csrf_token%}
-                                <div class="form-row row justify-content-center" style="padding-top: 20px !important; padding-bottom: 20px;">
-                                    <div class="col-auto my-1">
-                                      <select class="custom-select mr-sm-2" id="selectcity" style="padding-left: 30px !important; padding-right: 30px !important;" name="city">
-                                        <option selected value="None">Select Your City...</option>
-                                        {% for venue in venuess%}
-                                        <option value="{{venue.City}}">{{venue}}</option>
-                                        {%endfor%}
-                                        
-                                      </select>
-                                    </div>
-                                    <div class="col-auto my-1">
-                                        <select class="custom-select mr-sm-2" id="selectservice" style="padding-left: 30px !important; padding-right: 30px !important;" name="service">
-                                          <option selected value="None">Select Service...</option>
-                                          <option value="venue">Venue Booking</option>
-                                          <option value="catering">Catering</option>
-                                          <option value="foodtruck">Food Truck</option>
-                                          <option value="restaurent">Restaurant Outlet</option>
-                                        </select>
-                                      </div>
-                                    <div class="col-auto my-1">
-                                      <button type="submit" class="btn btn-primary" style="padding-left: 30px !important; padding-right: 30px !important;">Submit</button>
-                                    </div>
-                                  </div>
-                            
-                          </form>
-                        <hr class="divider my-4" />
-                    </div>
-                    <div class="col-lg-8 align-self-baseline">
-                        <p class="text-white-75 font-weight-light mb-5 sha size-n">Nobody should have a bad meal</p>
-                        <a class="btn-liquid" href="#about"><span class="inner">Find Out More</span></a>
-                    </div>
-                </div>
-            </div>
-        </header>
-        <section class="page-title overlay text-center"  style="background-color: white; text-align: center;" >
-            <div class="container text-center justify-content-center" style="text-align: center;">
-                <div class="row justify-content-center" style="text-align: center;">
-                    <div class="col-lg-12 justify-content-center mx-auto" id="content">
-                        
-                        <h1 class="anime mx-auto">Restaurants on wheels are born here!</h1>
-                        <ol class="breadcrumb">
-                            <li>
-                                <a href="#home" style="color: #bd783a;">Home</a>
-                            </li>
-                            <li style="color: #bd783a;">About Us</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="section" id="about">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-7 order-2 order-lg-1" style="padding-top: 80px;">
-                        <h5 class="section-title-sm">Know About Us</h5>
-                        <h2 class="section-title section-title-border-half" style="font-weight: bold;margin-bottom: 10px;;">Overview</h2>
-                        <p >Founded in 2019 by Rajdeep Gautam and Mridul Sharma in a home office of Mathura and evolved from small business of battery operating foodcart, functioning particularly to shift towards online catering and foodmarts. We now help vendors all over India, help them to range their small food business to large scale and are thrilled to be a part of this rapidly changing world to revolutionize the concept of street food on food carts. Currently we have effectively adapted ourselves in the era of globalization where there is continuous demand of people to shift from normal pushcart to FOODWAGON’s battery operated foodcart. We’re dedicated to provide you the best experience of our products, with assured loyalty, uniqueness and fulfilling customer experience. We hope you enjoy our products and services as much as we enjoy offering it to you.</p>
-                        <a href="#" class="btn btn-primary" style="margin-top: 15px;">Explore More</a>
-                    </div>
-                    <!-- philosophy image -->
-                    <div class="col-lg-5 align-self-center order-1 order-lg-2 mb-md-50">
-                        <img class=" w-100" src="static/img/about/img2.jpg" alt="philosophy-image" style="border-radius: 10px;">
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="section" style="margin-top: 50px;;">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h5 class="section-title-sm">Best Reason</h5>
-                        <h2 class="section-title section-title-border-half" style="font-weight: bold; margin-bottom: 20px;">Why Choose Us</h2>
-                    </div>
-                    <div class="col-lg-6">
-                        <div id="accordion" class="mb-md-50">
-                            <div class="card border-0 mb-4">
-                                <div class="card-header bg-gray border p-0">
-                                    <a class="card-link h5 d-block tex-dark mb-0 py-10 px-4"  data-toggle="collapse" href="#collapseOne">
-                                        <i class="ti-minus text-primary mr-2"></i> Our Products
-                                    </a>
-                                </div>
-                                <div id="collapseOne" class="collapse show" data-parent="#accordion">
-                                    <div class="card-body font-secondary text-color pl-0 pb-0">
-                                       <p id="card-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel omnis autem incidunt debitis doloremque perspiciatis vitae eveniet. Voluptate reiciendis, necessitatibus perspiciatis laborum optio id, beatae unde deleniti quo quam vitae.</p> 
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card border-0 mb-4">
-                                <div class="card-header bg-gray border p-0">
-                                    <a class="collapsed card-link h5 d-block tex-dark mb-0 py-10 px-4" data-toggle="collapse" href="#collapseTwo">
-                                        <i class="ti-plus text-primary mr-2"></i> Our Services
-                                    </a>
-                                </div>
-                                <div id="collapseTwo" class="collapse" data-parent="#accordion">
-                                    <div class="card-body font-secondary text-color pl-0 pb-0">
-                                        <p id="card-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel omnis autem incidunt debitis doloremque perspiciatis vitae eveniet. Voluptate reiciendis, necessitatibus perspiciatis laborum optio id, beatae unde deleniti quo quam vitae.</p> 
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card border-0 mb-4">
-                                <div class="card-header bg-gray border p-0">
-                                    <a class="collapsed card-link h5 d-block tex-dark mb-0 py-10 px-4" data-toggle="collapse" href="#collapseThree">
-                                        <i class="ti-plus text-primary mr-2"></i> Our Support
-                                    </a>
-                                </div>
-                                <div id="collapseThree" class="collapse" data-parent="#accordion">
-                                    <div class="card-body font-secondary text-color pl-0 pb-0">
-                                        <p id="card-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel omnis autem incidunt debitis doloremque perspiciatis vitae eveniet. Voluptate reiciendis, necessitatibus perspiciatis laborum optio id, beatae unde deleniti quo quam vitae.</p>                             
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- progressbar -->
-                    <div class="col-lg-6" >
-                        <div class="progressbar" style="margin-top: 20px; margin-bottom: 20px;">
-                            <h5 class="progressbar-title" style="margin-bottom: 5px;">Branding</h5>
-                            <div class="progress" data-percent="85%">
-                                <div class="progress-bar progress-bar-striped" style="width: 85%;">
-                                    <div class="progress-bar-value">85%</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="progressbar" style="margin-top: 20px; margin-bottom: 20px;">
-                            <h5 class="progressbar-title" style="margin-bottom: 5px;">Quality</h5>
-                            <div class="progress" data-percent="75%">
-                                <div class="progress-bar progress-bar-striped" style="width: 75%;">
-                                    <div class="progress-bar-value">75%</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="progressbar" style="margin-top: 20px; margin-bottom: 20px;">
-                            <h5 class="progressbar-title" style="margin-bottom: 5px;">Consulting</h5>
-                            <div class="progress" data-percent="90%">
-                                <div class="progress-bar progress-bar-striped" style="width: 90%;">
-                                    <div class="progress-bar-value">90%</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="progressbar" style="margin-top: 20px; margin-bottom: 20px;">
-                            <h5 class="progressbar-title" >Business</h5>
-                            <div class="progress" data-percent="75%">
-                                <div class="progress-bar progress-bar-striped" style="width: 75%;">
-                                    <div class="progress-bar-value">75%</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-        <!-- parallax -->
-        <div class="parallax-container">
-          
-            <div class="parallax"><img src="static/img/about/img7.PNG" class="responsive-img"></div>
-          </div>
-        
-
-
-
-        <!-- team -->
-        <section class="section" style="margin-top: 50px; margin-bottom: 50px;" id="team">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-12 text-center">
-                        <h5 class="section-title-sm">Our Team</h5>
-                        <h2 class="section-title section-title-border" style="font-weight: bold;margin-bottom: 30px;">Experts Team</h2>
-                    </div>
-                    <!-- team member -->
-                    
-                    <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
-                        <div class="card text-center p-3">
-                            
-                            <img  class="card-img-top rounded" src="static/img/about/img3.png" alt="team member image">
-                            <div class="card-body pb-0">
-                                <a href="#" class="card-title h4 font-primary text-dark">Rajdeep Gautam</a>
-                                <h6 class="text-color">SUPERVISOR</h6>
-                                <p class="card-text border-bottom pb-3">Lorem ipsum dolor amet consectur adipsicing elit sed eiusm tempor incididunt labore dolore magna aliqua enim minim.</p>
-                                <ul class="list-inline">
-                                    <li class="list-inline-item">
-                                        <a href="#" class="text-color d-inline-block py-1 px-3">
-                                            <i class="fab fa-facebook"></i>
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#" class="text-color d-inline-block py-1 px-3">
-                                            <i class="fab fa-twitter"></i>
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#" class="text-color d-inline-block py-1 px-3">
-                                            <i class="fab fa-linkedin"></i>
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#" class="text-color d-inline-block py-1 px-3">
-                                            <i class="fab fa-skype"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- team member -->
-                    <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
-                        <div class="card text-center p-3">
-                            <img class="card-img-top rounded" src="static/img/about/img3.png" alt="team member image">
-                            <div class="card-body pb-0">
-                                <a href="team-single.html" class="card-title h4 font-primary text-dark">XYX</a>
-                                <h6 class="text-color">SUPERVISOR</h6>
-                                <p class="card-text border-bottom pb-3">Lorem ipsum dolor amet consectur adipsicing elit sed eiusm tempor incididunt labore dolore magna aliqua enim minim.</p>
-                                <ul class="list-inline">
-                                    <li class="list-inline-item">
-                                        <a href="#" class="text-color d-inline-block py-1 px-3">
-                                            <i class="fab fa-facebook"></i>
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#" class="text-color d-inline-block py-1 px-3">
-                                            <i class="fab fa-twitter"></i>
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#" class="text-color d-inline-block py-1 px-3">
-                                            <i class="fab fa-linkedin"></i>
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#" class="text-color d-inline-block py-1 px-3">
-                                            <i class="fab fa-skype"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- team member -->
-                    <div class="col-lg-4 col-sm-6">
-                        <div class="card text-center p-3">
-                            <img class="card-img-top rounded" src="static/img/about/img3.png" alt="team member image">
-                            <div class="card-body pb-0">
-                                <a href="team-single.html" class="card-title h4 font-primary text-dark">XYX</a>
-                                <h6 class="text-color">SUPERVISOR</h6>
-                                <p class="card-text border-bottom pb-3">Lorem ipsum dolor amet consectur adipsicing elit sed eiusm tempor incididunt labore dolore magna aliqua enim minim.</p>
-                                <ul class="list-inline">
-                                    <li class="list-inline-item">
-                                        <a href="#" class="text-color d-inline-block py-1 px-3">
-                                            <i class="fab fa-facebook"></i>
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#" class="text-color d-inline-block py-1 px-3">
-                                            <i class="fab fa-twitter"></i>
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#" class="text-color d-inline-block py-1 px-3">
-                                            <i class="fab fa-linkedin"></i>
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#" class="text-color d-inline-block py-1 px-3">
-                                            <i class="fab fa-skype"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
-            </div>
-        </section>
-        <!--/team-->
-        <!-- progress -->
-
-        <!-- Services-->
-        <section class="page-section" id="services" style="margin-bottom: 50px;;">
-            <div class="container">
-                <h2 class="text-center mt-0">At Your Service</h2>
-                <hr class="divider my-4" />
-                <div class="row">
-                    <div class="col-lg-3 col-md-12 text-center">
-                        <div class="mt-5">
-                            <img class="img-fluid" src="static/img/1.png" width="250" style="height: 200px;" alt="" />
-                            <h3 class="h4 mb-2" style="margin-top: 30px;">Food Trucks</h3>
-                            <p class="text-muted mb-0">Foodwagon serves their customer with best quality of food and catering services with a very reasonable price that also allows food vendors to make better profit.</p>
-                            <a href="/foodtruck" class="btn btn-primary" style="margin-top: 30px;">Explore More</a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-12 text-center">
-                        <div class="mt-5">
-                            <img class="img-fluid" src="static/img/2.png" width="210" style="height: 200px;" alt="" />
-                            <br/><h3 class="h4 mb-2" style="margin-top: 30px;">Restaurant Outlets</h3>
-                            <p class="text-muted mb-0">Foodwagon takes care of proper food safety measurements and provides hand gloves, aprons, masks to vendors so that people can eat healthy and hygienic food.</p>
-                            <a href="/restaurent" class="btn btn-primary" style="margin-top: 30px;">Explore More</a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-12 text-center">
-                        <div class="mt-5">
-                            <img class="img-fluid" src="static/img/about/img4.png" width="200" style="height: 200px;" alt="" />
-                            <h3 class="h4 mb-2" style="margin-top: 30px;">Catering</h3>
-                            <p class="text-muted mb-0">Foodwagon trains their vendors on maintaining proper hygiene and cleanliness while preparing food and how to serve to fulfill customer experience.</p>
-                            <a href="/catering" class="btn btn-primary" style="margin-top: 30px;">Explore More</a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-12 text-center">
-                        <div class="mt-5">
-                            <img class="img-fluid" src="static/img/download.png" width="230" style="height: 200px;" alt="" />
-                            <h3 class="h4 mb-2" style="margin-top: 30px;">Select Venue</h3>
-                            <p class="text-muted mb-0">Foodwagon trains their vendors on maintaining proper hygiene and cleanliness while preparing food and how to serve to fulfill customer experience.</p>
-                            <a href="/venue" class="btn btn-primary" style="margin-top: 30px;">Explore More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <div class="counter" style="background-image:linear-gradient(rgba(0, 0, 0, 1),rgba(0, 0, 0, 0.6)),url(static/img/about/img1.jpg);background-repeat:no-repeat;background-size:100%">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                        <div class="employees"><i class="fa fa-group" id="progress-icon" style="font-size:40px;padding-right:10px;" ></i>
-                            <p class="counter-count">155</p>
-                            <p class="employee-p">Employee</p>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                        <div class="customer"><i class="fa fa-thumbs-up" id="progress-icon" style="font-size:40px;padding-right:10px" ></i>
-                            <p class="counter-count" >204</p>
-                            <p class="customer-p">Satisfied Clients</p>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                        <div class="design"><i id="progress-icon"class="fa fa-handshake-o" id="progress-icon" style="font-size:40px;padding-right:10px" ></i>
-                            <p class="counter-count">300</p>
-                            <p class="design-p">Happy Customers</p>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                        <div class="order"><i class="fa fa-smile-o" id="progress-icon" style="font-size:40px;padding-right:10px" ></i>
-                            <p class="counter-count">433</p>
-                            <p class="order-p">Orders</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+              </div>
+              {% endif %}
+            </form>
+          </ul>
         </div>
-
-        <!-- progress ends -->
-
-        <!-- parallax -->
-        <div class="parallax-container">
-            <div class="parallax"><img src="static/img/1.PNG"class="responsive-img"></div>
+      </div>
+    </nav>
+    <header
+      class="masthead"
+      id="home"
+      style="
+        background-color: black !important;
+        background-repeat: no-repeat !important;
+        background-size: cover !important;
+      "
+    >
+      <div class="container h-100">
+        <div
+          class="row h-100 align-items-center justify-content-center text-center"
+        >
+          <div class="col-lg-10 align-self-end">
+            <h1 class="text-uppercase text-white font-weight-bold sha1">
+              Global Platform for Local Food
+            </h1>
+            <form action="/service/" method="POST">
+              {%csrf_token%}
+              <div
+                class="form-row row justify-content-center"
+                style="padding-top: 20px !important; padding-bottom: 20px;"
+              >
+                <div class="col-auto my-1">
+                  <select
+                    class="custom-select mr-sm-2"
+                    id="selectcity"
+                    style="
+                      padding-left: 30px !important;
+                      padding-right: 30px !important;
+                    "
+                    name="city"
+                  >
+                    <option selected value="None">Select Your City...</option>
+                    {% for venue in venuess%}
+                    <option value="{{venue.City}}">{{venue}}</option>
+                    {%endfor%}
+                  </select>
+                </div>
+                <div class="col-auto my-1">
+                  <select
+                    class="custom-select mr-sm-2"
+                    id="selectservice"
+                    style="
+                      padding-left: 30px !important;
+                      padding-right: 30px !important;
+                    "
+                    name="service"
+                  >
+                    <option selected value="None">Select Service...</option>
+                    <option value="venue">Venue Booking</option>
+                    <option value="catering">Catering</option>
+                    <option value="foodtruck">Food Truck</option>
+                    <option value="restaurent">Restaurant Outlet</option>
+                  </select>
+                </div>
+                <div class="col-auto my-1">
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    style="
+                      padding-left: 30px !important;
+                      padding-right: 30px !important;
+                    "
+                  >
+                    Submit
+                  </button>
+                </div>
+              </div>
+            </form>
+            <hr class="divider my-4" />
           </div>
-
-
-
-        <!-- scroll bar for clients -->
-        <div class="container" style="padding-top: 20px; margin-bottom: 50px;;" id="review">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h2 style="font-family:'Poppins', sans-serif;text-align: center; margin-bottom: 30px; margin-top: 30px;"><b>What Our Customers say</b></h2>
-                </div>
-            <div class="col hid" >
-            
-                <img class="mw-100" style="height: 500px;" src="static/img/about/img4.png" alt="">
-            </div>
-            <div class="col" style="display: inline-block;overflow: hidden;">
-                
-                <button class="waves-effect  waves-light btn btn-outline-dark" id="slideback" type="button"><i class="fas fa-arrow-left slideback"></i></button>
-                <button class="waves-effect  waves-light btn btn-outline-dark" id="slide" type="button" style= "float: right;"><i class="fas fa-arrow-right slideback"></i></button>
-                
-
-                <div class="container box" id="container-box">
-                    
-                        
-                    <div class="card-a">
-                        <i class="fa fa-quote-left quotel"></i>
-                    <p class="card-customer-content" id="card-content" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam provident praesentium voluptate molestiae dolorum expedita impedit quia asperiores! Fugit, asperiores numquam? Voluptas illo aperiam fugiat dicta consectetur vitae minus nihil.</p> 
-                    <i class="fa fa-quote-right quoter"></i>            
-                </div>
-                    <div class="card-b">
-                        <i class="fa fa-quote-left quotel"></i>
-                    <p class="card-customer-content" id="card-content" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam provident praesentium voluptate molestiae dolorum expedita impedit quia asperiores! Fugit, asperiores numquam? Voluptas illo aperiam fugiat dicta consectetur vitae minus nihil.</p> 
-                    <i class="fa fa-quote-right quoter"></i> 
-                    </div>
-                    <div class="card-c">
-                        <i class="fa fa-quote-left quotel"></i>
-                    <p class="card-customer-content" id="card-content" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam provident praesentium voluptate molestiae dolorum expedita impedit quia asperiores! Fugit, asperiores numquam? Voluptas illo aperiam fugiat dicta consectetur vitae minus nihil.</p> 
-                    <i class="fa fa-quote-right quoter"></i> 
-                    </div>
-                    <div class="card-a">
-                        <i class="fa fa-quote-left quotel"></i>
-                    <p class="card-customer-content" id="card-content" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam provident praesentium voluptate molestiae dolorum expedita impedit quia asperiores! Fugit, asperiores numquam? Voluptas illo aperiam fugiat dicta consectetur vitae minus nihil.</p> 
-                    <i class="fa fa-quote-right quoter"></i>     
-                    </div>
-                    <div class="card-b">
-                        <i class="fa fa-quote-left quotel"></i>
-                    <p class="card-customer-content" id="card-content" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam provident praesentium voluptate molestiae dolorum expedita impedit quia asperiores! Fugit, asperiores numquam? Voluptas illo aperiam fugiat dicta consectetur vitae minus nihil.</p> 
-                    <i class="fa fa-quote-right quoter"></i> 
-                    </div>
-                    <div class="card-c">
-                        <i class="fa fa-quote-left quotel"></i>
-                        <p class="card-customer-content" id="card-content" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam provident praesentium voluptate molestiae dolorum expedita impedit quia asperiores! Fugit, asperiores numquam? Voluptas illo aperiam fugiat dicta consectetur vitae minus nihil.</p> 
-                        <i class="fa fa-quote-right quoter"></i>     
-                    </div>
-                    <div class="card-a">
-                        <i class="fa fa-quote-left quotel"></i>
-                        <p class="card-customer-content" id="card-content" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam provident praesentium voluptate molestiae dolorum expedita impedit quia asperiores! Fugit, asperiores numquam? Voluptas illo aperiam fugiat dicta consectetur vitae minus nihil.</p> 
-                        <i class="fa fa-quote-right quoter"></i>     
-                    </div>
-                    <div class="card-b">
-                        <i class="fa fa-quote-left quotel"></i>
-                    <p class="card-customer-content" id="card-content" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam provident praesentium voluptate molestiae dolorum expedita impedit quia asperiores! Fugit, asperiores numquam? Voluptas illo aperiam fugiat dicta consectetur vitae minus nihil.</p> 
-                    <i class="fa fa-quote-right quoter"></i>     
-                    </div>
-                    <div class="card-c">
-                        <i class="fa fa-quote-left quotel"></i>
-                        <p class="card-customer-content" id="card-content" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam provident praesentium voluptate molestiae dolorum expedita impedit quia asperiores! Fugit, asperiores numquam? Voluptas illo aperiam fugiat dicta consectetur vitae minus nihil.</p> 
-                        <i class="fa fa-quote-right quoter"></i>     
-                    </div>
-                </div>
-            </div>
-            </div>
+          <div class="col-lg-8 align-self-baseline">
+            <p class="text-white-75 font-weight-light mb-5 sha size-n">
+              Nobody should have a bad meal
+            </p>
+            <a class="btn-liquid" href="#about"
+              ><span class="inner">Find Out More</span></a
+            >
+          </div>
         </div>
-
-
-
-        <!-- scroll bar for clients ENDS-->
-        <section id="contact-section" style="padding-top: 50px;" >
-            <div class="container">
-                 <h2 style="padding-bottom: 50px; text-decoration: none; font-family: Arial, Helvetica, sans-serif !important; font-weight: bolder; text-shadow: 0 0 1px white;">Ready to start your next project with us?</h2>
-               <p style="font-family: Arial, Helvetica, sans-serif !important;">Let's Get In Touch and we will get back to you as soon as possible!</p>
-              <div class="contact-form">
- 
-                   <!-- First grid -->
-                <div>
-                  <i class="fa fa-instagram"></i><span class="form-info">  foodwagon.official</span><br>
-                  <i class="fa fa-phone" > </i><span class="form-info">  +91 9540741258</span><br>
-                  <i class="fa fa-envelope"></i><span class="form-info"> support@foodwagon.co</span><br>
-                  <i class="fa fa-twitter"></i><span class="form-info"> @foodwagon_india</span>
+      </div>
+    </header>
+    <section
+      class="page-title overlay text-center"
+      style="background-color: white; text-align: center;"
+    >
+      <div
+        class="container text-center justify-content-center"
+        style="text-align: center;"
+      >
+        <div class="row justify-content-center" style="text-align: center;">
+          <div class="col-lg-12 justify-content-center mx-auto" id="content">
+            <h1 class="anime mx-auto">Restaurants on wheels are born here!</h1>
+            <ol class="breadcrumb">
+              <li>
+                <a href="#home" style="color: #bd783a;">Home</a>
+              </li>
+              <li style="color: #bd783a;">About Us</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section" id="about">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-7 order-2 order-lg-1" style="padding-top: 80px;">
+            <h5 class="section-title-sm">Know About Us</h5>
+            <h2
+              class="section-title section-title-border-half"
+              style="font-weight: bold; margin-bottom: 10px;"
+            >
+              Overview
+            </h2>
+            <p>
+              Founded in 2019 by Rajdeep Gautam and Mridul Sharma in a home
+              office of Mathura and evolved from small business of battery
+              operating foodcart, functioning particularly to shift towards
+              online catering and foodmarts. We now help vendors all over India,
+              help them to range their small food business to large scale and
+              are thrilled to be a part of this rapidly changing world to
+              revolutionize the concept of street food on food carts. Currently
+              we have effectively adapted ourselves in the era of globalization
+              where there is continuous demand of people to shift from normal
+              pushcart to FOODWAGON’s battery operated foodcart. We’re dedicated
+              to provide you the best experience of our products, with assured
+              loyalty, uniqueness and fulfilling customer experience. We hope
+              you enjoy our products and services as much as we enjoy offering
+              it to you.
+            </p>
+            <a href="#" class="btn btn-primary" style="margin-top: 15px;"
+              >Explore More</a
+            >
+          </div>
+          <!-- philosophy image -->
+          <div class="col-lg-5 align-self-center order-1 order-lg-2 mb-md-50">
+            <img
+              class="w-100"
+              src="static/img/about/img2.jpg"
+              alt="philosophy-image"
+              style="border-radius: 10px;"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section" style="margin-top: 50px;">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <h5 class="section-title-sm">Best Reason</h5>
+            <h2
+              class="section-title section-title-border-half"
+              style="font-weight: bold; margin-bottom: 20px;"
+            >
+              Why Choose Us
+            </h2>
+          </div>
+          <div class="col-lg-6">
+            <div id="accordion" class="mb-md-50">
+              <div class="card border-0 mb-4">
+                <div class="card-header bg-gray border p-0">
+                  <a
+                    class="card-link h5 d-block tex-dark mb-0 py-10 px-4"
+                    data-toggle="collapse"
+                    href="#collapseOne"
+                  >
+                    <i class="ti-minus text-primary mr-2"></i> Our Products
+                  </a>
                 </div>
-                
-                    <!-- second grid -->
-            <div>    
-            {% if name%}
-            <script>
-                alert("Message Sent!");
-            </script>   
-            {%endif%} 
-              <form action="/" method="POST">
-              {% csrf_token %}
-                <input class="continput" type="text" placeholder="First Name" required name="fname">
-                <input class="continput" type="text" placeholder="Last Name" required name="lname"><br>
-                <input class="continput" type="email" placeholder="Email" required name="email"><br>
-                
-                <textarea class="ctextarea" name="message" placeholder="Message" rows="5" required ></textarea><br>
-                <input type="submit" class="submit" value="Send Message">
-              </form>   
+                <div
+                  id="collapseOne"
+                  class="collapse show"
+                  data-parent="#accordion"
+                >
+                  <div class="card-body font-secondary text-color pl-0 pb-0">
+                    <p id="card-content">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Vel omnis autem incidunt debitis doloremque perspiciatis
+                      vitae eveniet. Voluptate reiciendis, necessitatibus
+                      perspiciatis laborum optio id, beatae unde deleniti quo
+                      quam vitae.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="card border-0 mb-4">
+                <div class="card-header bg-gray border p-0">
+                  <a
+                    class="collapsed card-link h5 d-block tex-dark mb-0 py-10 px-4"
+                    data-toggle="collapse"
+                    href="#collapseTwo"
+                  >
+                    <i class="ti-plus text-primary mr-2"></i> Our Services
+                  </a>
+                </div>
+                <div id="collapseTwo" class="collapse" data-parent="#accordion">
+                  <div class="card-body font-secondary text-color pl-0 pb-0">
+                    <p id="card-content">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Vel omnis autem incidunt debitis doloremque perspiciatis
+                      vitae eveniet. Voluptate reiciendis, necessitatibus
+                      perspiciatis laborum optio id, beatae unde deleniti quo
+                      quam vitae.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="card border-0 mb-4">
+                <div class="card-header bg-gray border p-0">
+                  <a
+                    class="collapsed card-link h5 d-block tex-dark mb-0 py-10 px-4"
+                    data-toggle="collapse"
+                    href="#collapseThree"
+                  >
+                    <i class="ti-plus text-primary mr-2"></i> Our Support
+                  </a>
+                </div>
+                <div
+                  id="collapseThree"
+                  class="collapse"
+                  data-parent="#accordion"
+                >
+                  <div class="card-body font-secondary text-color pl-0 pb-0">
+                    <p id="card-content">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Vel omnis autem incidunt debitis doloremque perspiciatis
+                      vitae eveniet. Voluptate reiciendis, necessitatibus
+                      perspiciatis laborum optio id, beatae unde deleniti quo
+                      quam vitae.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
-          </section>
-        <!-- contact details -->
-        <div class="counter" style="padding-top: 30px; background-image:linear-gradient(rgba(0, 0, 0, 1),rgba(0, 0, 0, 0.6)),url(static/img/about/img6.jpg);background-repeat:no-repeat;background-size:100%;height: auto;">
-            <div class="container">
-                <div class="row">
-                    <div class="contact-bar col-lg-12" style="height: 10px;"><h1 class="design-p" style="font-size: 30px;">Social Media Handle</h1></div>
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                        <div class="employees"><a href="#"><i class="fab fa-instagram s" id="progress-icon" style="font-size:40px;padding-right:10px;" ></i>
-                        </a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                        <div class="customer"><a href="#"><i class="fab fa-facebook s" id="progress-icon" style="font-size:40px;padding-right:10px" ></i>
-                        </a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                        <div class="design"><a href="#"><i id="progress-icon"class=" fab fa-youtube s" id="progress-icon" style="font-size:40px;padding-right:10px" ></i>
-                        </a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                        <div class="order"><a href="#"><i class="fa fa-smile-o s" id="progress-icon" style="font-size:40px;padding-right:10px" ></i>
-                        </a>
-                        </div>
-                    </div>
+          </div>
+          <!-- progressbar -->
+          <div class="col-lg-6">
+            <div
+              class="progressbar"
+              style="margin-top: 20px; margin-bottom: 20px;"
+            >
+              <h5 class="progressbar-title" style="margin-bottom: 5px;">
+                Branding
+              </h5>
+              <div class="progress" data-percent="85%">
+                <div
+                  class="progress-bar progress-bar-striped"
+                  style="width: 85%;"
+                >
+                  <div class="progress-bar-value">85%</div>
                 </div>
+              </div>
             </div>
+            <div
+              class="progressbar"
+              style="margin-top: 20px; margin-bottom: 20px;"
+            >
+              <h5 class="progressbar-title" style="margin-bottom: 5px;">
+                Quality
+              </h5>
+              <div class="progress" data-percent="75%">
+                <div
+                  class="progress-bar progress-bar-striped"
+                  style="width: 75%;"
+                >
+                  <div class="progress-bar-value">75%</div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="progressbar"
+              style="margin-top: 20px; margin-bottom: 20px;"
+            >
+              <h5 class="progressbar-title" style="margin-bottom: 5px;">
+                Consulting
+              </h5>
+              <div class="progress" data-percent="90%">
+                <div
+                  class="progress-bar progress-bar-striped"
+                  style="width: 90%;"
+                >
+                  <div class="progress-bar-value">90%</div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="progressbar"
+              style="margin-top: 20px; margin-bottom: 20px;"
+            >
+              <h5 class="progressbar-title">Business</h5>
+              <div class="progress" data-percent="75%">
+                <div
+                  class="progress-bar progress-bar-striped"
+                  style="width: 75%;"
+                >
+                  <div class="progress-bar-value">75%</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <footer id="footer" class="footer-1">
-            <div class="main-footer widgets-dark typo-light">
-            <div class="container">
-            <div class="row">
-              
+      </div>
+    </section>
+
+    <!-- parallax -->
+    <div class="parallax-container">
+      <div class="parallax">
+        <img src="static/img/about/img7.PNG" class="responsive-img" />
+      </div>
+    </div>
+
+    <!-- team -->
+    <section
+      class="section"
+      style="margin-top: 50px; margin-bottom: 50px;"
+      id="team"
+    >
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-12 text-center">
+            <h5 class="section-title-sm">Our Team</h5>
+            <h2
+              class="section-title section-title-border"
+              style="font-weight: bold; margin-bottom: 30px;"
+            >
+              Experts Team
+            </h2>
+          </div>
+          <!-- team member -->
+
+          <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
+            <div class="card text-center p-3">
+              <img
+                class="card-img-top rounded"
+                src="static/img/about/img3.png"
+                alt="team member image"
+              />
+              <div class="card-body pb-0">
+                <a href="#" class="card-title h4 font-primary text-dark"
+                  >Rajdeep Gautam</a
+                >
+                <h6 class="text-color">SUPERVISOR</h6>
+                <p class="card-text border-bottom pb-3">
+                  Lorem ipsum dolor amet consectur adipsicing elit sed eiusm
+                  tempor incididunt labore dolore magna aliqua enim minim.
+                </p>
+                <ul class="list-inline">
+                  <li class="list-inline-item">
+                    <a href="#" class="text-color d-inline-block py-1 px-3">
+                      <i class="fab fa-facebook"></i>
+                    </a>
+                  </li>
+                  <li class="list-inline-item">
+                    <a href="#" class="text-color d-inline-block py-1 px-3">
+                      <i class="fab fa-twitter"></i>
+                    </a>
+                  </li>
+                  <li class="list-inline-item">
+                    <a href="#" class="text-color d-inline-block py-1 px-3">
+                      <i class="fab fa-linkedin"></i>
+                    </a>
+                  </li>
+                  <li class="list-inline-item">
+                    <a href="#" class="text-color d-inline-block py-1 px-3">
+                      <i class="fab fa-skype"></i>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- team member -->
+          <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
+            <div class="card text-center p-3">
+              <img
+                class="card-img-top rounded"
+                src="static/img/about/img3.png"
+                alt="team member image"
+              />
+              <div class="card-body pb-0">
+                <a
+                  href="team-single.html"
+                  class="card-title h4 font-primary text-dark"
+                  >XYX</a
+                >
+                <h6 class="text-color">SUPERVISOR</h6>
+                <p class="card-text border-bottom pb-3">
+                  Lorem ipsum dolor amet consectur adipsicing elit sed eiusm
+                  tempor incididunt labore dolore magna aliqua enim minim.
+                </p>
+                <ul class="list-inline">
+                  <li class="list-inline-item">
+                    <a href="#" class="text-color d-inline-block py-1 px-3">
+                      <i class="fab fa-facebook"></i>
+                    </a>
+                  </li>
+                  <li class="list-inline-item">
+                    <a href="#" class="text-color d-inline-block py-1 px-3">
+                      <i class="fab fa-twitter"></i>
+                    </a>
+                  </li>
+                  <li class="list-inline-item">
+                    <a href="#" class="text-color d-inline-block py-1 px-3">
+                      <i class="fab fa-linkedin"></i>
+                    </a>
+                  </li>
+                  <li class="list-inline-item">
+                    <a href="#" class="text-color d-inline-block py-1 px-3">
+                      <i class="fab fa-skype"></i>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- team member -->
+          <div class="col-lg-4 col-sm-6">
+            <div class="card text-center p-3">
+              <img
+                class="card-img-top rounded"
+                src="static/img/about/img3.png"
+                alt="team member image"
+              />
+              <div class="card-body pb-0">
+                <a
+                  href="team-single.html"
+                  class="card-title h4 font-primary text-dark"
+                  >XYX</a
+                >
+                <h6 class="text-color">SUPERVISOR</h6>
+                <p class="card-text border-bottom pb-3">
+                  Lorem ipsum dolor amet consectur adipsicing elit sed eiusm
+                  tempor incididunt labore dolore magna aliqua enim minim.
+                </p>
+                <ul class="list-inline">
+                  <li class="list-inline-item">
+                    <a href="#" class="text-color d-inline-block py-1 px-3">
+                      <i class="fab fa-facebook"></i>
+                    </a>
+                  </li>
+                  <li class="list-inline-item">
+                    <a href="#" class="text-color d-inline-block py-1 px-3">
+                      <i class="fab fa-twitter"></i>
+                    </a>
+                  </li>
+                  <li class="list-inline-item">
+                    <a href="#" class="text-color d-inline-block py-1 px-3">
+                      <i class="fab fa-linkedin"></i>
+                    </a>
+                  </li>
+                  <li class="list-inline-item">
+                    <a href="#" class="text-color d-inline-block py-1 px-3">
+                      <i class="fab fa-skype"></i>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--/team-->
+    <!-- progress -->
+
+    <!-- Services-->
+    <section class="page-section" id="services" style="margin-bottom: 50px;">
+      <div class="container">
+        <h2 class="text-center mt-0">At Your Service</h2>
+        <hr class="divider my-4" />
+        <div class="row">
+          <div class="col-lg-3 col-md-12 text-center">
+            <div class="mt-5">
+              <img
+                class="img-fluid"
+                src="static/img/1.png"
+                width="250"
+                style="height: 200px;"
+                alt=""
+              />
+              <h3 class="h4 mb-2" style="margin-top: 30px;">Food Trucks</h3>
+              <p class="text-muted mb-0">
+                Foodwagon serves their customer with best quality of food and
+                catering services with a very reasonable price that also allows
+                food vendors to make better profit.
+              </p>
+              <a
+                href="/foodtruck"
+                class="btn btn-primary"
+                style="margin-top: 30px;"
+                >Explore More</a
+              >
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-12 text-center">
+            <div class="mt-5">
+              <img
+                class="img-fluid"
+                src="static/img/2.png"
+                width="210"
+                style="height: 200px;"
+                alt=""
+              />
+              <br />
+              <h3 class="h4 mb-2" style="margin-top: 30px;">
+                Restaurant Outlets
+              </h3>
+              <p class="text-muted mb-0">
+                Foodwagon takes care of proper food safety measurements and
+                provides hand gloves, aprons, masks to vendors so that people
+                can eat healthy and hygienic food.
+              </p>
+              <a
+                href="/restaurent"
+                class="btn btn-primary"
+                style="margin-top: 30px;"
+                >Explore More</a
+              >
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-12 text-center">
+            <div class="mt-5">
+              <img
+                class="img-fluid"
+                src="static/img/about/img4.png"
+                width="200"
+                style="height: 200px;"
+                alt=""
+              />
+              <h3 class="h4 mb-2" style="margin-top: 30px;">Catering</h3>
+              <p class="text-muted mb-0">
+                Foodwagon trains their vendors on maintaining proper hygiene and
+                cleanliness while preparing food and how to serve to fulfill
+                customer experience.
+              </p>
+              <a
+                href="/catering"
+                class="btn btn-primary"
+                style="margin-top: 30px;"
+                >Explore More</a
+              >
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-12 text-center">
+            <div class="mt-5">
+              <img
+                class="img-fluid"
+                src="static/img/download.png"
+                width="230"
+                style="height: 200px;"
+                alt=""
+              />
+              <h3 class="h4 mb-2" style="margin-top: 30px;">Select Venue</h3>
+              <p class="text-muted mb-0">
+                Foodwagon trains their vendors on maintaining proper hygiene and
+                cleanliness while preparing food and how to serve to fulfill
+                customer experience.
+              </p>
+              <a href="/venue" class="btn btn-primary" style="margin-top: 30px;"
+                >Explore More</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div
+      class="counter"
+      style="
+        background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.6)),
+          url(static/img/about/img1.jpg);
+        background-repeat: no-repeat;
+        background-size: 100%;
+      "
+    >
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+            <div class="employees">
+              <i
+                class="fa fa-group"
+                id="progress-icon"
+                style="font-size: 40px; padding-right: 10px;"
+              ></i>
+              <p class="counter-count">155</p>
+              <p class="employee-p">Employee</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+            <div class="customer">
+              <i
+                class="fa fa-thumbs-up"
+                id="progress-icon"
+                style="font-size: 40px; padding-right: 10px;"
+              ></i>
+              <p class="counter-count">204</p>
+              <p class="customer-p">Satisfied Clients</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+            <div class="design">
+              <i
+                id="progress-icon"
+                class="fa fa-handshake-o"
+                id="progress-icon"
+                style="font-size: 40px; padding-right: 10px;"
+              ></i>
+              <p class="counter-count">300</p>
+              <p class="design-p">Happy Customers</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+            <div class="order">
+              <i
+                class="fa fa-smile-o"
+                id="progress-icon"
+                style="font-size: 40px; padding-right: 10px;"
+              ></i>
+              <p class="counter-count">433</p>
+              <p class="order-p">Orders</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- progress ends -->
+
+    <!-- parallax -->
+    <div class="parallax-container">
+      <div class="parallax">
+        <img src="static/img/1.PNG" class="responsive-img" />
+      </div>
+    </div>
+
+    <!-- scroll bar for clients -->
+    <div
+      class="container"
+      style="padding-top: 20px; margin-bottom: 50px;"
+      id="review"
+    >
+      <div class="row">
+        <div class="col-lg-12">
+          <h2
+            style="
+              font-family: 'Poppins', sans-serif;
+              text-align: center;
+              margin-bottom: 30px;
+              margin-top: 30px;
+            "
+          >
+            <b>What Our Customers say</b>
+          </h2>
+        </div>
+        <div class="col hid">
+          <img
+            class="mw-100"
+            style="height: 500px;"
+            src="static/img/about/img4.png"
+            alt=""
+          />
+        </div>
+        <div class="col" style="display: inline-block; overflow: hidden;">
+          <button
+            class="waves-effect waves-light btn btn-outline-dark"
+            id="slideback"
+            type="button"
+          >
+            <i class="fas fa-arrow-left slideback"></i>
+          </button>
+          <button
+            class="waves-effect waves-light btn btn-outline-dark"
+            id="slide"
+            type="button"
+            style="float: right;"
+          >
+            <i class="fas fa-arrow-right slideback"></i>
+          </button>
+
+          <div class="container box" id="container-box">
+            <div class="card-a">
+              <i class="fa fa-quote-left quotel"></i>
+              <p class="card-customer-content" id="card-content">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam
+                provident praesentium voluptate molestiae dolorum expedita
+                impedit quia asperiores! Fugit, asperiores numquam? Voluptas
+                illo aperiam fugiat dicta consectetur vitae minus nihil.
+              </p>
+              <i class="fa fa-quote-right quoter"></i>
+            </div>
+            <div class="card-b">
+              <i class="fa fa-quote-left quotel"></i>
+              <p class="card-customer-content" id="card-content">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam
+                provident praesentium voluptate molestiae dolorum expedita
+                impedit quia asperiores! Fugit, asperiores numquam? Voluptas
+                illo aperiam fugiat dicta consectetur vitae minus nihil.
+              </p>
+              <i class="fa fa-quote-right quoter"></i>
+            </div>
+            <div class="card-c">
+              <i class="fa fa-quote-left quotel"></i>
+              <p class="card-customer-content" id="card-content">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam
+                provident praesentium voluptate molestiae dolorum expedita
+                impedit quia asperiores! Fugit, asperiores numquam? Voluptas
+                illo aperiam fugiat dicta consectetur vitae minus nihil.
+              </p>
+              <i class="fa fa-quote-right quoter"></i>
+            </div>
+            <div class="card-a">
+              <i class="fa fa-quote-left quotel"></i>
+              <p class="card-customer-content" id="card-content">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam
+                provident praesentium voluptate molestiae dolorum expedita
+                impedit quia asperiores! Fugit, asperiores numquam? Voluptas
+                illo aperiam fugiat dicta consectetur vitae minus nihil.
+              </p>
+              <i class="fa fa-quote-right quoter"></i>
+            </div>
+            <div class="card-b">
+              <i class="fa fa-quote-left quotel"></i>
+              <p class="card-customer-content" id="card-content">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam
+                provident praesentium voluptate molestiae dolorum expedita
+                impedit quia asperiores! Fugit, asperiores numquam? Voluptas
+                illo aperiam fugiat dicta consectetur vitae minus nihil.
+              </p>
+              <i class="fa fa-quote-right quoter"></i>
+            </div>
+            <div class="card-c">
+              <i class="fa fa-quote-left quotel"></i>
+              <p class="card-customer-content" id="card-content">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam
+                provident praesentium voluptate molestiae dolorum expedita
+                impedit quia asperiores! Fugit, asperiores numquam? Voluptas
+                illo aperiam fugiat dicta consectetur vitae minus nihil.
+              </p>
+              <i class="fa fa-quote-right quoter"></i>
+            </div>
+            <div class="card-a">
+              <i class="fa fa-quote-left quotel"></i>
+              <p class="card-customer-content" id="card-content">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam
+                provident praesentium voluptate molestiae dolorum expedita
+                impedit quia asperiores! Fugit, asperiores numquam? Voluptas
+                illo aperiam fugiat dicta consectetur vitae minus nihil.
+              </p>
+              <i class="fa fa-quote-right quoter"></i>
+            </div>
+            <div class="card-b">
+              <i class="fa fa-quote-left quotel"></i>
+              <p class="card-customer-content" id="card-content">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam
+                provident praesentium voluptate molestiae dolorum expedita
+                impedit quia asperiores! Fugit, asperiores numquam? Voluptas
+                illo aperiam fugiat dicta consectetur vitae minus nihil.
+              </p>
+              <i class="fa fa-quote-right quoter"></i>
+            </div>
+            <div class="card-c">
+              <i class="fa fa-quote-left quotel"></i>
+              <p class="card-customer-content" id="card-content">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam
+                provident praesentium voluptate molestiae dolorum expedita
+                impedit quia asperiores! Fugit, asperiores numquam? Voluptas
+                illo aperiam fugiat dicta consectetur vitae minus nihil.
+              </p>
+              <i class="fa fa-quote-right quoter"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- scroll bar for clients ENDS-->
+    <section id="contact-section" style="padding-top: 50px;">
+      <div class="container">
+        <h2
+          style="
+            padding-bottom: 50px;
+            text-decoration: none;
+            font-family: Arial, Helvetica, sans-serif !important;
+            font-weight: bolder;
+            text-shadow: 0 0 1px white;
+          "
+        >
+          Ready to start your next project with us?
+        </h2>
+        <p style="font-family: Arial, Helvetica, sans-serif !important;">
+          Let's Get In Touch and we will get back to you as soon as possible!
+        </p>
+        <div class="contact-form">
+          <!-- First grid -->
+          <div>
+            <i class="fa fa-instagram"></i
+            ><span class="form-info"> foodwagon.official</span><br />
+            <i class="fa fa-phone"> </i
+            ><span class="form-info"> +91 9540741258</span><br />
+            <i class="fa fa-envelope"></i
+            ><span class="form-info"> support@foodwagon.co</span><br />
+            <i class="fa fa-twitter"></i
+            ><span class="form-info"> @foodwagon_india</span>
+          </div>
+
+          <!-- second grid -->
+          <div>
+            {% if name%}
+            <script>
+              alert('Message Sent!');
+            </script>
+            {%endif%}
+            <form action="/" method="POST">
+              {% csrf_token %}
+              <input
+                class="continput"
+                type="text"
+                placeholder="First Name"
+                required
+                name="fname"
+              />
+              <input
+                class="continput"
+                type="text"
+                placeholder="Last Name"
+                required
+                name="lname"
+              /><br />
+              <input
+                class="continput"
+                type="email"
+                placeholder="Email"
+                required
+                name="email"
+              /><br />
+
+              <textarea
+                class="ctextarea"
+                name="message"
+                placeholder="Message"
+                rows="5"
+                required
+              ></textarea
+              ><br />
+              <input type="submit" class="submit" value="Send Message" />
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- contact details -->
+    <div
+      class="counter"
+      style="
+        padding-top: 30px;
+        background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.6)),
+          url(static/img/about/img6.jpg);
+        background-repeat: no-repeat;
+        background-size: 100%;
+        height: auto;
+      "
+    >
+      <div class="container">
+        <div class="row">
+          <div class="contact-bar col-lg-12" style="height: 10px;">
+            <h1 class="design-p" style="font-size: 30px;">
+              Social Media Handle
+            </h1>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+            <div class="employees">
+              <a href="#"
+                ><i
+                  class="fab fa-instagram s"
+                  id="progress-icon"
+                  style="font-size: 40px; padding-right: 10px;"
+                ></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+            <div class="customer">
+              <a href="#"
+                ><i
+                  class="fab fa-facebook s"
+                  id="progress-icon"
+                  style="font-size: 40px; padding-right: 10px;"
+                ></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+            <div class="design">
+              <a href="#"
+                ><i
+                  id="progress-icon"
+                  class="fab fa-youtube s"
+                  id="progress-icon"
+                  style="font-size: 40px; padding-right: 10px;"
+                ></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+            <div class="order">
+              <a href="#"
+                ><i
+                  class="fa fa-smile-o s"
+                  id="progress-icon"
+                  style="font-size: 40px; padding-right: 10px;"
+                ></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer id="footer" class="footer-1">
+      <div class="main-footer widgets-dark typo-light">
+        <div class="container">
+          <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-3">
-            <div class="widget subscribe no-box">
-            <h5 class="widget-title">Foodwagon Private Limited<span></span></h5>
-            <p>About the company, little discription will goes here.. </p>
+              <div class="widget subscribe no-box">
+                <h5 class="widget-title">
+                  Foodwagon Private Limited<span></span>
+                </h5>
+                <p>About the company, little discription will goes here..</p>
+              </div>
             </div>
-            </div>
-            
+
             <div class="col-xs-12 col-sm-6 col-md-3">
-            <div class="widget no-box">
-            <h5 class="widget-title">Quick Links<span></span></h5>
-            <ul class="thumbnail-widget">
-            <li>
-            <div class="thumb-content"><a href="#home">Get Started</a></div>	
-            </li>
-            <li>
-            <div class="thumb-content"><a href="#about">About</a></div>	
-            </li>
-            <li>
-            <div class="thumb-content"><a href="#services">Services</a></div>	
-            </li>
-            <li>
-            <div class="thumb-content"><a href="#team">Our Team</a></div>	
-            </li>
-            <li>
-            <div class="thumb-content"><a href="#contact-section">Contact</a></div>	
-            </li>
-            <li>
-                <div class="thumb-content"><a href="#review">Feedbacks</a></div>	
-            </li>
-            
-            </ul>
+              <div class="widget no-box">
+                <h5 class="widget-title">Quick Links<span></span></h5>
+                <ul class="thumbnail-widget">
+                  <li>
+                    <div class="thumb-content">
+                      <a href="#home">Get Started</a>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="thumb-content"><a href="#about">About</a></div>
+                  </li>
+                  <li>
+                    <div class="thumb-content">
+                      <a href="#services">Services</a>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="thumb-content">
+                      <a href="#team">Our Team</a>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="thumb-content">
+                      <a href="#contact-section">Contact</a>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="thumb-content">
+                      <a href="#review">Feedbacks</a>
+                    </div>
+                  </li>
+                </ul>
+              </div>
             </div>
-            </div>
-            
+
             <div class="col-xs-12 col-sm-6 col-md-3">
-            <div class="widget no-box">
-            <h5 class="widget-title">Get Started<span></span></h5>
-            <p>Get access to our all services.</p>
-            <a class="btn1 btn" href="/register" target="_blank">Register Now</a>
+              <div class="widget no-box">
+                <h5 class="widget-title">Get Started<span></span></h5>
+                <p>Get access to our all services.</p>
+                <a class="btn1 btn" href="/register" target="_blank"
+                  >Register Now</a
+                >
+              </div>
             </div>
-            </div>
-            
+
             <div class="col-xs-12 col-sm-6 col-md-3">
-            
-            <div class="widget no-box">
-            <h5 class="widget-title">Contact Us<span></span></h5>
-            
-            <p><a href="mailto:support@foodwagon.co" title="glorythemes">support@foodwagon.co</a></p>
-            <ul class="social-footer2">
-            <li class=""><a title="youtube" target="_blank" href="https://www.youtube.com/"><img alt="youtube" width="30" height="30" src="data:image/png;base64,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"></a></li>
-            <li class=""><a href="https://www.facebook.com/" target="_blank" title="Facebook"><img alt="Facebook" width="30" height="30" src="data:image/png;base64,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"></a></li>
-            <li class=""><a href="https://twitter.com" target="_blank" title="Twitter"><img alt="Twitter" width="30" height="30" src="data:image/png;base64,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"></a></li>
-            <li class=""><a title="instagram" target="_blank" href="https://www.instagram.com/"><img alt="instagram" width="30" height="30" src="data:image/png;base64,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"></a></li>
-            </ul>
+              <div class="widget no-box">
+                <h5 class="widget-title">Contact Us<span></span></h5>
+
+                <p>
+                  <a href="mailto:support@foodwagon.co" title="glorythemes"
+                    >support@foodwagon.co</a
+                  >
+                </p>
+                <ul class="social-footer2">
+                  <li class="">
+                    <a
+                      title="youtube"
+                      target="_blank"
+                      href="https://www.youtube.com/"
+                      ><img
+                        alt="youtube"
+                        width="30"
+                        height="30"
+                        src="data:image/png;base64,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"
+                    /></a>
+                  </li>
+                  <li class="">
+                    <a
+                      href="https://www.facebook.com/"
+                      target="_blank"
+                      title="Facebook"
+                      ><img
+                        alt="Facebook"
+                        width="30"
+                        height="30"
+                        src="data:image/png;base64,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"
+                    /></a>
+                  </li>
+                  <li class="">
+                    <a
+                      href="https://twitter.com"
+                      target="_blank"
+                      title="Twitter"
+                      ><img
+                        alt="Twitter"
+                        width="30"
+                        height="30"
+                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAAKT2lDQ1BQaG90b3Nob3AgSUNDIHByb2ZpbGUAAHjanVNnVFPpFj333vRCS4iAlEtvUhUIIFJCi4AUkSYqIQkQSoghodkVUcERRUUEG8igiAOOjoCMFVEsDIoK2AfkIaKOg6OIisr74Xuja9a89+bN/rXXPues852zzwfACAyWSDNRNYAMqUIeEeCDx8TG4eQuQIEKJHAAEAizZCFz/SMBAPh+PDwrIsAHvgABeNMLCADATZvAMByH/w/qQplcAYCEAcB0kThLCIAUAEB6jkKmAEBGAYCdmCZTAKAEAGDLY2LjAFAtAGAnf+bTAICd+Jl7AQBblCEVAaCRACATZYhEAGg7AKzPVopFAFgwABRmS8Q5ANgtADBJV2ZIALC3AMDOEAuyAAgMADBRiIUpAAR7AGDIIyN4AISZABRG8lc88SuuEOcqAAB4mbI8uSQ5RYFbCC1xB1dXLh4ozkkXKxQ2YQJhmkAuwnmZGTKBNA/g88wAAKCRFRHgg/P9eM4Ors7ONo62Dl8t6r8G/yJiYuP+5c+rcEAAAOF0ftH+LC+zGoA7BoBt/qIl7gRoXgugdfeLZrIPQLUAoOnaV/Nw+H48PEWhkLnZ2eXk5NhKxEJbYcpXff5nwl/AV/1s+X48/Pf14L7iJIEyXYFHBPjgwsz0TKUcz5IJhGLc5o9H/LcL//wd0yLESWK5WCoU41EScY5EmozzMqUiiUKSKcUl0v9k4t8s+wM+3zUAsGo+AXuRLahdYwP2SycQWHTA4vcAAPK7b8HUKAgDgGiD4c93/+8//UegJQCAZkmScQAAXkQkLlTKsz/HCAAARKCBKrBBG/TBGCzABhzBBdzBC/xgNoRCJMTCQhBCCmSAHHJgKayCQiiGzbAdKmAv1EAdNMBRaIaTcA4uwlW4Dj1wD/phCJ7BKLyBCQRByAgTYSHaiAFiilgjjggXmYX4IcFIBBKLJCDJiBRRIkuRNUgxUopUIFVIHfI9cgI5h1xGupE7yAAygvyGvEcxlIGyUT3UDLVDuag3GoRGogvQZHQxmo8WoJvQcrQaPYw2oefQq2gP2o8+Q8cwwOgYBzPEbDAuxsNCsTgsCZNjy7EirAyrxhqwVqwDu4n1Y8+xdwQSgUXACTYEd0IgYR5BSFhMWE7YSKggHCQ0EdoJNwkDhFHCJyKTqEu0JroR+cQYYjIxh1hILCPWEo8TLxB7iEPENyQSiUMyJ7mQAkmxpFTSEtJG0m5SI+ksqZs0SBojk8naZGuyBzmULCAryIXkneTD5DPkG+Qh8lsKnWJAcaT4U+IoUspqShnlEOU05QZlmDJBVaOaUt2ooVQRNY9aQq2htlKvUYeoEzR1mjnNgxZJS6WtopXTGmgXaPdpr+h0uhHdlR5Ol9BX0svpR+iX6AP0dwwNhhWDx4hnKBmbGAcYZxl3GK+YTKYZ04sZx1QwNzHrmOeZD5lvVVgqtip8FZHKCpVKlSaVGyovVKmqpqreqgtV81XLVI+pXlN9rkZVM1PjqQnUlqtVqp1Q61MbU2epO6iHqmeob1Q/pH5Z/YkGWcNMw09DpFGgsV/jvMYgC2MZs3gsIWsNq4Z1gTXEJrHN2Xx2KruY/R27iz2qqaE5QzNKM1ezUvOUZj8H45hx+Jx0TgnnKKeX836K3hTvKeIpG6Y0TLkxZVxrqpaXllirSKtRq0frvTau7aedpr1Fu1n7gQ5Bx0onXCdHZ4/OBZ3nU9lT3acKpxZNPTr1ri6qa6UbobtEd79up+6Ynr5egJ5Mb6feeb3n+hx9L/1U/W36p/VHDFgGswwkBtsMzhg8xTVxbzwdL8fb8VFDXcNAQ6VhlWGX4YSRudE8o9VGjUYPjGnGXOMk423GbcajJgYmISZLTepN7ppSTbmmKaY7TDtMx83MzaLN1pk1mz0x1zLnm+eb15vft2BaeFostqi2uGVJsuRaplnutrxuhVo5WaVYVVpds0atna0l1rutu6cRp7lOk06rntZnw7Dxtsm2qbcZsOXYBtuutm22fWFnYhdnt8Wuw+6TvZN9un2N/T0HDYfZDqsdWh1+c7RyFDpWOt6azpzuP33F9JbpL2dYzxDP2DPjthPLKcRpnVOb00dnF2e5c4PziIuJS4LLLpc+Lpsbxt3IveRKdPVxXeF60vWdm7Obwu2o26/uNu5p7ofcn8w0nymeWTNz0MPIQ+BR5dE/C5+VMGvfrH5PQ0+BZ7XnIy9jL5FXrdewt6V3qvdh7xc+9j5yn+M+4zw33jLeWV/MN8C3yLfLT8Nvnl+F30N/I/9k/3r/0QCngCUBZwOJgUGBWwL7+Hp8Ib+OPzrbZfay2e1BjKC5QRVBj4KtguXBrSFoyOyQrSH355jOkc5pDoVQfujW0Adh5mGLw34MJ4WHhVeGP45wiFga0TGXNXfR3ENz30T6RJZE3ptnMU85ry1KNSo+qi5qPNo3ujS6P8YuZlnM1VidWElsSxw5LiquNm5svt/87fOH4p3iC+N7F5gvyF1weaHOwvSFpxapLhIsOpZATIhOOJTwQRAqqBaMJfITdyWOCnnCHcJnIi/RNtGI2ENcKh5O8kgqTXqS7JG8NXkkxTOlLOW5hCepkLxMDUzdmzqeFpp2IG0yPTq9MYOSkZBxQqohTZO2Z+pn5mZ2y6xlhbL+xW6Lty8elQfJa7OQrAVZLQq2QqboVFoo1yoHsmdlV2a/zYnKOZarnivN7cyzytuQN5zvn//tEsIS4ZK2pYZLVy0dWOa9rGo5sjxxedsK4xUFK4ZWBqw8uIq2Km3VT6vtV5eufr0mek1rgV7ByoLBtQFr6wtVCuWFfevc1+1dT1gvWd+1YfqGnRs+FYmKrhTbF5cVf9go3HjlG4dvyr+Z3JS0qavEuWTPZtJm6ebeLZ5bDpaql+aXDm4N2dq0Dd9WtO319kXbL5fNKNu7g7ZDuaO/PLi8ZafJzs07P1SkVPRU+lQ27tLdtWHX+G7R7ht7vPY07NXbW7z3/T7JvttVAVVN1WbVZftJ+7P3P66Jqun4lvttXa1ObXHtxwPSA/0HIw6217nU1R3SPVRSj9Yr60cOxx++/p3vdy0NNg1VjZzG4iNwRHnk6fcJ3/ceDTradox7rOEH0x92HWcdL2pCmvKaRptTmvtbYlu6T8w+0dbq3nr8R9sfD5w0PFl5SvNUyWna6YLTk2fyz4ydlZ19fi753GDborZ752PO32oPb++6EHTh0kX/i+c7vDvOXPK4dPKy2+UTV7hXmq86X23qdOo8/pPTT8e7nLuarrlca7nuer21e2b36RueN87d9L158Rb/1tWeOT3dvfN6b/fF9/XfFt1+cif9zsu72Xcn7q28T7xf9EDtQdlD3YfVP1v+3Njv3H9qwHeg89HcR/cGhYPP/pH1jw9DBY+Zj8uGDYbrnjg+OTniP3L96fynQ89kzyaeF/6i/suuFxYvfvjV69fO0ZjRoZfyl5O/bXyl/erA6xmv28bCxh6+yXgzMV70VvvtwXfcdx3vo98PT+R8IH8o/2j5sfVT0Kf7kxmTk/8EA5jz/GMzLdsAAAAgY0hSTQAAeiUAAICDAAD5/wAAgOkAAHUwAADqYAAAOpgAABdvkl/FRgAAAflJREFUeNrsls+LTWEYxz/XlJHxIxrSnVKzMPkxV8PuosTCbJSYRAkxO1az0iz8BZQNspEfJbGwkZpkgWaakhk2I79KYUFJYoSRPhaexXSdc+45NzUL96m3c3qe5/0+73m/z/s9b0llJmwWM2TNwv934blAWw6MDuA0MAZMALeBnRHrBI4By/+apaaNU+q4ujgjp0t9pp5Xu9WyelB9ot5T36qT6rrauWmA89SH6g11TF2TkjekHk/wL1D71Y/+sUvq+jyFO9QH6kL1iPpKHVBbp+WsikW1pWCU1VvqJ7VaG0/j+B3wHVgLnA3OeoH7wCBQATYA74GvKRgtQBnYDYwW4fiCeqfGt0m9qI6qE+rVjPnbgorEeBbHb4Kf/oT4bHWZOj+j8P6shaVt9bfY7n3AlYT4VMS/ZByzCvC66Dn+BVwDDsV7I1YBRhoRkJPAD2Ac6CtYtCca626jkjkMdAPV6NK8NgAMAZ9TMzKaA3WF+kLdXidv+uhVH6mLsvLyAG0JFbupHlVLdST0ubqjHm7erzig/lTPZeRUo+jhPJhJztXqmZDDYXUkpK8vBWSpeiJkdW9eSpKcrepm9bE6pV5Wt6pLgrd2daW6J1TsaTw7C/QBpYxbZguwEdgFdMV/d06IxyTwITT4OvCy6CEvNa+3zcLNwv/Kfg8AhNLfmymksMYAAAAASUVORK5CYII="
+                    /></a>
+                  </li>
+                  <li class="">
+                    <a
+                      title="instagram"
+                      target="_blank"
+                      href="https://www.instagram.com/"
+                      ><img
+                        alt="instagram"
+                        width="30"
+                        height="30"
+                        src="data:image/png;base64,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"
+                    /></a>
+                  </li>
+                </ul>
+              </div>
             </div>
-            </div>
-            
-            </div>
-            </div>
-            </div>
-              
-            <div class="footer-copyright">
-            <div class="container">
-            <div class="row">
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-copyright">
+        <div class="container">
+          <div class="row">
             <div class="col-md-12 text-center">
-            <p>Copyright FoodWagon © 2020. All rights reserved.</p>
+              <p>Copyright FoodWagon © 2020. All rights reserved.</p>
             </div>
-            </div>
-            </div>
-            </div>
-            </footer>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script>
+      $('#myModal').on('shown.bs.modal', function () {
+        $('#myInput').trigger('focus');
+      });
+    </script>
+    <script>
+      $(function () {
+        $('#myButton').floatingWhatsApp({
+          phone: '917000311028',
+          popupMessage: 'Hello, how can we help you?',
+          message: "I'd like to order a pizza",
+          showPopup: true,
+          showOnIE: false,
+          headerTitle: 'Welcome to FoodWagon!',
+          headerColor: '#4FCE5D',
+          backgroundColor: '#4FCE5D',
+          buttonImage: '<img src="static/img/whatsapp.svg" />',
+        });
+      });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <!-- Third party plugin JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+    <!-- Core theme JS-->
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT"
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript" src="static/JS/floating-wpp.js"></script>
+    <script src="static/JS/nav.js"></script>
+    <script src="static/JS/home.js"></script>
+    <script src="static/JS/about.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 
-        <script>
-            $(function () {
-                $('#myButton').floatingWhatsApp({
-                    phone: '917000311028',
-                    popupMessage: 'Hello, how can we help you?',
-                    message: "I'd like to order a pizza",
-                    showPopup: true,
-                    showOnIE: false,
-                    headerTitle: 'Welcome to FoodWagon!',
-                    headerColor: '#4FCE5D',
-                    backgroundColor: '#4FCE5D',
-                    buttonImage: '<img src="static/img/whatsapp.svg" />'
-                });
-            });
-        </script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-        <!-- Third party plugin JS-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>
-        <script type="text/javascript" src="static/JS/floating-wpp.js"></script>
-        <script src="static/JS/nav.js"></script>
-        <script src="static/JS/home.js"></script>
-        <script src="static/JS/about.js"></script>
-        <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-    
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
-    
-    </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  </body>
 </html>

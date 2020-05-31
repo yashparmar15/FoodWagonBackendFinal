@@ -15,24 +15,35 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 from foodwagon_backend import views
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import include
+
 urlpatterns = [
-    path('', views.index),
+    path('', views.index, name='index'),
     path('adminlogin/', views.adminlogin),
-    path('catering/',views.catering),
-    path('restaurent/',views.restaurent),
-    path('venue/',views.venue),
-    path('foodtruck/',views.foodtruck),
-    path('chef/',views.chef),
-    path('login/',views.login),
-    path('register/',views.register),
+    path('catering/', views.catering),
+    path('restaurent/', views.restaurent),
+    path('venue/', views.venue),
+    path('foodtruck/', views.foodtruck),
+    path('chef/', views.chef),
+    path('login/', views.loginPage, name='login'),
+    path('register/', views.register, name='register'),
+    path('logout/', views.logoutUser, name="logout"),
     path('admin/', admin.site.urls),
-    path('venue/<int:id>',views.venuebyid),
-    path('foodtruck/<int:id>',views.truckbyid),
-    path('service/',views.service),
-    path('catering/<int:id>',views.chefbyid),
-    path('cart/',views.cart),
-]+ static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)
+    path('venue/<int:id>', views.venuebyid),
+    path('foodtruck/<int:id>', views.truckbyid),
+    path('service/', views.service),
+    path('catering/<int:id>', views.chefbyid),
+    path('cart/', views.cart),
+    path('reset-password/', PasswordResetView.as_view(
+        template_name="FoodWagon/password-reset.html"), name='password_reset'),
+    path('reset-password/done/', PasswordResetDoneView.as_view(template_name='FoodWagon/password-reset-sent.html'),
+         name='password_reset_done'),
+    path('reset-password/confirm/<uidb64>[0-9A-Za-z]+)-<token>/',
+         PasswordResetConfirmView.as_view(template_name='FoodWagon/password-reset-form.html'), name='password_reset_confirm'),
+    path('reset-password/complete/',
+         PasswordResetCompleteView.as_view(template_name='FoodWagon/password-reset-done.html'), name='password_reset_complete'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
