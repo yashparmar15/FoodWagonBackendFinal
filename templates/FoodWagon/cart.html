@@ -141,46 +141,146 @@
 
     <div id="myButton" style="z-index: 100000;"></div>
     <div class="se-pre-con"></div>
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3 navbar-fixed-top" id="mainNav" style="z-index: 1000;">
-        <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="#page-top"><img class="img-fluid1 img-fluid" src="{% static 'img/FoodWagon.png' %}" width="200" height="40"  alt="FOODWAGON" /></a><button class="navbar-toggler navbar-toggler-right" style="background-color: aliceblue;" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon" style="color: aliceblue;"></span></button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto my-2 my-lg-0">
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#home"><i class="fa fa-home"></i> Home</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#about"><i class="fa fa-info"></i>  About</a></li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle js-scroll-trigger" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-cogs"></i>  Services
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                          <a class="dropdown-item" href="/catering">Catering</a>
-                          <a class="dropdown-item" href="/venue">Select Venue</a>
-                          <a class="dropdown-item" href="/restaurent">Restaurant Outlets</a>
-                          <a class="dropdown-item" href="/foodtruck">Food Trucks</a>
-                        </div>
-                      </li>
-                    
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#contact-section"><i class="fa fa-phone"></i>  Contact</a></li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle js-scroll-trigger" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-sign-in"></i>  Login
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                          <a class="dropdown-item" href="/login">Sign In</a>
-                          <a class="dropdown-item" href="/register">Register</a>
-                          <a class="dropdown-item" href="/admin">Admin Login</a>
-                        </div>
-                      </li>
-                      <form class="form-inline my-2 my-lg-0">
-               
-                                <a class="btn btn-success btn-sm ml-3" href="/cart">
-                                    <i class="fa fa-shopping-cart"></i> Cart
-                                    <span class="badge badge-light">3</span>
-                                </a>
-                            </form>
-                </ul>
-            </div>
+    <nav
+      class="navbar navbar-expand-lg navbar-light fixed-top py-3 navbar-fixed-top"
+      id="mainNav"
+      style="z-index: 1000; background-color: transparent;"
+    >
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top"
+          ><img
+            class="img-fluid1 img-fluid"
+            src="{% static 'img/FoodWagon.png' %}"
+            width="200"
+            height="40"
+            alt="FOODWAGON" /></a
+        ><button
+          class="navbar-toggler navbar-toggler-right"
+          style="background-color: aliceblue;"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarResponsive"
+          aria-controls="navbarResponsive"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon" style="color: aliceblue;"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto my-2 my-lg-0">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/#home"
+                ><i class="fa fa-home"></i> Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/#about"
+                ><i class="fa fa-info"></i> About</a
+              >
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle js-scroll-trigger"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <i class="fa fa-cogs"></i> Services
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/catering">Catering</a>
+                <a class="dropdown-item" href="/venue">Select Venue</a>
+                <a class="dropdown-item" href="/restaurent"
+                  >Restaurant Outlets</a
+                >
+                <a class="dropdown-item" href="/foodtruck">Food Trucks</a>
+              </div>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/#contact-section"
+                ><i class="fa fa-phone"></i> Contact</a
+              >
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle js-scroll-trigger"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <i class="fa fa-sign-in"></i>
+                {% if request.user.is_authenticated %} Logout {% else %} Login
+                {% endif %}
+              </a>
+
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                {% if request.user.is_authenticated %}
+                <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                {% else %}
+                <a class="dropdown-item" href="/login">Sign In</a>
+                <a class="dropdown-item" href="/register">Register</a>
+                <a class="dropdown-item" href="/adminlogin">Admin Login</a>
+                {% endif %}
+              </div>
+            </li>
+            <form class="form-inline my-2 my-lg-0">
+              {% if user.is_authenticated %}
+              <a class="btn btn-success btn-sm ml-3" href="/cart">
+                <i class="fa fa-shopping-cart"></i> Cart
+                <span class="badge badge-light">3</span>
+              </a>
+              {% else %}
+              <button
+                type="button"
+                class="btn btn-success btn-sm ml-3"
+                data-toggle="modal"
+                data-target="#exampleModal"
+              >
+                <i class="fa fa-shopping-cart"></i>&nbsp; Cart
+              </button>
+
+              <!-- Modal -->
+              <div
+                class="modal fade"
+                id="exampleModal"
+                tabindex="-1"
+                role="dialog"
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">
+                        Please Login
+                      </h5>
+                      <button
+                        type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close"
+                      >
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <a href="/login">Login</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+            </form>
+          </ul>
         </div>
+      </div>
     </nav>
     <section class="jumbotron text-center" style="margin-top:100px">
     <div class="container">

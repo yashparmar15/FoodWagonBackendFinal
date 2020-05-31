@@ -14,8 +14,8 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-Template_DIR = os.path.join(BASE_DIR,'templates')
-Static_DIR = os.path.join(BASE_DIR,'static')
+Template_DIR = os.path.join(BASE_DIR, 'templates')
+Static_DIR = os.path.join(BASE_DIR, 'static')
 
 
 # Quick-start development settings - unsuitable for production
@@ -58,7 +58,7 @@ ROOT_URLCONF = 'FoodWagon.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [Template_DIR,],
+        'DIRS': [Template_DIR, ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -82,7 +82,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'Foodwagon',
         'USER': 'postgres',
-        'PASSWORD': 'P@ssw0rd',
+        'PASSWORD': '',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
@@ -136,8 +136,8 @@ FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
 EMAIL_HOST_USER = 'yashparmar157000@gmail.com'
 EMAIL_HOST_PASSWORD = ''
+EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
