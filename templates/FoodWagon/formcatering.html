@@ -48,7 +48,7 @@
         <div class="text-center pb-3 mt-5">
         <a href="/"><img src="{% static 'img/FoodWagon.PNG' %}" height="40" width=""></a>
         </div>
-        <form id="contact" action="/catering/" method="POST">
+        <form id="contact" action="/catering/" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <h3>Chef Registration</h3>
         <h4>Homemade Food For Everyone</h4>      

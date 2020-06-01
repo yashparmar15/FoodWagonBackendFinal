@@ -83,3 +83,39 @@ class Ordered_Chef(models.Model):
     start = models.DateField(null=False, blank=False)
     end = models.DateField(null=False, blank=False)
 
+class ReviewIndex(models.Model):
+    Name = models.CharField(null = False , blank = False , max_length = 200)
+    Review = models.CharField(null = False , blank = False , max_length = 1024)
+
+class ReviewTruck(models.Model):
+    Name = models.CharField(null = False , blank = False , max_length = 200)
+    Review = models.CharField(null = False , blank = False , max_length = 1024)
+
+class ReviewChef(models.Model):
+    Name = models.CharField(null = False , blank = False , max_length = 200)
+    Review = models.CharField(null = False , blank = False , max_length = 1024)
+
+class ReviewVenue(models.Model):
+    Name = models.CharField(null = False , blank = False , max_length = 200)
+    Review = models.CharField(null = False , blank = False , max_length = 1024)
+
+class ReviewOutlet(models.Model):
+    Name = models.CharField(null = False , blank = False , max_length = 200)
+    Review = models.CharField(null = False , blank = False , max_length = 1024)
+
+class ReviewVenueID(models.Model):
+    venue_id = models.IntegerField(null = False , blank = False)
+    Name = models.CharField(null = False , blank = False , max_length = 200)
+    Review = models.CharField(null = False , blank = False , max_length = 1024)
+
+class ReviewChefID(models.Model):
+    chef_id = models.IntegerField(null = False , blank = False)
+    Name = models.CharField(null = False , blank = False , max_length = 200)
+    Review = models.CharField(null = False , blank = False , max_length = 1024)
+
+class ReviewTruckID(models.Model):
+    truck_id = models.IntegerField(null = False , blank = False)
+    Name = models.CharField(null = False , blank = False , max_length = 200)
+    Review = models.CharField(null = False , blank = False , max_length = 1024)
+
+
