@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
 from foodwagon_backend.models import Venues, Trucks, Chef, Ordered_Venue, Ordered_Chef
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.core.mail import send_mail
@@ -8,6 +8,8 @@ from django.contrib.auth.forms import UserCreationForm
 from .forms import CreateUserForm
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
+
+from .models import *
 
 
 def register(request):
@@ -128,7 +130,58 @@ def chef(request):
 
 
 def cart(request):
-    return render(request, 'FoodWagon/cart.html')
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        print(customer.email)
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        truck_items = order.orderitemtruck_set.all()
+        venue_items = order.orderitemvenue_set.all()
+        chef_items = order.orderitemchef_set.all()
+        print(created)
+        print(truck_items)
+        print(venue_items)
+        print(chef_items)
+    else:
+        items = []
+    context = {
+        'truck_items': truck_items,
+        'venue_items': venue_items,
+        'chef_items': chef_items,
+        'order': order
+        }
+
+    return render(request, 'FoodWagon/cart.html',context)
+
+def add_to_cart_truck(request,id):
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        truck = Trucks.objects.get(id = id)
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        curr_truck = OrderItemTruck(truck = truck, order= order, quantity =1)
+        curr_truck.save()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+def add_to_cart_venue(request,id):
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        venue = Venues.objects.get(id = id)
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        curr_venue = OrderItemVenue(venue = venue, order= order, quantity =1)
+        curr_venue.save()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+def add_to_cart_chef(request,id):
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        chef = Chef.objects.filter(id = id)
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        curr_chef = OrderItemTruck(chef = chef, order= order, quantity =1)
+        chef.save()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    
+
+
+
 
 
 def is_valid_query_param(param):
@@ -187,6 +240,7 @@ def catering(request):
                     'select * from foodwagon_backend_chef where id in (select distinct chef_id from foodwagon_backend_ordered_chef where not exists ( select chef_id from foodwagon_backend_ordered_chef where %s between start and "end" or %s between start and "end"))', [start, end])
     
     main1 = Chef.objects.all()
+    print(main1)
     if is_valid_query_param(name_contains_query):
         chefs = chefs.filter(Name__icontains=name_contains_query)
     if is_valid_query_param(state_query) and state != 'Search':

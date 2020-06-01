@@ -283,16 +283,20 @@
       </div>
     </nav>
 
-<h1 class="text-center" style="margin-top:100px;margin-bottom:50px;">{{venue.Venue_Name}}</h1>
-<div class="b text-center" >
-    <p class="p" style="padding-top:30px !important;"><b>City :</b>  {{venue.City}} </p>
-    <p class="p"><b>Address :</b> {{venue.Address}}</p>
-    <p class="p"><b>Maximum Guest :</b> {{venue.Maximum_Guest}}</p>
-    <p class="p"><b>Price per Day :</b> Rs. {{venue.Price_per_Day}}</p>
-    <p class="p"><b>Phone No. :</b> {{venue.Phone}}</p>
-    <button class="btn btn-success butt" style="margin-bottom:30px">Add to Cart</button>
-    <button class="btn btn-success butt" style="margin-bottom:30px">Book Now</button>
+    
+    <h1 class="text-center" style="margin-top:100px;margin-bottom:50px;">{{venue.Venue_Name}}</h1>
+    <div class="b text-center" >
+        <p class="p" style="padding-top:30px !important;"><b>City :</b>  {{venue.City}} </p>
+        <p class="p"><b>Address :</b> {{venue.Address}}</p>
+        <p class="p"><b>Maximum Guest :</b> {{venue.Maximum_Guest}}</p>
+        <p class="p"><b>Price per Day :</b> Rs. {{venue.Price_per_Day}}</p>
+        <p class="p"><b>Phone No. :</b> {{venue.Phone}}</p>
+        <a href="/add_to_cart_venue/{{venue.id}}" class=" btn btn-success butt" style="margin-bottom:30px">Add to Cart</a>
+        <button name="book_now" type="submit" class="btn btn-success butt" style="margin-bottom:30px">Book Now</button>
     </div>
+    
+    
+    
 <div id="carouselExampleIndicators" class="carousel slide text-center" data-ride="carousel">
     
   <ol class="carousel-indicators">
