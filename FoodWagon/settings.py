@@ -80,9 +80,9 @@ WSGI_APPLICATION = 'FoodWagon.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Foodwagon1',
+        'NAME': 'Foodwagon',
         'USER': 'postgres',
-        'PASSWORD': 'viranch',
+        'PASSWORD': '',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }

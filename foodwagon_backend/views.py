@@ -258,18 +258,26 @@ def cart(request):
         custmores = Customer.objects.all()
         print(custmores)
         customer = request.user.customer
+<<<<<<< HEAD
+=======
+        # print(customer.email)
+>>>>>>> 47a1a10489f2b9bb68312f2d6b8988346483ceea
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
         truck_items = order.orderitemtruck_set.all()
         venue_items = order.orderitemvenue_set.all()
         chef_items = order.orderitemchef_set.all()
-        print(created)
-        print(truck_items)
-        print(venue_items)
-        print(chef_items)
+        
+        # print(created)
+        # print(truck_items)
+        # print(venue_items)
+        # print(chef_items)
     else:
         items = []
     
+<<<<<<< HEAD
     items = cart_items(request)
+=======
+>>>>>>> 47a1a10489f2b9bb68312f2d6b8988346483ceea
     context = {
         'truck_items': truck_items,
         'venue_items': venue_items,
@@ -341,7 +349,36 @@ def add_to_cart_chef(request,id):
         return redirect('/catering/{}'.format(id),{'badge_value':items,'message': message})
 
     
+<<<<<<< HEAD
 
+=======
+def delete_item_cart_truck(request,id):
+    if request.user.is_authenticated:
+        print(id)
+        OrderItemTruck.objects.filter(id = id).delete()
+        # print(curr_truck)
+        global cart_item
+        cart_item -= 1
+    return redirect('/cart',{'badge_value',cart_item})
+
+def delete_item_cart_venue(request,id):
+    if request.user.is_authenticated:
+        print(id)
+        OrderItemVenue.objects.filter(id = id).delete()
+        # print(curr_truck)
+        global cart_item
+        cart_item -= 1
+    return redirect('/cart',{'badge_value',cart_item})
+
+def delete_item_cart_chef(request,id):
+    if request.user.is_authenticated:
+        print(id)
+        OrderItemChef.objects.filter(id = id).delete()
+        # print(curr_truck)
+        global cart_item
+        cart_item -= 1
+    return redirect('/cart',{'badge_value',cart_item})
+>>>>>>> 47a1a10489f2b9bb68312f2d6b8988346483ceea
 
 
 
@@ -422,12 +459,10 @@ def catering(request):
     if is_valid_query_param(city_query) and city != 'Search':
         chefs = Chef.objects.raw(
                     'select * from foodwagon_backend_chef where (id in (select distinct chef_id from foodwagon_backend_ordered_chef where not exists ( select chef_id from foodwagon_backend_ordered_chef where %s between start and "end" or %s between start and "end")) or id not in (select distinct chef_id from foodwagon_backend_ordered_chef)) and "City" = %s', [start, end,city_query])
-    
     if is_valid_query_param(expertin):
        chefs = Chef.objects.raw(
                     'select * from foodwagon_backend_chef where (id in (select distinct chef_id from foodwagon_backend_ordered_chef where not exists ( select chef_id from foodwagon_backend_ordered_chef where %s between start and "end" or %s between start and "end")) or id not in (select distinct chef_id from foodwagon_backend_ordered_chef)) and "ExpertIn" = %s', [start, end,expertin])
     return render(request, 'FoodWagon/catering.html', {'chefs': chefs, 'main': main1,'reviews':reviews,'badge_value':items})
-
 
 
 def restaurent(request):
@@ -465,21 +500,15 @@ def venue(request):
         print(start, end)
         if city != "None":
             if Sor == "lowtohigh":
-                venue_list = Venues.objects.raw(
-                    'select * from foodwagon_backend_venues where (id in (select distinct venue_id from foodwagon_backend_ordered_venue where not exists ( select venue_id from foodwagon_backend_ordered_venue where %s between start and "end" or %s between start and "end")) or id not in (select distinct venue_id from foodwagon_backend_ordered_venue)) and "City" = %s order by "Price_per_Day"', [start, end, city])
-            else:
-                venue_list = Venues.objects.raw(
-                    'select * from foodwagon_backend_venues where (id in (select distinct venue_id from foodwagon_backend_ordered_venue where not exists ( select venue_id from foodwagon_backend_ordered_venue where %s between start and "end" or %s between start and "end")) or id not in (select distinct venue_id from foodwagon_backend_ordered_venue)) and "City" = %s order by "Price_per_Day" desc', [start, end, city])
 
+                venue_list = Venues.objects.raw('select * from foodwagon_backend_venues where id not in (select venue_id from foodwagon_backend_ordered_venue where not("end" < %s or start > %s)) and "City" = %s order by "Price_per_Day"',[start,end,city])
+            else:
+                venue_list = Venues.objects.raw('select * from foodwagon_backend_venues where id not in (select venue_id from foodwagon_backend_ordered_venue where not("end" < %s or start > %s)) and "City" = %s order by "Price_per_Day" desc',[start,end,city])
         else:
             if Sor == "lowtohigh":
-                venue_list = Venues.objects.raw(
-                    'select * from foodwagon_backend_venues where (id in (select distinct venue_id from foodwagon_backend_ordered_venue where not exists ( select venue_id from foodwagon_backend_ordered_venue where %s between start and "end" or %s between start and "end")) or id not in (select distinct venue_id from foodwagon_backend_ordered_venue))  order by "Price_per_Day"', [start, end])
-
+                venue_list = Venues.objects.raw('select * from foodwagon_backend_venues where id not in (select venue_id from foodwagon_backend_ordered_venue where not("end" < %s or start > %s)) order by "Price_per_Day"',[start,end])
             else:
-                venue_list = Venues.objects.raw(
-                    'select * from foodwagon_backend_venues where (id in (select distinct venue_id from foodwagon_backend_ordered_venue where not exists ( select venue_id from foodwagon_backend_ordered_venue where %s between start and "end" or %s between start and "end")) or id not in (select distinct venue_id from foodwagon_backend_ordered_venue)) order by "Price_per_Day" desc', [start, end])
-        print(venue_list)
+                venue_list = Venues.objects.raw('select * from foodwagon_backend_venues where id not in (select venue_id from foodwagon_backend_ordered_venue where not("end" < %s or start > %s))  order by "Price_per_Day" desc',[start,end])
         if len(venue_list) == 0:
             paginator = Paginator(venue_list, 1)
         else:
@@ -514,6 +543,12 @@ def venue(request):
 def foodtruck(request):
     items = cart_items(request)
     truck_list = Trucks.objects.all()
+    if request.method == 'POST':
+        sor = request.POST['sort']
+        if sor == "lowtohigh":
+            truck_list = Trucks.objects.all().order_by('Price')
+        else:
+            truck_list = Trucks.objects.all().order_by('Price').reverse()
     paginator = Paginator(truck_list, 3)
     page = request.GET.get('page')
     try:
