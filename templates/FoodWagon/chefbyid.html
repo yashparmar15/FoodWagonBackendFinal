@@ -237,7 +237,7 @@ body{
               {% if user.is_authenticated %}
               <a class="btn btn-success btn-sm ml-3" href="/cart">
                 <i class="fa fa-shopping-cart"></i> Cart
-                <span class="badge badge-light">3</span>
+                <span class="badge badge-light">{{badge_value}}</span>
               </a>
               {% else %}
               <button
@@ -323,7 +323,10 @@ body{
                             </p>
                         </div>
                         <div class="col-md-6">
-                            <a href="#" class="btn btn-success">Add to Cart</a>
+                          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter" >
+                            Add To Cart
+                          </button>
+                            
                             <a href="#" class="btn btn-secondary">Book Now</a>
                             <hr>
                         </div>
@@ -365,13 +368,45 @@ body{
                             </p>
                         </div>
                         <div class="col-md-6">
-                            <a href="#" class="btn btn-success">Add to Cart</a>
+                          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter" >
+                            Add To Cart
+                          </button>
                             <a href="#" class="btn btn-secondary">Book Now</a>
                             <hr>
                         </div>
                         
                     </div>
                 </div>
+                <!-- Modal for date -->
+    
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <form action="/add_to_cart_chef/{{chef.id}}" method="POST">
+          {% csrf_token %}
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Select The Dates</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <label class="form-check">
+                <div class="col-auto my-1">
+                  <b>From :</b>  <input type="date" class="custom-select mr-sm-2" name="start" required>
+                    <b>To :</b>  <input type="date" class="custom-select mr-sm-2" name="end" required>
+                </div>
+              </label>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <input  type="submit" class="btn btn-success" value="GO">
+          </div>
+          </form>  
+        </div>
+      </div>
+    </div>
+    
                 {% comment %} <div class="tab-pane" id="edit">
                     <form role="form">
                         <div class="form-group row">
@@ -474,7 +509,12 @@ body{
         </div>
     </div>
 </div>
-
+{{message}}
+{% if message%}
+  <script>
+    alert("{{message}}");
+  </script>
+{%endif%}
 
 
 

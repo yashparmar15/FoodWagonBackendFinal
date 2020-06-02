@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chef</title>
+    <title>Your Cart</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.png' %}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -234,7 +234,7 @@
               {% if user.is_authenticated %}
               <a class="btn btn-success btn-sm ml-3" href="/cart">
                 <i class="fa fa-shopping-cart"></i> Cart
-                <span class="badge badge-light">3</span>
+                <span class="badge badge-light">{{badge_value}}</span>
               </a>
               {% else %}
               <button
@@ -304,54 +304,49 @@
                         </tr>
                     </thead>
                     <tbody>
+                      {% for item in truck_items %}
                         <tr>
-                            <td><img src="https://dummyimage.com/50x50/55595c/fff" /> </td>
-                            <td>Product Name Dada</td>
-                            <td>In stock</td>
-                            <td><input class="form-control" type="text" value="1" /></td>
-                            <td class="text-right">124,90 €</td>
-                            <td class="text-right"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> </td>
+                          <td> {%if item.truck.image1 %} <img src={{item.truck.image1.url}} style="height:40px ;width:40px;"/> {%else%} <img src="https://dummyimage.com/50x50/55595c/fff"/>{%endif%} </td>
+                          <td>{{item.truck.Model_Name}}</td>
+                          <td>{{item.truck.id}}</td>
+                          <td><input class="form-control" type="text" value="{{item.quantity}}" readonly/></td>
+                          <td class="text-right">{{item.truck.Price}} Rs</td>
+                          <td class="text-right"><a href="/delete_item_cart_truck/{{item.id}}"class="btn btn-sm btn-danger"><i class="fa fa-trash" ></i> </a> </td>
+                          <td class="text-right"><a href="/foodtruck/{{item.truck.id}}"class="btn btn-sm btn-primary"><i class="fa fa-eye"></i> </a> </td>
                         </tr>
+                      {% endfor %}
+                      {% for item in venue_items %}
                         <tr>
-                            <td><img src="https://dummyimage.com/50x50/55595c/fff" /> </td>
-                            <td>Product Name Toto</td>
-                            <td>In stock</td>
-                            <td><input class="form-control" type="text" value="1" /></td>
-                            <td class="text-right">33,90 €</td>
-                            <td class="text-right"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> </td>
+                          <td>{%if item.venue.image1 %}<img src={{item.venue.image1.url}} style="height:40px;width:40px;"/> {%else%} <img src="https://dummyimage.com/50x50/55595c/fff"/>{%endif%}</td>
+                          <td>{{item.venue.Venue_Name}}</td>
+                          <td>In Stock</td>
+                          <td><input class="form-control" type="text" value="{{item.quantity}}" readonly/></td>
+                          <td class="text-right">{{item.venue.Price_per_Day}} Rs</td>
+                          <td class="text-right"><a href="/delete_item_cart_venue/{{item.id}}"class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </a> </td>
+                          <td class="text-right"><a href="/venue/{{item.venue.id}}"class="btn btn-sm btn-primary"><i class="fa fa-eye"></a> </button> </td>
                         </tr>
+                      {% endfor %} 
+                      {% for item in chef_items %}
                         <tr>
-                            <td><img src="https://dummyimage.com/50x50/55595c/fff" /> </td>
-                            <td>Product Name Titi</td>
-                            <td>In stock</td>
-                            <td><input class="form-control" type="text" value="1" /></td>
-                            <td class="text-right">70,00 €</td>
-                            <td class="text-right"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> </td>
+                          <td>{%if item.chef.Image %}<img src={{item.chef.Image.url}} style="height:40px;width:40px;"/>{%else%} <img src="https://dummyimage.com/50x50/55595c/fff"/>{%endif%} </td>
+                          <td>{{item.chef.Name}}</td>
+                          <td>In stock</td>
+                          <td><input class="form-control" type="text" value="{{item.quantity}}" readonly/></td>
+                          <td class="text-right">{{item.chef.Stipend}} Rs</td>
+                          <td class="text-right"><a href="/delete_item_cart_chef/{{item.id}}" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </a> </td>
+                          <td class="text-right"><a href = "/catering/{{item.chef.id}}"class="btn btn-sm btn-primary"><i class="fa fa-eye"></i> </a> </td>
                         </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>Sub-Total</td>
-                            <td class="text-right">255,90 €</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>Shipping</td>
-                            <td class="text-right">6,90 €</td>
-                        </tr>
+                      {% endfor %} 
                         <tr>
                             <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td><strong>Total</strong></td>
-                            <td class="text-right"><strong>346,90 €</strong></td>
+                            <td>Total</td>
+                            <td class="text-right">{{order.get_cart_total}} Rs</td>
                         </tr>
+                        
+                        
                     </tbody>
                 </table>
             </div>
@@ -359,7 +354,7 @@
         <div class="col mb-2">
             <div class="row">
                 <div class="col-sm-12  col-md-6">
-                    <button class="btn btn-block btn-light">Continue Shopping</button>
+                    <a href="/catering/" class="btn btn-block btn-light">Continue Shopping</a>
                 </div>
                 <div class="col-sm-12 col-md-6 text-right">
                     <button class="btn btn-lg btn-block btn-success text-uppercase">Checkout</button>

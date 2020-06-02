@@ -234,7 +234,7 @@
               {% if user.is_authenticated %}
               <a class="btn btn-success btn-sm ml-3" href="/cart">
                 <i class="fa fa-shopping-cart"></i> Cart
-                <span class="badge badge-light">3</span>
+                <span class="badge badge-light">{{badge_value}}</span>
               </a>
               {% else %}
               <button
@@ -283,16 +283,52 @@
       </div>
     </nav>
 
-<h1 class="text-center" style="margin-top:100px;margin-bottom:50px;">{{venue.Venue_Name}}</h1>
-<div class="b text-center" >
-    <p class="p" style="padding-top:30px !important;"><b>City :</b>  {{venue.City}} </p>
-    <p class="p"><b>Address :</b> {{venue.Address}}</p>
-    <p class="p"><b>Maximum Guest :</b> {{venue.Maximum_Guest}}</p>
-    <p class="p"><b>Price per Day :</b> Rs. {{venue.Price_per_Day}}</p>
-    <p class="p"><b>Phone No. :</b> {{venue.Phone}}</p>
-    <button class="btn btn-success butt" style="margin-bottom:30px">Add to Cart</button>
-    <button class="btn btn-success butt" style="margin-bottom:30px">Book Now</button>
+    
+    <h1 class="text-center" style="margin-top:100px;margin-bottom:50px;">{{venue.Venue_Name}}</h1>
+    <div class="b text-center" >
+        <p class="p" style="padding-top:30px !important;"><b>City :</b>  {{venue.City}} </p>
+        <p class="p"><b>Address :</b> {{venue.Address}}</p>
+        <p class="p"><b>Maximum Guest :</b> {{venue.Maximum_Guest}}</p>
+        <p class="p"><b>Price per Day :</b> Rs. {{venue.Price_per_Day}}</p>
+        <p class="p"><b>Phone No. :</b> {{venue.Phone}}</p>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter" style="margin-bottom:30px">
+          Add To Cart
+        </button>
+        <!-- <a href="/add_to_cart_venue/{{venue.id}}" class=" btn btn-success butt" style="margin-bottom:30px">Add to Cart</a> -->
+        <button name="book_now" type="submit" class="btn btn-success butt" style="margin-bottom:30px">Book Now</button>
     </div>
+
+    <!-- Modal for date -->
+    
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <form action="/add_to_cart_venue/{{venue.id}}" method="POST">
+          {% csrf_token %}
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Select The Dates</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <label class="form-check">
+                <div class="col-auto my-1">
+                  <b>From :</b>  <input type="date" class="custom-select mr-sm-2" name="start" required>
+                    <b>To :</b>  <input type="date" class="custom-select mr-sm-2" name="end" required>
+                </div>
+              </label>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <input  type="submit" class="btn btn-success" value="GO">
+          </div>
+          </form>  
+        </div>
+      </div>
+    </div>
+    
+    
 <div id="carouselExampleIndicators" class="carousel slide text-center" data-ride="carousel">
     
   <ol class="carousel-indicators">
@@ -560,6 +596,9 @@
 
 
 <script>
+            
+
+
             $(function () {
                 $('#myButton').floatingWhatsApp({
                     phone: '917000311028',
@@ -573,7 +612,7 @@
                     buttonImage: '<img src="{% static 'img/whatsapp.svg' %}" />'
                 });
             });
-        </script>
+</script>
 
 </body>
 </html>
