@@ -308,17 +308,17 @@
                         <tr>
                           <td><img src="https://dummyimage.com/50x50/55595c/fff" /> </td>
                           <td>{{item.truck.Model_Name}}</td>
-                          <td>In stock</td>
+                          <td>{{item.truck.id}}</td>
                           <td><input class="form-control" type="text" value="{{item.quantity}}" /></td>
                           <td class="text-right">{{item.truck.Price}} €</td>
-                          <td class="text-right"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> </td>
+                          <td class="text-right"><button class="btn btn-sm btn-danger"><a class="fa fa-trash" href="/delete_item_cart_truck/{{item.truck.id}}"></a> </button> </td>
                         </tr>
                       {% endfor %}
                       {% for item in venue_items %}
                         <tr>
                           <td><img src="https://dummyimage.com/50x50/55595c/fff" /> </td>
                           <td>{{item.venue.Venue_Name}}</td>
-                          <td>In stock</td>
+                          <td>In Stock</td>
                           <td><input class="form-control" type="text" value="{{item.quantity}}" /></td>
                           <td class="text-right">{{item.venue.Price_per_Day}} €</td>
                           <td class="text-right"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> </td>

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 
 from django.http import HttpResponse,HttpResponseRedirect
-from foodwagon_backend.models import Venues, Trucks, Chef, Ordered_Venue, Ordered_Chef
+from foodwagon_backend.models import *
 
 from django.http import HttpResponse
 from foodwagon_backend.models import Venues, Trucks, Chef, Ordered_Venue, Ordered_Chef,ReviewIndex,ReviewTruck,ReviewChef,ReviewOutlet,ReviewVenue,ReviewVenueID,ReviewChefID,ReviewTruckID
@@ -259,30 +259,67 @@ def add_to_cart_truck(request,id):
 def add_to_cart_venue(request,id):
     if request.user.is_authenticated:
         global cart_item
-        cart_item += 1
-        customer = request.user.customer
-        venue = Venues.objects.get(id = id)
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        curr_venue = OrderItemVenue(venue = venue, order= order, quantity =1)
-        curr_venue.save()
-        print(cart_item)
+        start = request.POST['start']
+        end = request.POST['end']
+        venues_available = Venues.objects.raw('select id from foodwagon_backend_venues where id not in (select venue_id from foodwagon_backend_ordered_venue where not("end" < %s or start > %s))',[start,end])
+        flag = False
+        for venue in venues_available:
+            if venue.id==id:
+                flag = True
+        if flag:
+            cart_item += 1
+            customer = request.user.customer
+            venue = Venues.objects.get(id = id)
+            order, created = Order.objects.get_or_create(customer=customer, complete=False)
+            curr_venue = OrderItemVenue(venue = venue, order= order, quantity =1)
+            curr_venue.save()
+            print(cart_item)
+            message = 'Succussfully added to cart'
+            return redirect('/venue/{}'.format(id),{'badge_value':cart_item,'message':message})
+        else:
+            message = 'Cant add to cart'
+            return redirect('/venue/{}'.format(id),{'badge_value':cart_item,'message':message})
     return redirect('/venue/{}'.format(id),{'badge_value':cart_item})
+
+    
 
 
 def add_to_cart_chef(request,id):
     if request.user.is_authenticated:
         global cart_item
-        cart_item += 1
-        customer = request.user.customer
-        chef = Chef.objects.get(id= id)
-        print(chef)
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        curr_chef = OrderItemChef(chef = chef, order= order, quantity =1)
-        curr_chef.save()
+        start = request.POST['start']
+        end = request.POST['end']
+        chefs_available = Chef.objects.raw('select id from foodwagon_backend_chef where id not in (select chef_id from foodwagon_backend_ordered_chef where not("end" < %s or start > %s))',[start,end])
+        flag = False
+        for chef in chefs_available:
+            if chef.id==id:
+                flag = True
+        if flag:
+            cart_item += 1
+            customer = request.user.customer
+            chef = Chef.objects.get(id= id)
+            print(chef)
+            order, created = Order.objects.get_or_create(customer=customer, complete=False)
+            curr_chef = OrderItemChef(chef = chef, order= order, quantity =1)
+            curr_chef.save()
+            message = 'Succussfully added to cart'
+        else:
+            message = 'Cant add to cart'
+            return redirect('/catering/{}'.format(id),{'badge_value':cart_item,'message':message})
     return redirect('/catering/{}'.format(id),{'badge_value':cart_item})
 
     
-
+def delete_item_cart_truck(request,id):
+    if request.user.is_authenticated:
+        trucks = OrderItemTruck.objects.all()
+        for truck in trucks:
+            print(truck.id)
+        print(4)
+        curr_truck = OrderItemTruck.objects.get(id = id)
+        # print(curr_truck)
+        global cart_item
+        cart_item -= 1
+    return redirect('/cart',{'badge_value',cart_item})
 
 
 
