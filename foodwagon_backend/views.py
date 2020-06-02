@@ -275,23 +275,22 @@ def catering(request):
     if start == None:
         if end == None:
             return render(request, 'FoodWagon/catering.html', {'chefs': chefs, 'main': main1,'reviews':reviews})
-    chefs = Chef.objects.raw(
-                    'select * from foodwagon_backend_chef where (id in (select distinct chef_id from foodwagon_backend_ordered_chef where not exists ( select chef_id from foodwagon_backend_ordered_chef where %s between start and "end" or %s between start and "end")) or id not in (select distinct chef_id from foodwagon_backend_ordered_chef))', [start, end])
+    chefs = Chef.objects.raw('select * from foodwagon_backend_chef where id not in (select chef_id from foodwagon_backend_ordered_chef where not("end" < %s or start > %s))',[start,end])
+                    
     
+    # if is_valid_query_param(name_contains_query):
+    #     chefs = Chef.objects.raw(
+    #                 'select * from foodwagon_backend_chef where (id in (select distinct chef_id from foodwagon_backend_ordered_chef where not exists ( select chef_id from foodwagon_backend_ordered_chef where %s between start and "end" or %s between start and "end")) or id not in (select distinct chef_id from foodwagon_backend_ordered_chef)) and "Name" = %s', [start, end,name_contains_query])
+    # if is_valid_query_param(state_query) and state != 'Search':
+    #     chefs = Chef.objects.raw(
+    #                 'select * from foodwagon_backend_chef where (id in (select distinct chef_id from foodwagon_backend_ordered_chef where not exists ( select chef_id from foodwagon_backend_ordered_chef where %s between start and "end" or %s between start and "end")) or id not in (select distinct chef_id from foodwagon_backend_ordered_chef)) and "State" = %s', [start, end,state_query])
+    # if is_valid_query_param(city_query) and city != 'Search':
+    #     chefs = Chef.objects.raw(
+    #                 'select * from foodwagon_backend_chef where (id in (select distinct chef_id from foodwagon_backend_ordered_chef where not exists ( select chef_id from foodwagon_backend_ordered_chef where %s between start and "end" or %s between start and "end")) or id not in (select distinct chef_id from foodwagon_backend_ordered_chef)) and "City" = %s', [start, end,city_query])
     
-    if is_valid_query_param(name_contains_query):
-        chefs = Chef.objects.raw(
-                    'select * from foodwagon_backend_chef where (id in (select distinct chef_id from foodwagon_backend_ordered_chef where not exists ( select chef_id from foodwagon_backend_ordered_chef where %s between start and "end" or %s between start and "end")) or id not in (select distinct chef_id from foodwagon_backend_ordered_chef)) and "Name" = %s', [start, end,name_contains_query])
-    if is_valid_query_param(state_query) and state != 'Search':
-        chefs = Chef.objects.raw(
-                    'select * from foodwagon_backend_chef where (id in (select distinct chef_id from foodwagon_backend_ordered_chef where not exists ( select chef_id from foodwagon_backend_ordered_chef where %s between start and "end" or %s between start and "end")) or id not in (select distinct chef_id from foodwagon_backend_ordered_chef)) and "State" = %s', [start, end,state_query])
-    if is_valid_query_param(city_query) and city != 'Search':
-        chefs = Chef.objects.raw(
-                    'select * from foodwagon_backend_chef where (id in (select distinct chef_id from foodwagon_backend_ordered_chef where not exists ( select chef_id from foodwagon_backend_ordered_chef where %s between start and "end" or %s between start and "end")) or id not in (select distinct chef_id from foodwagon_backend_ordered_chef)) and "City" = %s', [start, end,city_query])
-    
-    if is_valid_query_param(expertin):
-       chefs = Chef.objects.raw(
-                    'select * from foodwagon_backend_chef where (id in (select distinct chef_id from foodwagon_backend_ordered_chef where not exists ( select chef_id from foodwagon_backend_ordered_chef where %s between start and "end" or %s between start and "end")) or id not in (select distinct chef_id from foodwagon_backend_ordered_chef)) and "ExpertIn" = %s', [start, end,expertin])
+    # if is_valid_query_param(expertin):
+    #    chefs = Chef.objects.raw(
+    #                 'select * from foodwagon_backend_chef where (id in (select distinct chef_id from foodwagon_backend_ordered_chef where not exists ( select chef_id from foodwagon_backend_ordered_chef where %s between start and "end" or %s between start and "end")) or id not in (select distinct chef_id from foodwagon_backend_ordered_chef)) and "ExpertIn" = %s', [start, end,expertin])
     return render(request, 'FoodWagon/catering.html', {'chefs': chefs, 'main': main1,'reviews':reviews})
 
 
@@ -328,21 +327,15 @@ def venue(request):
         print(start, end)
         if city != "None":
             if Sor == "lowtohigh":
-                venue_list = Venues.objects.raw(
-                    'select * from foodwagon_backend_venues where (id in (select distinct venue_id from foodwagon_backend_ordered_venue where not exists ( select venue_id from foodwagon_backend_ordered_venue where %s between start and "end" or %s between start and "end")) or id not in (select distinct venue_id from foodwagon_backend_ordered_venue)) and "City" = %s order by "Price_per_Day"', [start, end, city])
-            else:
-                venue_list = Venues.objects.raw(
-                    'select * from foodwagon_backend_venues where (id in (select distinct venue_id from foodwagon_backend_ordered_venue where not exists ( select venue_id from foodwagon_backend_ordered_venue where %s between start and "end" or %s between start and "end")) or id not in (select distinct venue_id from foodwagon_backend_ordered_venue)) and "City" = %s order by "Price_per_Day" desc', [start, end, city])
 
+                venue_list = Venues.objects.raw('select * from foodwagon_backend_venues where id not in (select venue_id from foodwagon_backend_ordered_venue where not("end" < %s or start > %s)) and "City" = %s order by "Price_per_Day"',[start,end,city])
+            else:
+                venue_list = Venues.objects.raw('select * from foodwagon_backend_venues where id not in (select venue_id from foodwagon_backend_ordered_venue where not("end" < %s or start > %s)) and "City" = %s order by "Price_per_Day" desc',[start,end,city])
         else:
             if Sor == "lowtohigh":
-                venue_list = Venues.objects.raw(
-                    'select * from foodwagon_backend_venues where (id in (select distinct venue_id from foodwagon_backend_ordered_venue where not exists ( select venue_id from foodwagon_backend_ordered_venue where %s between start and "end" or %s between start and "end")) or id not in (select distinct venue_id from foodwagon_backend_ordered_venue))  order by "Price_per_Day"', [start, end])
-
+                venue_list = Venues.objects.raw('select * from foodwagon_backend_venues where id not in (select venue_id from foodwagon_backend_ordered_venue where not("end" < %s or start > %s)) order by "Price_per_Day"',[start,end])
             else:
-                venue_list = Venues.objects.raw(
-                    'select * from foodwagon_backend_venues where (id in (select distinct venue_id from foodwagon_backend_ordered_venue where not exists ( select venue_id from foodwagon_backend_ordered_venue where %s between start and "end" or %s between start and "end")) or id not in (select distinct venue_id from foodwagon_backend_ordered_venue)) order by "Price_per_Day" desc', [start, end])
-        print(venue_list)
+                venue_list = Venues.objects.raw('select * from foodwagon_backend_venues where id not in (select venue_id from foodwagon_backend_ordered_venue where not("end" < %s or start > %s))  order by "Price_per_Day" desc',[start,end])
         if len(venue_list) == 0:
             paginator = Paginator(venue_list, 1)
         else:
