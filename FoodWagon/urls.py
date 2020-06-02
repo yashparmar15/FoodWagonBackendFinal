@@ -37,13 +37,13 @@ urlpatterns = [
     path('add_to_cart_venue/<int:id>', views.add_to_cart_venue),
     path('add_to_cart_truck/<int:id>', views.add_to_cart_truck),
     path('add_to_cart_chef/<int:id>', views.add_to_cart_chef),
-<<<<<<< HEAD
+
     # path('delete_item_cart_truck/<int:id>', views.delete_item_cart_truck),
-=======
+
     path('delete_item_cart_truck/<int:id>', views.delete_item_cart_truck),
     path('delete_item_cart_venue/<int:id>', views.delete_item_cart_venue),
     path('delete_item_cart_chef/<int:id>', views.delete_item_cart_chef),
->>>>>>> 47a1a10489f2b9bb68312f2d6b8988346483ceea
+
     path('foodtruck/<int:id>', views.truckbyid),
     path('service/', views.service),
     path('catering/<int:id>', views.chefbyid),

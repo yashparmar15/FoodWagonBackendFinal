@@ -323,7 +323,7 @@
                           <td><input class="form-control" type="text" value="{{item.quantity}}" readonly/></td>
                           <td class="text-right">{{item.venue.Price_per_Day}} Rs</td>
                           <td class="text-right"><a href="/delete_item_cart_venue/{{item.id}}"class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </a> </td>
-                          <td class="text-right"><a href="/venue/{{item.venue.id}}"class="btn btn-sm btn-primary"><i class="fa fa-eye"></a> </button> </td>
+                          <td class="text-right"><a href="/venue/{{item.venue.id}}"class="btn btn-sm btn-primary"><i class="fa fa-eye"></i> </a> </td>
                         </tr>
                       {% endfor %} 
                       {% for item in chef_items %}
