@@ -495,6 +495,12 @@ def venue(request):
 
 def foodtruck(request):
     truck_list = Trucks.objects.all()
+    if request.method == 'POST':
+        sor = request.POST['sort']
+        if sor == "lowtohigh":
+            truck_list = Trucks.objects.all().order_by('Price')
+        else:
+            truck_list = Trucks.objects.all().order_by('Price').reverse()
     paginator = Paginator(truck_list, 3)
     page = request.GET.get('page')
     try:
