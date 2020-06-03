@@ -76,19 +76,19 @@
         </fieldset>
         <fieldset>
             <label>Country<span>*</span></label>
-            <select name="country" class="countries" id="countryId" required>
+            <select name="country" class="countries" id="countryId">
             <option value="">Select a Country</option>
             </select>
         </fieldset>
         <fieldset>
             <label>State<span>*</span></label>
-            <select name="state" class="states" id="stateId" required>
+            <select name="state" class="states" id="stateId">
             <option value="">Select a State</option>
             </select>
         </fieldset>
         <fieldset>
             <label>City<span>*</span></label>
-            <select name="city" class="cities" id="cityId" required>
+            <select name="city" class="cities" id="cityId">
             <option value="">Select a City</option>
             </select>
         </fieldset>
@@ -102,17 +102,17 @@
         </fieldset>
         <fieldset>
             <label>I specialise in these Cusine(s)<span>*</span></label><br>
-            <input type="checkbox" tabindex="2" value="North Indian" name = "special[]"> North Indian <br>
-            <input type="checkbox" tabindex="2" value="South Indian" name = "special[]"> South Indian <br>
-            <input type="checkbox" tabindex="2" value="Gujarati" name = "special[]"> Gujarati <br>
-            <input type="checkbox" tabindex="2" value="Punjabi" name = "special[]"> Punjabi <br>
-            <input type="checkbox" tabindex="2" value="Rajasthani" name = "special[]"> Rajasthani <br>
-            <input type="checkbox" tabindex="2" value="Continental" name = "special[]"> Continental <br>
-            <input type="checkbox" tabindex="2" value="Bengali" name = "special[]"> Bengali <br>
-            <input type="checkbox" tabindex="2" value="Marathi" name = "special[]"> Marathi <br>
-            <input type="checkbox" tabindex="2" value="Jain Food" name = "special[]"> Jain Food <br>
-            <input type="checkbox" tabindex="2" value="Bakery" name = "special[]"> Bakery <br>
-            <input type="checkbox" tabindex="2" value="Other" name = "special[]"> Other <br>
+            <input type="checkbox" tabindex="2" value="North Indian" name = "north"> North Indian <br>
+            <input type="checkbox" tabindex="2" value="South Indian" name = "south"> South Indian <br>
+            <input type="checkbox" tabindex="2" value="Gujarati" name = "gujarati"> Gujarati <br>
+            <input type="checkbox" tabindex="2" value="Punjabi" name = "punjabi"> Punjabi <br>
+            <input type="checkbox" tabindex="2" value="Rajasthani" name = "rajasthani"> Rajasthani <br>
+            <input type="checkbox" tabindex="2" value="Continental" name = "continental"> Continental <br>
+            <input type="checkbox" tabindex="2" value="Bengali" name = "bengali"> Bengali <br>
+            <input type="checkbox" tabindex="2" value="Marathi" name = "marathi"> Marathi <br>
+            <input type="checkbox" tabindex="2" value="Jain Food" name = "jain"> Jain Food <br>
+            <input type="checkbox" tabindex="2" value="Bakery" name = "bakery"> Bakery <br>
+            <input type="checkbox" tabindex="2" value="Other" name = "other"> Other <br>
         </fieldset>
         <fieldset>
             <label>Bussiness type<span>*</span></label><br>
@@ -141,10 +141,10 @@
         <div class="file-field">
             <div class="btn btn-primary btn-sm ">
               <span>Choose file</span>
-              <input type="file" name = "image">
+              <input type="file" name = "image" required>
             </div>
             <div class="file-path-wrapper">
-              <input class="file-path validate" type="text" placeholder="Upload your Photo" readonly>
+              <input class="file-path validate" type="text" placeholder="Upload your Photo" readonly required>
             </div>
         </div>
         <fieldset>        

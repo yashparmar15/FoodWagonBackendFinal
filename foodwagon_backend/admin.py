@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from foodwagon_backend.models import Venues,Trucks,Chef
+from foodwagon_backend.models import Venues,Trucks,Chef,Ordered_Chef
 from .models import *
 
 admin.site.register(Venues)
@@ -12,5 +12,5 @@ admin.site.register(OrderItemTruck)
 admin.site.register(OrderItemVenue)
 admin.site.register(OrderItemChef)
 admin.site.register(Order)
-
+admin.site.register(Ordered_Chef)
 

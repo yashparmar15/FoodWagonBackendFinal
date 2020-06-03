@@ -90,7 +90,8 @@
               </div>
               <div class="bottom-content">
                 <form method="POST" action="">
-                  {% csrf_token %} {% for message in messages %}
+                  {% csrf_token %} 
+                  {% for message in messages %}
                   <p id="messages">{{message}}</p>
                   {% endfor %}
                   <input

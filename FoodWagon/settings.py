@@ -82,7 +82,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'Foodwagon1',
         'USER': 'postgres',
-        'PASSWORD': 'viranch',
+        'PASSWORD': '1234ayan',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }

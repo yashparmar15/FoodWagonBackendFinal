@@ -44,6 +44,25 @@ class Trucks(models.Model):
     def __str__(self):
         return str(self.Model_Name)
 
+        
+class Special(models.Model):
+    SPECIALITY_CHOICES = (
+        ('North Indian', 'North Indian'),
+        ('South Indian', 'South Indian'),
+        ('Gujarati', 'Gujarati'),
+        ('Bengali', 'Bengali'),
+        ('Bakery', 'Bakery'),
+        ('Marathi', 'Marathi'),
+        ('Continental', 'Continental'),
+        ('Jain Food', 'Jain Food'),
+        ('Rajasthani', 'Rajasthani'),
+        ('Punjabi', 'Punjabi'),
+    
+    )
+    speciality = models.CharField(max_length=100, null=True, blank=True)
+
+    def __str__(self):
+        return str(self.speciality)
 
 class Chef(models.Model):
     Work_As = ArrayField(ArrayField(models.CharField(
@@ -58,8 +77,10 @@ class Chef(models.Model):
     City = models.CharField(max_length=100, null=False, blank=False)
     Area = models.CharField(max_length=250, null=False, blank=False)
     Address = models.CharField(max_length=255, null=False, blank=False)
-    Speciality = ArrayField(ArrayField(models.CharField(
-        max_length=250, null=False, blank=False)))
+    # Speciality = ArrayField(ArrayField(models.CharField(
+    #     max_length=250, null=False, blank=False)))
+    Speciality = models.ManyToManyField(Special)
+
     Type = models.CharField(max_length=15, null=False, blank=False)
     ExpertIn = models.CharField(max_length=100, null=False, blank=False)
     License = models.CharField(max_length=5, null=False, blank=False)

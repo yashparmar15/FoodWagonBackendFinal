@@ -12,7 +12,8 @@ from django.contrib.auth.forms import UserCreationForm
 from .forms import CreateUserForm
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
-
+from django.db.models import Q
+import datetime
 from .models import *
  
 cart_item = 0
@@ -303,7 +304,17 @@ def catering(request):
         city = request.POST['city']
         area = request.POST['area']
         address = request.POST['address']
-        spe = request.POST.getlist('special[]')
+        north = request.POST.get('north')
+        south = request.POST.get('south')
+        gujarati = request.POST.get('gujarati')
+        punjabi = request.POST.get('punjabi')
+        rajasthani = request.POST.get('rajasthani')
+        jain = request.POST.get('jain')
+        bengali = request.POST.get('bengali')
+        marathi = request.POST.get('marathi')
+        continental = request.POST.get('continental')
+        bakery = request.POST.get('bakery')
+        other = request.POST.get('other')
         work_type = request.POST['work_type']
         expert = request.POST['food_type_id']
         lic = request.POST['is_license']
@@ -313,25 +324,40 @@ def catering(request):
         if customer == '':
             customer = 0
         Data = Chef(Work_As=work, Name=name, Phone=mobile, Email=email, Stipend=stipend, Country=country, State=state,
-                    City=city, Area=area, Address=address, Speciality=spe, Type=work_type, ExpertIn=expert, License=lic,
+                    City=city, Area=area, Address=address, Type=work_type, ExpertIn=expert, License=lic,
                     Base=customer, EmployeeID=employee, Image=image)
         Data.save()
-        chefs = Chef.objects.all()
-        main1 = Chef.objects.all()
-        name_contains_query = request.GET.get('name_contains')
-
-        city_query = request.GET.get('city')
-        state_query = request.GET.get('state')
-
-        if is_valid_query_param(name_contains_query):
-            chefs = chefs.filter(Name=name_contains_query)
-        if is_valid_query_param(state_query) and state != 'Search':
-            chefs = chefs.filter(State=state_query)
-        if is_valid_query_param(city_query) and city != 'Search':
-            chefs = chefs.filter(City=city_query)
-        reviews = ReviewChef.objects.all().order_by('id').reverse()
-        return render(request, 'FoodWagon/catering.html', {'chefs': chefs, "main": main1,'reviews':reviews})
+    
+        if is_valid_query_param(north):
+            s1 = Data.Speciality.create(speciality=north)
+        if is_valid_query_param(south):
+            s2 = Data.Speciality.create(speciality=south)
+        if is_valid_query_param(gujarati):
+            s3 = Data.Speciality.create(speciality=gujarati)
+        if is_valid_query_param(punjabi):
+            s4 = Data.Speciality.create(speciality=punjabi)
+        if is_valid_query_param(jain):
+            s5 = Data.Speciality.create(speciality=jain)
+        if is_valid_query_param(bakery):
+            s6 = Data.Speciality.create(speciality=bakery)
+        if is_valid_query_param(continental):
+            s7 = Data.Speciality.create(speciality=continental)
+        if is_valid_query_param(rajasthani):
+            s8 = Data.Speciality.create(speciality=rajasthani)
+        if is_valid_query_param(bengali):
+            s9 = Data.Speciality.create(speciality=bengali)
+        if is_valid_query_param(marathi):
+            s10 = Data.Speciality.create(speciality=marathi)
+        if is_valid_query_param(other):
+            s10 = Data.Speciality.create(speciality=other)
+        
+        return redirect('catering')
+        
+    
     reviews = ReviewChef.objects.all().order_by('id').reverse()
+    special = Special.objects.all().order_by('speciality')
+    
+
     name_contains_query = request.GET.get('name_contains')
     state_query = request.GET.get('state')
     city_query = request.GET.get('city')
@@ -340,32 +366,92 @@ def catering(request):
     expertin = request.GET.get('expertin')
     start = request.GET.get('start')
     end = request.GET.get('end')
+    north = request.GET.get('North Indian')
+    south = request.GET.get('South Indian')
+    gujarati = request.GET.get('Gujarati')
+    punjabi = request.GET.get('Punjabi')
+    bakery = request.GET.get('Bakery')
+    rajasthani = request.GET.get('Rajasthani')
+    continental = request.GET.get('Continental')
+    bengali = request.GET.get('Bengali')
+    marathi = request.GET.get('Marathi')
+    jain = request.GET.get('Jain Food')
+    other = request.GET.get('Other')
+    start = request.GET.get('start')
+    end = request.GET.get('end')
+    allchefs = Chef.objects.all()
     chefs = Chef.objects.all()
     main1 = Chef.objects.all()
+
+    
+    
+    ordered_chef = Ordered_Chef.objects.all()
+
+    format = "%Y-%m-%d"
+    if is_valid_query_param(start) and is_valid_query_param(end):
+        start = datetime.datetime.strptime(start, format) 
+        end = datetime.datetime.strptime(end, format) 
+        start = start.date()
+        end = end.date()
+        ids_ordered_chef = []
+        for i in ordered_chef:
+            if i.start<=start<=i.end or i.start<=end<=i.end:
+                ids_ordered_chef.append(i.chef_id)
+        ids_allchefs = []
+        for i in allchefs:
+            if i.id not in ids_ordered_chef:
+                ids_allchefs.append(i.id)
+        
+        allchefs = allchefs.filter(id__in=ids_allchefs) 
+    
+    if is_valid_query_param(name_contains_query):
+        allchefs = allchefs.filter(Name__icontains=name_contains_query)
+    if is_valid_query_param(state_query) and state != 'Search':
+        allchefs = allchefs.filter(State=state_query)
+    if is_valid_query_param(city_query) and city != 'Search':
+        allchefs = allchefs.filter(City=city_query)
+    if is_valid_query_param(expertin):
+        allchefs = allchefs.filter(ExpertIn=expertin)
+
+
+    if is_valid_query_param(south):
+        allchefs = allchefs.filter(Q(Speciality__speciality__contains=south))
+    if is_valid_query_param(north):
+        allchefs = allchefs.filter(Q(Speciality__speciality__contains=north))
+    if is_valid_query_param(gujarati):
+        allchefs = allchefs.filter(Q(Speciality__speciality__contains=gujarati))
+    if is_valid_query_param(marathi):
+        allchefs = allchefs.filter(Q(Speciality__speciality__contains=marathi))
+    if is_valid_query_param(bengali):
+        allchefs = allchefs.filter(Q(Speciality__speciality__contains=bengali))
+    if is_valid_query_param(continental):
+        allchefs = allchefs.filter(Q(Speciality__speciality__contains=continental))
+    if is_valid_query_param(bakery):
+        allchefs = allchefs.filter(Q(Speciality__speciality__contains=bakery))
+    if is_valid_query_param(rajasthani):
+        allchefs = allchefs.filter(Q(Speciality__speciality__contains=rajasthani))
+    if is_valid_query_param(punjabi):
+        allchefs = allchefs.filter(Q(Speciality__speciality__contains=punjabi))
+    if is_valid_query_param(jain):
+        allchefs = allchefs.filter(Q(Speciality__speciality__contains=jain))
+    if is_valid_query_param(other):
+        allchefs = allchefs.filter(Q(Speciality__speciality__contains=other))
+    cities = []
+    states = []
+    for i in main1:
+        cities.append(i.City)
+        states.append(i.State)
+    
+
+    
+    cities = list(set(cities))
+    states = list(set(states))
+    speciality_choices = ["North Indian", "South Indian", "Gujarati", "Bengali", "Rajasthani", "Marathi", "Continental", "Punjabi", "Jain Food", "Bakery", "Other"]
     if start == None:
         if end == None:
-            return render(request, 'FoodWagon/catering.html', {'chefs': chefs, 'main': main1,'reviews':reviews,'badge_value':cart_item})
-    chefs = Chef.objects.raw(
-                    'select * from foodwagon_backend_chef where (id in (select distinct chef_id from foodwagon_backend_ordered_chef where not exists ( select chef_id from foodwagon_backend_ordered_chef where %s between start and "end" or %s between start and "end")) or id not in (select distinct chef_id from foodwagon_backend_ordered_chef))', [start, end])
-    
-    
-
-    main1 = Chef.objects.all()
-
-    if is_valid_query_param(name_contains_query):
-        chefs = Chef.objects.raw(
-                    'select * from foodwagon_backend_chef where (id in (select distinct chef_id from foodwagon_backend_ordered_chef where not exists ( select chef_id from foodwagon_backend_ordered_chef where %s between start and "end" or %s between start and "end")) or id not in (select distinct chef_id from foodwagon_backend_ordered_chef)) and "Name" = %s', [start, end,name_contains_query])
-    if is_valid_query_param(state_query) and state != 'Search':
-        chefs = Chef.objects.raw(
-                    'select * from foodwagon_backend_chef where (id in (select distinct chef_id from foodwagon_backend_ordered_chef where not exists ( select chef_id from foodwagon_backend_ordered_chef where %s between start and "end" or %s between start and "end")) or id not in (select distinct chef_id from foodwagon_backend_ordered_chef)) and "State" = %s', [start, end,state_query])
-    if is_valid_query_param(city_query) and city != 'Search':
-        chefs = Chef.objects.raw(
-                    'select * from foodwagon_backend_chef where (id in (select distinct chef_id from foodwagon_backend_ordered_chef where not exists ( select chef_id from foodwagon_backend_ordered_chef where %s between start and "end" or %s between start and "end")) or id not in (select distinct chef_id from foodwagon_backend_ordered_chef)) and "City" = %s', [start, end,city_query])
-    
-    if is_valid_query_param(expertin):
-       chefs = Chef.objects.raw(
-                    'select * from foodwagon_backend_chef where (id in (select distinct chef_id from foodwagon_backend_ordered_chef where not exists ( select chef_id from foodwagon_backend_ordered_chef where %s between start and "end" or %s between start and "end")) or id not in (select distinct chef_id from foodwagon_backend_ordered_chef)) and "ExpertIn" = %s', [start, end,expertin])
-    return render(request, 'FoodWagon/catering.html', {'chefs': chefs, 'main': main1,'reviews':reviews,'badge_value':cart_item})
+            return render(request, 'FoodWagon/catering.html', {'chefs': chefs, 'main': main1,'reviews':reviews,'badge_value':cart_item, 'allchefs': allchefs, 'special': special, 'speciality_choices': speciality_choices, 'cities': cities, 'states':states})
+   
+    return render(request, 'FoodWagon/catering.html', {'chefs': chefs, 'main': main1,'reviews':reviews,'badge_value':cart_item, 'allchefs': allchefs, 'special': special, 'speciality_choices': speciality_choices, 'cities': cities, 'states':states})
 
 
 
@@ -377,7 +463,7 @@ def restaurent(request):
         phone_number = request.POST['phone']
         message = request.POST['message']
         body = "Name: " + first_name + " " + last_name + \
-            "\nPhone number: " + phone_number + "\nMassage: " + message
+            "\nPhone number: " + phone_number + "\nMessage: " + message
         send_mail(
             'Message from ' + first_name + " " + last_name,
             body,

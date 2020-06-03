@@ -224,15 +224,19 @@
         <a href="" class="btn btn-secondary fixed-top " data-toggle="modal" data-target="#filter" style="margin-top: 100px !important; width: fit-content; margin-left: 20px; z-index: 1;">Add Filter</a>
         <div class="container">
             <div class="row justify-content-center">
-            {%if chefs %}
-              {% for chef in chefs %}
+            {%if allchefs %}
+              {% for chef in allchefs %}
                 <div class="card text-center" style="width: 18rem; " >
                    {%if chef.Image %} <img class="card-img-top mx-auto" src={{chef.Image.url}} alt="Card image cap" style="width:250px; height:250px"> {% endif %}
                     <div class="card-body">
                       <h5 class="card-title">{{chef.Name}}</h5>
                       <p class="card-text"><b>City:</b> {{chef.City}} <br>
                           <b>Price per Day :</b> {{chef.Stipend}}<br>
-                          <b>Specialise In :</b> | {% for item in chef.Speciality %} {%for i in item%}{{i}}{%endfor%} | {%endfor%}</p>
+                          <b>Specialise in :</b>
+                          {% for s in chef.Speciality.all %}
+                              {{s}}
+                          {% endfor %}
+                          <br>
 
                       <a href="/catering/{{chef.id}}" class="btn btn-primary" >More Details</a>
                       {% if user.is_authenticated %}
@@ -392,18 +396,13 @@
                                         </div>
                                     </label>
                                     <header class="card-header">
-                                      <h6 class="title">Search By Name</h6>
+                                      <h6 class="title">Search By Name </h6>
                                   </header>
-                                    <label class="form-check">
-                                      <div class="col-auto my-1">
-                                          <select name="city" class="custom-select mr-sm-2" id="city" style="margin-top: 10px !important; margin-bottom: 10px !important;" >
-                                            <option selected>Search</option>
-                                              {% for chef in main %}
-                                              <option>{{chef.Name}}</option>
-                                              {% endfor %}
-                                          </select>
-                                      </div>
-                                  </label>
+                                      <label class="form-check">
+                                        <div class="col-auto my-1">
+                                            <input class="form-control py-2" type="search" name="name_contains" placeholder="Name..." />
+                                        </div>
+                                    </label>
                                     </header>
                                     <header class="card-header">
                                       <h6 class="title">Search By City </h6>
@@ -412,8 +411,8 @@
                                       <div class="col-auto my-1">
                                           <select name="city" class="custom-select mr-sm-2" id="city" style="margin-top: 10px !important; margin-bottom: 10px !important;" >
                                             <option selected>Search</option>
-                                              {% for chef in main %}
-                                              <option>{{chef.City}}</option>
+                                              {% for city in cities %}
+                                              <option>{{ city }}</option>
                                               {% endfor %}
                                           </select>
                                       </div>
@@ -426,76 +425,24 @@
                                       <div class="col-auto my-1">
                                           <select name="state" class="custom-select mr-sm-2" id="state" style="margin-top: 10px !important; margin-bottom: 10px !important;" >
                                               <option>Search</option>
-                                              {% for chef in main %}
-                                              <option>{{chef.State}}</option>
+                                              {% for state in states %}
+                                              <option>{{state}}</option>
                                             {% endfor %}
                                           </select>
                                       </div>
                                   </label>
-                                    
-                                    {% comment %} <header class="card-header">
-                                        <h6 class="title">Specialise In </h6>
-                                    </header>
+                                  
+                                  <header class="card-header">
+                                    <h6 class="title">Specialise In </h6>
+                                </header>
+                                    {% for s in speciality_choices %}
                                     <label class="form-check">
-                                      <input class="form-check-input" type="checkbox" value="">
+                                      <input class="form-check-input" type="checkbox", name="{{s}}", value="{{s}}">
                                       <span class="form-check-label">
-                                        North Indian
+                                        {{s}}
                                       </span>
-                                    </label> <!-- form-check.// -->
-                                    <label class="form-check">
-                                      <input class="form-check-input" type="checkbox" value="">
-                                      <span class="form-check-label">
-                                        South Indian
-                                      </span>
-                                    </label>  <!-- form-check.// -->
-                                    <label class="form-check">
-                                      <input class="form-check-input" type="checkbox" value="">
-                                      <span class="form-check-label">
-                                        Gujarati
-                                      </span>
-                                    </label>  <!-- form-check.// -->
-                                    <label class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="">
-                                        <span class="form-check-label">
-                                          Punjabi
-                                        </span>
-                                    </label> <!-- form-check.// -->
-                                    <label class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="">
-                                        <span class="form-check-label">
-                                          Rajasthani
-                                        </span>
-                                    </label> <!-- form-check.// -->
-                                    <label class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="">
-                                        <span class="form-check-label">
-                                          Continental
-                                        </span>
-                                    </label> <!-- form-check.// -->
-                                    <label class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="">
-                                        <span class="form-check-label">
-                                          Bengali
-                                        </span>
-                                    </label> <!-- form-check.// -->
-                                    <label class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="">
-                                        <span class="form-check-label">
-                                          Marathi
-                                        </span>
-                                    </label> <!-- form-check.// -->
-                                    <label class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="">
-                                        <span class="form-check-label">
-                                          Jain Food
-                                        </span>
-                                    </label> <!-- form-check.// -->
-                                    <label class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="">
-                                        <span class="form-check-label">
-                                          Bakery
-                                        </span>
-                                    </label> <!-- form-check.// --> {% endcomment %}
+                                    </label> <!-- form-check.// --> 
+                                    {% endfor %} <!-- form-check.// --> 
                                     <header class="card-header">
                                         <h6 class="title">Expert In </h6>
                                     </header>

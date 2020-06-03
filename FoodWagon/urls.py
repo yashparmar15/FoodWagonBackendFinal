@@ -24,7 +24,7 @@ from django.conf.urls import include
 urlpatterns = [
     path('', views.index, name='index'),
     path('adminlogin/', views.adminlogin),
-    path('catering/', views.catering),
+    path('catering/', views.catering, name='catering'),
     path('restaurent/', views.restaurent),
     path('venue/', views.venue),
     path('foodtruck/', views.foodtruck),

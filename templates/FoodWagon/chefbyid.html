@@ -319,7 +319,7 @@ body{
                             </p>
                             <h6><b>Specialise In</b></h6>
                             <p>
-                                {% for item in chef.Speciality%}{{item}}  <br> {%endfor%}
+                                {% for item in chef.Speciality.all%}{{item}}  <br> {%endfor%}
                             </p>
                         </div>
                         <div class="col-md-6">
