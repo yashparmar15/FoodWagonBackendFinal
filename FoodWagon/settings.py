@@ -16,6 +16,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 Template_DIR = os.path.join(BASE_DIR, 'templates')
 Static_DIR = os.path.join(BASE_DIR, 'static')
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 
 # Quick-start development settings - unsuitable for production
@@ -82,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'Foodwagon',
         'USER': 'postgres',
-        'PASSWORD': '1234ayan',
+        'PASSWORD': '',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }

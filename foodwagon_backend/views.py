@@ -100,10 +100,10 @@ def loginPage(request):
             if user is not None:
                 login(request, user)
                 try:
-                    print("try kiya")
+                    # print("try kiya")
                     customer = request.user.customer
                 except:
-                    print("nhi tha ")
+                    # print("nhi tha ")
                     customer1 = Customer(user = request.user, name = request.user.username, email = request.user.email)
                     customer1.save()
                 return redirect('index')
@@ -146,7 +146,7 @@ def service(request):
     if request.method == "POST":
         city = request.POST['city']
         service = request.POST['service']
-        print(city,service)
+        # print(city,service)
         items = cart_items(request)
         if service == "None":
             return render(request, 'FoodWagon/index.html',{'badge_value':items})
@@ -236,10 +236,10 @@ def index(request):
     reviews = ReviewIndex.objects.all()
     if request.user.is_authenticated:
         try:
-            print("try kiya")
+            # print("try kiya")
             customer = request.user.customer
         except:
-            print("nhi tha ")
+            # print("nhi tha ")
             customer1 = Customer(user = request.user, name = request.user.username, email = request.user.email)
             customer1.save()
     items = cart_items(request)
@@ -257,7 +257,7 @@ def chef(request):
 def cart(request):
     if request.user.is_authenticated:
         custmores = Customer.objects.all()
-        print(custmores)
+        # print(custmores)
         customer = request.user.customer
 
 
@@ -282,6 +282,7 @@ def cart(request):
         'chef_items': chef_items,
         'order': order,
         'badge_value':items
+        
         }
 
     return render(request, 'FoodWagon/cart.html',context)
@@ -312,11 +313,13 @@ def add_to_cart_venue(request,id):
             curr_venue = OrderItemVenue(venue = venue, order= order, quantity =1)
             curr_venue.save()
             message = 'Succussfully added to cart'
+            messages.success(request, 'Successfully Added to Cart.')
             items = cart_items(request)
         else:
-            message = 'Cant add to cart'
+            message = "Can't add to cart"
             items = cart_items(request)
-        return redirect('/venue/{}'.format(id),{'badge_value':items})
+            essages.warning(request, 'Sorry Venue is Booked in Specified Date')
+        return redirect('/venue/{}'.format(id),{'badge_value':items,'message':"Hello"})
 
     
 
@@ -333,17 +336,18 @@ def add_to_cart_chef(request,id):
         if flag:
             customer = request.user.customer
             chef = Chef.objects.get(id= id)
-            print(chef)
+            # print(chef)
             order, created = Order.objects.get_or_create(customer=customer, complete=False)
             curr_chef = OrderItemChef(chef = chef, order= order, quantity =1)
             curr_chef.save()
             message = 'Succussfully added to cart'
             items = cart_items(request)
+            messages.success(request, 'Successfully Added to Cart.')
             
         else:
             message = 'Cant add to cart'
             items = cart_items(request)
-
+            messages.warning(request, 'Sorry Chef is Booked in Specified Date')
         return redirect('/catering/{}'.format(id),{'badge_value':items,'message': message})
 
     
@@ -368,7 +372,7 @@ def delete_item_cart_chef(request,id):
         items = cart_items(request)
         OrderItemChef.objects.filter(id = id).delete()
         items -= 1
-    return redirect('/cart',{'badge_value':cart_item})
+    return redirect('/cart',{'badge_value':items})
 
 
 
@@ -536,9 +540,9 @@ def catering(request):
     speciality_choices = ["North Indian", "South Indian", "Gujarati", "Bengali", "Rajasthani", "Marathi", "Continental", "Punjabi", "Jain Food", "Bakery", "Other"]
     if start == None:
         if end == None:
-            return render(request, 'FoodWagon/catering.html', {'chefs': chefs, 'main': main1,'reviews':reviews,'badge_value':cart_item, 'allchefs': allchefs, 'special': special, 'speciality_choices': speciality_choices, 'cities': cities, 'states':states})
+            return render(request, 'FoodWagon/catering.html', {'chefs': chefs, 'main': main1,'reviews':reviews,'badge_value':items, 'allchefs': allchefs, 'special': special, 'speciality_choices': speciality_choices, 'cities': cities, 'states':states})
    
-    return render(request, 'FoodWagon/catering.html', {'chefs': chefs, 'main': main1,'reviews':reviews,'badge_value':cart_item, 'allchefs': allchefs, 'special': special, 'speciality_choices': speciality_choices, 'cities': cities, 'states':states})
+    return render(request, 'FoodWagon/catering.html', {'chefs': chefs, 'main': main1,'reviews':reviews,'badge_value':items, 'allchefs': allchefs, 'special': special, 'speciality_choices': speciality_choices, 'cities': cities, 'states':states})
 
 
 
@@ -574,7 +578,7 @@ def venue(request):
         Sor = request.POST['sort']
         start = request.POST['start']
         end = request.POST['end']
-        print(start, end)
+        # print(start, end)
         if city != "None":
             if Sor == "lowtohigh":
 

@@ -285,6 +285,11 @@
 
     
     <h1 class="text-center" style="margin-top:100px;margin-bottom:50px;">{{venue.Venue_Name}}</h1>
+    {% if messages %}
+    {% for message in messages %}
+        <div class="  text-center alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
+    {% endfor %}
+{% endif %}
     <div class="b text-center" >
         <p class="p" style="padding-top:30px !important;"><b>City :</b>  {{venue.City}} </p>
         <p class="p"><b>Address :</b> {{venue.Address}}</p>
@@ -384,6 +389,7 @@
   </a>
   {%endif%}
 </div>
+
 
 
 
