@@ -62,7 +62,7 @@
         <a class="navbar-brand js-scroll-trigger" href="#page-top"
           ><img
             class="img-fluid1 img-fluid"
-            src="{% static 'img/FoodWagon.png' %}"
+            src="{% static 'img/FoodWagon.PNG' %}"
             width="200"
             height="40"
             alt="FOODWAGON" /></a
@@ -240,7 +240,9 @@
 
                       <a href="/catering/{{chef.id}}" class="btn btn-primary" >More Details</a>
                       {% if user.is_authenticated %}
-                      <a href="/add_to_cart_chef/{{chef.id}}" class=" btn btn-success butt">Add to Cart</a>
+                      <a href="/catering/{{chef.id}}" class="btn btn-primary" >Add to cart and More Details</a>
+                      
+                      <!-- <a href="/add_to_cart_chef/{{chef.id}}" class=" btn btn-success butt">Add to Cart</a> -->
 
                       {% else %}
                       <button

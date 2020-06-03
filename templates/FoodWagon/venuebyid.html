@@ -150,7 +150,7 @@
         <a class="navbar-brand js-scroll-trigger" href="#page-top"
           ><img
             class="img-fluid1 img-fluid"
-            src="{% static 'img/FoodWagon.png' %}"
+            src="{% static 'img/FoodWagon.PNG' %}"
             width="200"
             height="40"
             alt="FOODWAGON" /></a
@@ -291,10 +291,42 @@
         <p class="p"><b>Maximum Guest :</b> {{venue.Maximum_Guest}}</p>
         <p class="p"><b>Price per Day :</b> Rs. {{venue.Price_per_Day}}</p>
         <p class="p"><b>Phone No. :</b> {{venue.Phone}}</p>
-        <a href="/add_to_cart_venue/{{venue.id}}" class=" btn btn-success butt" style="margin-bottom:30px">Add to Cart</a>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter" style="margin-bottom:30px">
+          Add To Cart
+        </button>
+        <!-- <a href="/add_to_cart_venue/{{venue.id}}" class=" btn btn-success butt" style="margin-bottom:30px">Add to Cart</a> -->
         <button name="book_now" type="submit" class="btn btn-success butt" style="margin-bottom:30px">Book Now</button>
     </div>
+
+    <!-- Modal for date -->
     
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <form action="/add_to_cart_venue/{{venue.id}}" method="POST">
+          {% csrf_token %}
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Select The Dates</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <label class="form-check">
+                <div class="col-auto my-1">
+                  <b>From :</b>  <input type="date" class="custom-select mr-sm-2" name="start" required>
+                    <b>To :</b>  <input type="date" class="custom-select mr-sm-2" name="end" required>
+                </div>
+              </label>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <input  type="submit" class="btn btn-success" value="GO">
+          </div>
+          </form>  
+        </div>
+      </div>
+    </div>
     
     
 <div id="carouselExampleIndicators" class="carousel slide text-center" data-ride="carousel">
@@ -564,6 +596,9 @@
 
 
 <script>
+            
+
+
             $(function () {
                 $('#myButton').floatingWhatsApp({
                     phone: '917000311028',
@@ -577,7 +612,7 @@
                     buttonImage: '<img src="{% static 'img/whatsapp.svg' %}" />'
                 });
             });
-        </script>
+</script>
 
 </body>
 </html>

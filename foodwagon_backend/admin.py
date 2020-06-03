@@ -6,6 +6,9 @@ from .models import *
 admin.site.register(Venues)
 admin.site.register(Trucks)
 admin.site.register(Chef)
+
+admin.site.register(Ordered_Chef)
+admin.site.register(Ordered_Venue)
 admin.site.register(Customer)
 admin.site.register(Product)
 admin.site.register(OrderItemTruck)

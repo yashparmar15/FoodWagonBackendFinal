@@ -66,7 +66,7 @@
         <a class="navbar-brand js-scroll-trigger" href="#page-top"
           ><img
             class="img-fluid1 img-fluid"
-            src="{% static 'img/FoodWagon.png' %}"
+            src="{% static 'img/FoodWagon.PNG' %}"
             width="200"
             height="40"
             alt="FOODWAGON" /></a
@@ -255,9 +255,9 @@
             {%if trucks%}
             {% for truck in trucks%}
             <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
-                <div class="card text-center p-3">
+                <div class="card text-center p-3 text-center">
                     
-                    {% if truck.image1 %}<img  class="card-img-top rounded" src={{truck.image1.url}} alt="truck image">{%endif%}
+                    {% if truck.image1 %}<img  class="card-img-top rounded mx-auto" src={{truck.image1.url}} alt="truck image" style="width:250px;height:200px">{%endif%}
                     <div class="card-body pb-0">
                         
                         <h4 class="text-color">{{truck.Model_Name}}</h4>
@@ -431,6 +431,61 @@
                 </div>
               </div>
 <br><br>
+            <a href="" class="btn btn-secondary fixed-top " data-toggle="modal" data-target="#venuefilter" style="margin-top: 100px !important; width: fit-content; margin-left: 20px; z-index: 1;">Add Filter</a>
+    <div class="modal fade" id="venuefilter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card" >
+                        <article class="card-group-item">
+                            
+                            <div class="filter-content">
+                                <div class="card-body">
+                                <form action="/foodtruck/" method="POST">
+                                    {% csrf_token %}
+                                    
+                                    <header class="card-header">
+                                        <h6 class="title">Sort By Price</h6>
+                                    </header>
+                                    
+                                        <label class="form-check">
+                                          <input class="form-check-input" type="radio" name="sort" value="lowtohigh" checked>
+                                            Low to High
+                                          </span>
+                                        </label>
+                                        <label class="form-check">
+                                          <input class="form-check-input" type="radio" name="sort" value="hightolow">
+                                          <span class="form-check-label">
+                                            High to Low
+                                          </span>
+                                        </label>
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                          <input  type="submit" class="btn btn-success" value="Save Changes">
+                                        </div>
+                                        
+                                        
+                                     
+                                </form>
+                    
+                                </div> <!-- card-body.// -->
+                            </div>
+                        </article> <!-- card-group-item.// -->
+                        
+                        
+                    </div>
+
+                </div>
+                
+              </div>
+            </div>
+          </div>
 
 
 
