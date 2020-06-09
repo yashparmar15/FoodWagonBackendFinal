@@ -1,176 +1,365 @@
-
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
   <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.png' %}" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'CSS/formcatering.css' %}">
+    <meta charset="utf-8" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="{% static 'img/favicon.png' %}"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="{% static 'CSS/formcatering.css' %}" />
     <!-- <link rel="stylesheet" href="CSS/bootstarp.min.css"> -->
     <title>Chef Registration</title>
-    <link rel="stylesheet" href="{% static 'CSS/floating-wpp.css' %}">
-    <link rel="stylesheet" href="{% static 'CSS/floating-wpp.min.css' %}">
+    <link rel="stylesheet" href="{% static 'CSS/floating-wpp.css' %}" />
+    <link rel="stylesheet" href="{% static 'CSS/floating-wpp.min.css' %}" />
     <style>
-        .no-js #loader { display: none;  }
-        .js #loader { display: block; position: absolute; left: 100px; top: 0; }
-        .se-pre-con {
-            position: fixed;
-            left: 0px;
-            top: 0px;
-            width: 100%;
-            height: 100%;
-            z-index: 9999;
-            background: url("{% static './img/Preloader_2.gif' %}") center no-repeat #fff;
-        }
-        </style>
-        <script src="{% static './JS/forpre1.js' %}"></script>
-            <script src="{% static './JS/forpre2.js' %}"></script>
-        <script>
-            $(window).load(function() {
-                $(".se-pre-con").fadeOut("slow");;
-            });
-        </script>
+      .no-js #loader {
+        display: none;
+      }
+      .js #loader {
+        display: block;
+        position: absolute;
+        left: 100px;
+        top: 0;
+      }
+      .se-pre-con {
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        background: url("{% static './img/Preloader_2.gif' %}") center no-repeat
+          #fff;
+      }
+    </style>
+    <script src="{% static './JS/forpre1.js' %}"></script>
+    <script src="{% static './JS/forpre2.js' %}"></script>
+    <script>
+      $(window).load(function () {
+        $('.se-pre-con').fadeOut('slow');
+      });
+    </script>
 
-
-
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"  crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
-    </head>
-    <body>
-        <div id="myButton" style="z-index: 100000;"></div>
-        <div class="se-pre-con"></div>
-        <div class="container">
-        <div class="text-center pb-3 mt-5">
-        <a href="/"><img src="{% static 'img/FoodWagon.PNG' %}" height="40" width=""></a>
-        </div>
-        <form id="contact" action="/catering/" method="POST" enctype="multipart/form-data">
+  </head>
+  <body>
+    <div id="myButton" style="z-index: 100000;"></div>
+    <div class="se-pre-con"></div>
+    <div class="container">
+      <div class="text-center pb-3 mt-5">
+        <a href="/"
+          ><img src="{% static 'img/FoodWagon.PNG' %}" height="40" width=""
+        /></a>
+      </div>
+      <form
+        id="contact"
+        action="/catering/"
+        method="POST"
+        enctype="multipart/form-data"
+      >
         {% csrf_token %}
         <h3>Chef Registration</h3>
-        <h4>Homemade Food For Everyone</h4>      
+        <h4>Homemade Food For Everyone</h4>
         <fieldset>
-            <label>I am A...<span>*</span></label><br>
-            <input type="checkbox" tabindex="2"  value="Home Chef" name="work[]" checked> Home Chef <br>
-            <input type="checkbox" tabindex="2"  value="Professional Chef" name="work[]"> Professional Chef <br>
-            <input type="checkbox" tabindex="2"  value="Mess" name="work[]"> Mess <br>
+          <label>I am A...<span>*</span></label
+          ><br />
+          <input
+            type="checkbox"
+            tabindex="2"
+            value="Home Chef"
+            name="work[]"
+            checked
+          />
+          Home Chef <br />
+          <input
+            type="checkbox"
+            tabindex="2"
+            value="Professional Chef"
+            name="work[]"
+          />
+          Professional Chef <br />
+          <input type="checkbox" tabindex="2" value="Mess" name="work[]" /> Mess
+          <br />
         </fieldset>
         <fieldset>
-            <label>Full Name<span>*</span></label>
-            <input placeholder="Full Name" type="text" name="full_name" value="" tabindex="2" required>
+          <label>Full Name<span>*</span></label>
+          <input
+            placeholder="Full Name"
+            type="text"
+            name="full_name"
+            value=""
+            tabindex="2"
+            required
+          />
         </fieldset>
         <fieldset>
-            <label>Mobile Number<span>*</span></label>
-            <input placeholder="Your Mobile Number" type="tel" name="mobile_number" id="mobile_number" value="" tabindex="3" required>
+          <label>Mobile Number<span>*</span></label>
+          <input
+            placeholder="Your Mobile Number"
+            type="tel"
+            name="mobile_number"
+            id="mobile_number"
+            class="mobile_number"
+            value=""
+            tabindex="3"
+            required
+            pattern="[1-9]{1}[0-9]{2}-[0-9]{3}-[0-9]{4}"
+          />
+          <br />
         </fieldset>
         <fieldset>
-            <label>Email</label>
-            <input placeholder="Your Email Address" type="email" name="email" value="" tabindex="2" >
+          <label>Email</label>
+          <input
+            placeholder="Your Email Address"
+            type="email"
+            name="email"
+            value=""
+            tabindex="2"
+          />
         </fieldset>
         <fieldset>
-            <label>Stipend (per day)<span>*</span></label>
-            <input placeholder="Stipend" type="text" name="stipend" value="" tabindex="2" required>
+          <label>Stipend (per day)<span>*</span></label>
+          <input
+            placeholder="Stipend"
+            type="text"
+            name="stipend"
+            value=""
+            tabindex="2"
+            required
+          />
         </fieldset>
         <fieldset>
-            <label>Country<span>*</span></label>
-            <select name="country" class="countries" id="countryId">
+          <label>Country<span>*</span></label>
+          <select name="country" class="countries" id="countryId">
             <option value="">Select a Country</option>
-            </select>
+          </select>
         </fieldset>
         <fieldset>
-            <label>State<span>*</span></label>
-            <select name="state" class="states" id="stateId">
+          <label>State<span>*</span></label>
+          <select name="state" class="states" id="stateId">
             <option value="">Select a State</option>
-            </select>
+          </select>
         </fieldset>
         <fieldset>
-            <label>City<span>*</span></label>
-            <select name="city" class="cities" id="cityId">
+          <label>City<span>*</span></label>
+          <select name="city" class="cities" id="cityId">
             <option value="">Select a City</option>
-            </select>
+          </select>
         </fieldset>
         <fieldset>
-            <label>Area<span>*</span></label>
-            <input placeholder="Your Area" type="text" name="area" tabindex="4" required>
+          <label>Area<span>*</span></label>
+          <input
+            placeholder="Your Area"
+            type="text"
+            name="area"
+            tabindex="4"
+            required
+          />
         </fieldset>
         <fieldset>
-            <label>Address<span>*</span></label>
-            <textarea placeholder="Type your Address" name="address" tabindex="5" required></textarea>
+          <label>Address<span>*</span></label>
+          <textarea
+            placeholder="Type your Address"
+            name="address"
+            tabindex="5"
+            required
+          ></textarea>
         </fieldset>
         <fieldset>
-            <label>I specialise in these Cusine(s)<span>*</span></label><br>
-            <input type="checkbox" tabindex="2" value="North Indian" name = "north"> North Indian <br>
-            <input type="checkbox" tabindex="2" value="South Indian" name = "south"> South Indian <br>
-            <input type="checkbox" tabindex="2" value="Gujarati" name = "gujarati"> Gujarati <br>
-            <input type="checkbox" tabindex="2" value="Punjabi" name = "punjabi"> Punjabi <br>
-            <input type="checkbox" tabindex="2" value="Rajasthani" name = "rajasthani"> Rajasthani <br>
-            <input type="checkbox" tabindex="2" value="Continental" name = "continental"> Continental <br>
-            <input type="checkbox" tabindex="2" value="Bengali" name = "bengali"> Bengali <br>
-            <input type="checkbox" tabindex="2" value="Marathi" name = "marathi"> Marathi <br>
-            <input type="checkbox" tabindex="2" value="Jain Food" name = "jain"> Jain Food <br>
-            <input type="checkbox" tabindex="2" value="Bakery" name = "bakery"> Bakery <br>
-            <input type="checkbox" tabindex="2" value="Other" name = "other"> Other <br>
+          <label>I specialise in these Cusine(s)<span>*</span></label
+          ><br />
+          <input
+            type="checkbox"
+            tabindex="2"
+            value="North Indian"
+            name="north"
+          />
+          North Indian <br />
+          <input
+            type="checkbox"
+            tabindex="2"
+            value="South Indian"
+            name="south"
+          />
+          South Indian <br />
+          <input
+            type="checkbox"
+            tabindex="2"
+            value="Gujarati"
+            name="gujarati"
+          />
+          Gujarati <br />
+          <input type="checkbox" tabindex="2" value="Punjabi" name="punjabi" />
+          Punjabi <br />
+          <input
+            type="checkbox"
+            tabindex="2"
+            value="Rajasthani"
+            name="rajasthani"
+          />
+          Rajasthani <br />
+          <input
+            type="checkbox"
+            tabindex="2"
+            value="Continental"
+            name="continental"
+          />
+          Continental <br />
+          <input type="checkbox" tabindex="2" value="Bengali" name="bengali" />
+          Bengali <br />
+          <input type="checkbox" tabindex="2" value="Marathi" name="marathi" />
+          Marathi <br />
+          <input type="checkbox" tabindex="2" value="Jain Food" name="jain" />
+          Jain Food <br />
+          <input type="checkbox" tabindex="2" value="Bakery" name="bakery" />
+          Bakery <br />
+          <input type="checkbox" tabindex="2" value="Other" name="other" />
+          Other <br />
         </fieldset>
         <fieldset>
-            <label>Bussiness type<span>*</span></label><br>
-            <input type="radio" tabindex="2"  value="Individual" name="work_type" checked> Individual <br>
-            <input type="radio" tabindex="2"  value="Professional" name="work_type"> Professional <br>
+          <label>Bussiness type<span>*</span></label
+          ><br />
+          <input
+            type="radio"
+            tabindex="2"
+            value="Individual"
+            name="work_type"
+            checked
+          />
+          Individual <br />
+          <input
+            type="radio"
+            tabindex="2"
+            value="Professional"
+            name="work_type"
+          />
+          Professional <br />
         </fieldset>
         <fieldset>
-            <label>Expert in<span>*</span></label><br>
-            <input type="radio" tabindex="2"  value="Vegetarian" name="food_type_id" checked> Vegetarian <br>
-            <input type="radio" tabindex="2"  value="Non Vegetarian" name="food_type_id"> Non Vegetarian <br>
-            <input type="radio" tabindex="2"  value="Both" name="food_type_id"> Both <br>
+          <label>Expert in<span>*</span></label
+          ><br />
+          <input
+            type="radio"
+            tabindex="2"
+            value="Vegetarian"
+            name="food_type_id"
+            checked
+          />
+          Vegetarian <br />
+          <input
+            type="radio"
+            tabindex="2"
+            value="Non Vegetarian"
+            name="food_type_id"
+          />
+          Non Vegetarian <br />
+          <input type="radio" tabindex="2" value="Both" name="food_type_id" />
+          Both <br />
         </fieldset>
         <fieldset>
-            <label>Do you Have Food License<span>*</span></label><br>
-            <input type="radio" tabindex="2"  value="Yes" name="is_license"> Yes <br>
-            <input type="radio" tabindex="2"  value="No" name="is_license" checked> No <br>
-        </fieldset>      
-        <fieldset>
-            <label>No. of Customer Base</label>
-            <input placeholder="No. of Customer Base" type="text" name="customer_strength" value="" tabindex="2">
+          <label>Do you Have Food License<span>*</span></label
+          ><br />
+          <input type="radio" tabindex="2" value="Yes" name="is_license" /> Yes
+          <br />
+          <input
+            type="radio"
+            tabindex="2"
+            value="No"
+            name="is_license"
+            checked
+          />
+          No <br />
         </fieldset>
         <fieldset>
-            <label>Employee Id</label>
-            <input placeholder="Employee Id" type="text" name="employee_id" value="" tabindex="2">
+          <label>No. of Customer Base</label>
+          <input
+            placeholder="No. of Customer Base"
+            type="text"
+            name="customer_strength"
+            value=""
+            tabindex="2"
+          />
+        </fieldset>
+        <fieldset>
+          <label>Employee Id</label>
+          <input
+            placeholder="Employee Id"
+            type="text"
+            name="employee_id"
+            value=""
+            tabindex="2"
+          />
         </fieldset>
         <div class="file-field">
-            <div class="btn btn-primary btn-sm ">
-              <span>Choose file</span>
-              <input type="file" name = "image" required>
-            </div>
-            <div class="file-path-wrapper">
-              <input class="file-path validate" type="text" placeholder="Upload your Photo" readonly required>
-            </div>
+          <div class="btn btn-primary btn-sm">
+            <span>Choose file</span>
+            <input type="file" name="image" required />
+          </div>
+          <div class="file-path-wrapper">
+            <input
+              class="file-path validate"
+              type="text"
+              placeholder="Upload your Photo"
+              readonly
+              required
+            />
+          </div>
         </div>
-        <fieldset>        
-            <button name="next" type="submit"  id="submitBtn">Next</button>
-            <a href="/catering" class="text-center btn-block btn-sm btn-primary" id="backBtn" disabled="">&lt;&lt; Go back</a>
+        <fieldset>
+          <button name="next" type="submit" id="submitBtn">Next</button>
+          <a
+            href="/catering"
+            class="text-center btn-block btn-sm btn-primary"
+            id="backBtn"
+            disabled=""
+            >&lt;&lt; Go back</a
+          >
         </fieldset>
-        <p class="copyright"><a href="/" target="_blank" title="Fatfood">FoodWagon Pvt. Ltd</a> Copyright © 2020 All Rights Reserved</p>
-        </form>
-        
+        <p class="copyright">
+          <a href="/" target="_blank" title="Fatfood">FoodWagon Pvt. Ltd</a>
+          Copyright © 2020 All Rights Reserved
+        </p>
+      </form>
     </div>
     <script>
-            $(function () {
-                $('#myButton').floatingWhatsApp({
-                    phone: '917000311028',
-                    popupMessage: 'Hello, how can we help you?',
-                    message: "I'd like to order a pizza",
-                    showPopup: true,
-                    showOnIE: false,
-                    headerTitle: 'Welcome to FoodWagon!',
-                    headerColor: '#4FCE5D',
-                    backgroundColor: '#4FCE5D',
-                    buttonImage: '<img src="{% static 'img/whatsapp.svg' %}" />'
-                });
-            });
-        </script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> 
+      $(function () {
+          $('#myButton').floatingWhatsApp({
+              phone: '917000311028',
+              popupMessage: 'Hello, how can we help you?',
+              message: "I'd like to order a pizza",
+              showPopup: true,
+              showOnIE: false,
+              headerTitle: 'Welcome to FoodWagon!',
+              headerColor: '#4FCE5D',
+              backgroundColor: '#4FCE5D',
+              buttonImage: '<img src="{% static 'img/whatsapp.svg' %}" />'
+          });
+      });
+    </script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="//geodata.solutions/includes/countrystatecity.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
@@ -178,8 +367,27 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
     <!-- Core theme JS-->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="{% static 'JS/floating-wpp.js' %}"></script>
-    
-    </body>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/cleave.js/1.6.0/cleave.min.js"
+      integrity="sha256-frGUwmSN4CLLjyk5m59ECdXsDMUxTW5O6hdceNHVCJo="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      type="text/javascript"
+      src="{% static 'JS/floating-wpp.js' %}"
+    ></script>
+
+    <script>
+      var cleave = new Cleave('.mobile_number', {
+        delimiter: '-',
+        blocks: [3, 3, 4],
+        uppercase: true,
+      });
+    </script>
+  </body>
 </html>

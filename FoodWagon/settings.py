@@ -83,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'Foodwagon',
         'USER': 'postgres',
-        'PASSWORD': '',
+        'PASSWORD': '1234ayan',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
@@ -137,8 +137,7 @@ FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'yashparmar157000@gmail.com'
+EMAIL_HOST_USER = 'ayan.adhya.18003@iitgoa.ac.in'
 EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-

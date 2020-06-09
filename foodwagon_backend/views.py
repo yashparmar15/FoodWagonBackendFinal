@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
 
-from django.http import HttpResponse,HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from foodwagon_backend.models import *
 
 from django.http import HttpResponse
-from foodwagon_backend.models import Venues, Trucks, Chef, Ordered_Venue, Ordered_Chef,ReviewIndex,ReviewTruck,ReviewChef,ReviewOutlet,ReviewVenue,ReviewVenueID,ReviewChefID,ReviewTruckID
+from foodwagon_backend.models import Venues, Trucks, Chef, Ordered_Venue, Ordered_Chef, ReviewIndex, ReviewTruck, ReviewChef, ReviewOutlet, ReviewVenue, ReviewVenueID, ReviewChefID, ReviewTruckID
 
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.core.mail import send_mail
@@ -16,10 +16,20 @@ from django.db.models import Q
 import datetime
 from .models import *
 
+
+def error_404_view(request, exception):
+    return render(request, 'FoodWagon/404.html')
+
+
+def error_500_view(request):
+    return render(request, 'FoodWagon/500.html')
+
+
 def cart_items(request):
     if request.user.is_authenticated:
         customer = request.user.customer
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        order, created = Order.objects.get_or_create(
+            customer=customer, complete=False)
         truck_items = order.orderitemtruck_set.all()
         venue_items = order.orderitemvenue_set.all()
         chef_items = order.orderitemchef_set.all()
@@ -28,34 +38,35 @@ def cart_items(request):
         return 0
 
 
-
-def review_venueID(request,id):
+def review_venueID(request, id):
     if request.method == 'POST':
         fname = request.user.first_name
         lname = request.user.last_name
         Name = fname + " " + lname
         review = request.POST['review']
-        Data = ReviewVenueID(venue_id = id ,Name = Name , Review = review)
+        Data = ReviewVenueID(venue_id=id, Name=Name, Review=review)
         Data.save()
     return redirect('/venue/{}'.format(id))
 
-def review_chefID(request,id):
+
+def review_chefID(request, id):
     if request.method == 'POST':
         fname = request.user.first_name
         lname = request.user.last_name
         Name = fname + " " + lname
         review = request.POST['review']
-        Data = ReviewChefID(chef_id = id ,Name = Name , Review = review)
+        Data = ReviewChefID(chef_id=id, Name=Name, Review=review)
         Data.save()
     return redirect('/catering/{}'.format(id))
 
-def review_truckID(request,id):
+
+def review_truckID(request, id):
     if request.method == 'POST':
         fname = request.user.first_name
         lname = request.user.last_name
         Name = fname + " " + lname
         review = request.POST['review']
-        Data = ReviewTruckID(truck_id = id ,Name = Name , Review = review)
+        Data = ReviewTruckID(truck_id=id, Name=Name, Review=review)
         Data.save()
     return redirect('/foodtruck/{}'.format(id))
 
@@ -78,15 +89,18 @@ def register(request):
         context = {'form': form}
         return render(request, 'FoodWagon/register.html', context)
 
+
 def review_truck(request):
     if request.method == 'POST':
         fname = request.user.first_name
         lname = request.user.last_name
         Name = fname + " " + lname
         review = request.POST['review']
-        Data = ReviewTruck(Name = Name , Review = review)
+        Data = ReviewTruck(Name=Name, Review=review)
         Data.save()
     return redirect('/foodtruck')
+
+
 def loginPage(request):
     if request.user.is_authenticated:
         return redirect('index')
@@ -104,7 +118,8 @@ def loginPage(request):
                     customer = request.user.customer
                 except:
                     # print("nhi tha ")
-                    customer1 = Customer(user = request.user, name = request.user.username, email = request.user.email)
+                    customer1 = Customer(
+                        user=request.user, name=request.user.username, email=request.user.email)
                     customer1.save()
                 return redirect('index')
             else:
@@ -121,24 +136,29 @@ def logoutUser(request):
 def chefbyid(request, id):
     items = cart_items(request)
     chef_list = Chef.objects.get(id=id)
-    reviews = ReviewChefID.objects.raw('select * from foodwagon_backend_reviewchefid where chef_id = %s order by id desc',[id])
-    chef_dict = {'chef': chef_list,'reviews':reviews,'badge_value':items}
+    reviews = ReviewChefID.objects.raw(
+        'select * from foodwagon_backend_reviewchefid where chef_id = %s order by id desc', [id])
+    chef_dict = {'chef': chef_list, 'reviews': reviews, 'badge_value': items}
     return render(request, 'FoodWagon/chefbyid.html', context=chef_dict)
 
 
 def venuebyid(request, id):
     items = cart_items(request)
     venue_list = Venues.objects.get(id=id)
-    reviews = ReviewVenueID.objects.raw('select * from foodwagon_backend_reviewvenueid where venue_id = %s order by id desc',[id])
-    venue_dict = {'venue': venue_list , 'reviews':reviews,'badge_value':items}
+    reviews = ReviewVenueID.objects.raw(
+        'select * from foodwagon_backend_reviewvenueid where venue_id = %s order by id desc', [id])
+    venue_dict = {'venue': venue_list,
+                  'reviews': reviews, 'badge_value': items}
     return render(request, 'FoodWagon/venuebyid.html', context=venue_dict)
 
 
 def truckbyid(request, id):
     items = cart_items(request)
     truck_list = Trucks.objects.get(id=id)
-    reviews = ReviewTruckID.objects.raw('select * from foodwagon_backend_reviewtruckid where truck_id = %s order by id desc',[id])
-    truck_dict = {'truck': truck_list,'reviews':reviews,'badge_value':items}
+    reviews = ReviewTruckID.objects.raw(
+        'select * from foodwagon_backend_reviewtruckid where truck_id = %s order by id desc', [id])
+    truck_dict = {'truck': truck_list,
+                  'reviews': reviews, 'badge_value': items}
     return render(request, 'FoodWagon/truckbyid.html', context=truck_dict)
 
 
@@ -149,23 +169,24 @@ def service(request):
         # print(city,service)
         items = cart_items(request)
         if service == "None":
-            return render(request, 'FoodWagon/index.html',{'badge_value':items})
+            return render(request, 'FoodWagon/index.html', {'badge_value': items})
         if service == "venue":
             if city == "None":
                 venue_list = Venues.objects.all()
-                return render(request, 'FoodWagon/venue.html', {'venues': venue_list,'badge_value':items})
+                return render(request, 'FoodWagon/venue.html', {'venues': venue_list, 'badge_value': items})
             venue_list = Venues.objects.filter(City=city)
-            return render(request, 'FoodWagon/venue.html', {'venues': venue_list,'badge_value':items})
+            return render(request, 'FoodWagon/venue.html', {'venues': venue_list, 'badge_value': items})
         if service == "foodtruck":
             truck_list = Trucks.objects.all()
-            return render(request, 'FoodWagon/foodtruck.html', {'trucks': truck_list,'badge_value':items})
+            return render(request, 'FoodWagon/foodtruck.html', {'trucks': truck_list, 'badge_value': items})
         if service == "restaurent":
             return render(request, 'FoodWagon/restaurant.html')
         chef_list = Chef.objects.filter(City=city)
-        if city == "None": 
+        if city == "None":
             chef_list = Chef.objects.all()
-        return render(request, 'FoodWagon/catering.html' , {'chefs':chef_list,'badge_value':items})
-    return redirect('/',{'badge_value':items})
+        return render(request, 'FoodWagon/catering.html', {'chefs': chef_list, 'badge_value': items})
+    return redirect('/', {'badge_value': items})
+
 
 def review_index(request):
     if request.method == 'POST':
@@ -173,9 +194,10 @@ def review_index(request):
         lname = request.user.last_name
         Name = fname + " " + lname
         review = request.POST['review']
-        Data = ReviewIndex(Name = Name , Review = review)
+        Data = ReviewIndex(Name=Name, Review=review)
         Data.save()
     return redirect('/')
+
 
 def review_venue(request):
     if request.method == 'POST':
@@ -183,9 +205,10 @@ def review_venue(request):
         lname = request.user.last_name
         Name = fname + " " + lname
         review = request.POST['review']
-        Data = ReviewVenue(Name = Name , Review = review)
+        Data = ReviewVenue(Name=Name, Review=review)
         Data.save()
     return redirect('/venue')
+
 
 def review_restaurent(request):
     if request.method == 'POST':
@@ -193,9 +216,10 @@ def review_restaurent(request):
         lname = request.user.last_name
         Name = fname + " " + lname
         review = request.POST['review']
-        Data = ReviewOutlet(Name = Name , Review = review)
+        Data = ReviewOutlet(Name=Name, Review=review)
         Data.save()
     return redirect('/restaurent')
+
 
 def review_catering(request):
     if request.method == 'POST':
@@ -203,12 +227,13 @@ def review_catering(request):
         lname = request.user.last_name
         Name = fname + " " + lname
         review = request.POST['review']
-        Data = ReviewChef(Name = Name , Review = review)
+        Data = ReviewChef(Name=Name, Review=review)
         Data.save()
     return redirect('/catering')
 
+
 def index(request):
-    if request.method == 'POST':    
+    if request.method == 'POST':
         first_name = request.POST['fname']
         last_name = request.POST['lname']
         email = request.POST['email']
@@ -222,8 +247,8 @@ def index(request):
             fail_silently=False
         )
         items = cart_items(request)
-        
-        return render(request, 'FoodWagon/index.html', {'name': first_name + " " + last_name,'badge_value':items})
+
+        return render(request, 'FoodWagon/index.html', {'name': first_name + " " + last_name, 'badge_value': items})
     venue_list = Venues.objects.all()
     chef_list = Chef.objects.all()
     list_of_cities = []
@@ -240,10 +265,11 @@ def index(request):
             customer = request.user.customer
         except:
             # print("nhi tha ")
-            customer1 = Customer(user = request.user, name = request.user.username, email = request.user.email)
+            customer1 = Customer(
+                user=request.user, name=request.user.username, email=request.user.email)
             customer1.save()
     items = cart_items(request)
-    return render(request, 'FoodWagon/index.html', {'venuess': list_of_cities, 'truckss': truck_list ,'reviews':reviews,'badge_value':items})
+    return render(request, 'FoodWagon/index.html', {'venuess': list_of_cities, 'truckss': truck_list, 'reviews': reviews, 'badge_value': items})
 
 
 def adminlogin(request):
@@ -260,20 +286,19 @@ def cart(request):
         # print(custmores)
         customer = request.user.customer
 
-
         # print(customer.email)
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        order, created = Order.objects.get_or_create(
+            customer=customer, complete=False)
         truck_items = order.orderitemtruck_set.all()
         venue_items = order.orderitemvenue_set.all()
         chef_items = order.orderitemchef_set.all()
-        
+
         # print(created)
         # print(truck_items)
         # print(venue_items)
         # print(chef_items)
     else:
         items = []
-    
 
     items = cart_items(request)
     context = {
@@ -281,36 +306,41 @@ def cart(request):
         'venue_items': venue_items,
         'chef_items': chef_items,
         'order': order,
-        'badge_value':items
-        
-        }
+        'badge_value': items
 
-    return render(request, 'FoodWagon/cart.html',context)
+    }
 
-def add_to_cart_truck(request,id):
+    return render(request, 'FoodWagon/cart.html', context)
+
+
+def add_to_cart_truck(request, id):
     if request.user.is_authenticated:
         customer = request.user.customer
-        truck = Trucks.objects.get(id = id)
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        curr_truck = OrderItemTruck(truck = truck, order= order, quantity =1)
+        truck = Trucks.objects.get(id=id)
+        order, created = Order.objects.get_or_create(
+            customer=customer, complete=False)
+        curr_truck = OrderItemTruck(truck=truck, order=order, quantity=1)
         curr_truck.save()
         items = cart_items(request)
-    return redirect('/foodtruck/{}'.format(id),{'badge_value':items})
+    return redirect('/foodtruck/{}'.format(id), {'badge_value': items})
 
-def add_to_cart_venue(request,id):
+
+def add_to_cart_venue(request, id):
     if request.user.is_authenticated:
         start = request.POST['start']
         end = request.POST['end']
-        venues_available = Venues.objects.raw('select id from foodwagon_backend_venues where id not in (select venue_id from foodwagon_backend_ordered_venue where not("end" < %s or start > %s))',[start,end])
+        venues_available = Venues.objects.raw(
+            'select id from foodwagon_backend_venues where id not in (select venue_id from foodwagon_backend_ordered_venue where not("end" < %s or start > %s))', [start, end])
         flag = False
         for venue in venues_available:
-            if venue.id==id:
+            if venue.id == id:
                 flag = True
         if flag:
             customer = request.user.customer
-            venue = Venues.objects.get(id = id)
-            order, created = Order.objects.get_or_create(customer=customer, complete=False)
-            curr_venue = OrderItemVenue(venue = venue, order= order, quantity =1)
+            venue = Venues.objects.get(id=id)
+            order, created = Order.objects.get_or_create(
+                customer=customer, complete=False)
+            curr_venue = OrderItemVenue(venue=venue, order=order, quantity=1)
             curr_venue.save()
             message = 'Succussfully added to cart'
             messages.success(request, 'Successfully Added to Cart.')
@@ -319,63 +349,59 @@ def add_to_cart_venue(request,id):
             message = "Can't add to cart"
             items = cart_items(request)
             essages.warning(request, 'Sorry Venue is Booked in Specified Date')
-        return redirect('/venue/{}'.format(id),{'badge_value':items,'message':"Hello"})
-
-    
+        return redirect('/venue/{}'.format(id), {'badge_value': items, 'message': "Hello"})
 
 
-def add_to_cart_chef(request,id):
+def add_to_cart_chef(request, id):
     if request.user.is_authenticated:
         start = request.POST['start']
         end = request.POST['end']
-        chefs_available = Chef.objects.raw('select id from foodwagon_backend_chef where id not in (select chef_id from foodwagon_backend_ordered_chef where not("end" < %s or start > %s))',[start,end])
+        chefs_available = Chef.objects.raw(
+            'select id from foodwagon_backend_chef where id not in (select chef_id from foodwagon_backend_ordered_chef where not("end" < %s or start > %s))', [start, end])
         flag = False
         for chef in chefs_available:
-            if chef.id==id:
+            if chef.id == id:
                 flag = True
         if flag:
             customer = request.user.customer
-            chef = Chef.objects.get(id= id)
+            chef = Chef.objects.get(id=id)
             # print(chef)
-            order, created = Order.objects.get_or_create(customer=customer, complete=False)
-            curr_chef = OrderItemChef(chef = chef, order= order, quantity =1)
+            order, created = Order.objects.get_or_create(
+                customer=customer, complete=False)
+            curr_chef = OrderItemChef(chef=chef, order=order, quantity=1)
             curr_chef.save()
             message = 'Succussfully added to cart'
             items = cart_items(request)
             messages.success(request, 'Successfully Added to Cart.')
-            
+
         else:
             message = 'Cant add to cart'
             items = cart_items(request)
             messages.warning(request, 'Sorry Chef is Booked in Specified Date')
-        return redirect('/catering/{}'.format(id),{'badge_value':items,'message': message})
-
-    
+        return redirect('/catering/{}'.format(id), {'badge_value': items, 'message': message})
 
 
-
-def delete_item_cart_truck(request,id):
+def delete_item_cart_truck(request, id):
     if request.user.is_authenticated:
         items = cart_items(request)
-        OrderItemTruck.objects.filter(id = id).delete()
+        OrderItemTruck.objects.filter(id=id).delete()
         items -= 1
-    return redirect('/cart',{'badge_value':items})
+    return redirect('/cart', {'badge_value': items})
 
-def delete_item_cart_venue(request,id):
+
+def delete_item_cart_venue(request, id):
     if request.user.is_authenticated:
         items = cart_items(request)
-        OrderItemVenue.objects.filter(id = id).delete()
-    return redirect('/cart',{'badge_value':items})
+        OrderItemVenue.objects.filter(id=id).delete()
+    return redirect('/cart', {'badge_value': items})
 
-def delete_item_cart_chef(request,id):
+
+def delete_item_cart_chef(request, id):
     if request.user.is_authenticated:
         items = cart_items(request)
-        OrderItemChef.objects.filter(id = id).delete()
+        OrderItemChef.objects.filter(id=id).delete()
         items -= 1
-    return redirect('/cart',{'badge_value':items})
-
-
-
+    return redirect('/cart', {'badge_value': items})
 
 
 def is_valid_query_param(param):
@@ -384,7 +410,7 @@ def is_valid_query_param(param):
 
 def catering(request):
     items = cart_items(request)
-    
+
     if request.method == 'POST':
         work = request.POST.getlist('work[]')
         name = request.POST['full_name']
@@ -419,7 +445,7 @@ def catering(request):
                     City=city, Area=area, Address=address, Type=work_type, ExpertIn=expert, License=lic,
                     Base=customer, EmployeeID=employee, Image=image)
         Data.save()
-    
+
         if is_valid_query_param(north):
             s1 = Data.Speciality.create(speciality=north)
         if is_valid_query_param(south):
@@ -442,13 +468,11 @@ def catering(request):
             s10 = Data.Speciality.create(speciality=marathi)
         if is_valid_query_param(other):
             s10 = Data.Speciality.create(speciality=other)
-        
+
         return redirect('catering')
-        
-    
+
     reviews = ReviewChef.objects.all().order_by('id').reverse()
     special = Special.objects.all().order_by('speciality')
-    
 
     name_contains_query = request.GET.get('name_contains')
     state_query = request.GET.get('state')
@@ -474,27 +498,26 @@ def catering(request):
     allchefs = Chef.objects.all()
     chefs = Chef.objects.all()
     main1 = Chef.objects.all()
-    
-    
+
     ordered_chef = Ordered_Chef.objects.all()
 
     format = "%Y-%m-%d"
     if is_valid_query_param(start) and is_valid_query_param(end):
-        start = datetime.datetime.strptime(start, format) 
-        end = datetime.datetime.strptime(end, format) 
+        start = datetime.datetime.strptime(start, format)
+        end = datetime.datetime.strptime(end, format)
         start = start.date()
         end = end.date()
         ids_ordered_chef = []
         for i in ordered_chef:
-            if i.start<=start<=i.end or i.start<=end<=i.end:
+            if i.start <= start <= i.end or i.start <= end <= i.end:
                 ids_ordered_chef.append(i.chef_id)
         ids_allchefs = []
         for i in allchefs:
             if i.id not in ids_ordered_chef:
                 ids_allchefs.append(i.id)
-        
-        allchefs = allchefs.filter(id__in=ids_allchefs) 
-    
+
+        allchefs = allchefs.filter(id__in=ids_allchefs)
+
     if is_valid_query_param(name_contains_query):
         allchefs = allchefs.filter(Name__icontains=name_contains_query)
     if is_valid_query_param(state_query) and state != 'Search':
@@ -504,23 +527,25 @@ def catering(request):
     if is_valid_query_param(expertin):
         allchefs = allchefs.filter(ExpertIn=expertin)
 
-
     if is_valid_query_param(south):
         allchefs = allchefs.filter(Q(Speciality__speciality__contains=south))
     if is_valid_query_param(north):
         allchefs = allchefs.filter(Q(Speciality__speciality__contains=north))
     if is_valid_query_param(gujarati):
-        allchefs = allchefs.filter(Q(Speciality__speciality__contains=gujarati))
+        allchefs = allchefs.filter(
+            Q(Speciality__speciality__contains=gujarati))
     if is_valid_query_param(marathi):
         allchefs = allchefs.filter(Q(Speciality__speciality__contains=marathi))
     if is_valid_query_param(bengali):
         allchefs = allchefs.filter(Q(Speciality__speciality__contains=bengali))
     if is_valid_query_param(continental):
-        allchefs = allchefs.filter(Q(Speciality__speciality__contains=continental))
+        allchefs = allchefs.filter(
+            Q(Speciality__speciality__contains=continental))
     if is_valid_query_param(bakery):
         allchefs = allchefs.filter(Q(Speciality__speciality__contains=bakery))
     if is_valid_query_param(rajasthani):
-        allchefs = allchefs.filter(Q(Speciality__speciality__contains=rajasthani))
+        allchefs = allchefs.filter(
+            Q(Speciality__speciality__contains=rajasthani))
     if is_valid_query_param(punjabi):
         allchefs = allchefs.filter(Q(Speciality__speciality__contains=punjabi))
     if is_valid_query_param(jain):
@@ -532,23 +557,21 @@ def catering(request):
     for i in main1:
         cities.append(i.City)
         states.append(i.State)
-    
 
-    
     cities = list(set(cities))
     states = list(set(states))
-    speciality_choices = ["North Indian", "South Indian", "Gujarati", "Bengali", "Rajasthani", "Marathi", "Continental", "Punjabi", "Jain Food", "Bakery", "Other"]
+    speciality_choices = ["North Indian", "South Indian", "Gujarati", "Bengali",
+                          "Rajasthani", "Marathi", "Continental", "Punjabi", "Jain Food", "Bakery", "Other"]
     if start == None:
         if end == None:
-            return render(request, 'FoodWagon/catering.html', {'chefs': chefs, 'main': main1,'reviews':reviews,'badge_value':items, 'allchefs': allchefs, 'special': special, 'speciality_choices': speciality_choices, 'cities': cities, 'states':states})
-   
-    return render(request, 'FoodWagon/catering.html', {'chefs': chefs, 'main': main1,'reviews':reviews,'badge_value':items, 'allchefs': allchefs, 'special': special, 'speciality_choices': speciality_choices, 'cities': cities, 'states':states})
+            return render(request, 'FoodWagon/catering.html', {'chefs': chefs, 'main': main1, 'reviews': reviews, 'badge_value': items, 'allchefs': allchefs, 'special': special, 'speciality_choices': speciality_choices, 'cities': cities, 'states': states})
 
+    return render(request, 'FoodWagon/catering.html', {'chefs': chefs, 'main': main1, 'reviews': reviews, 'badge_value': items, 'allchefs': allchefs, 'special': special, 'speciality_choices': speciality_choices, 'cities': cities, 'states': states})
 
 
 def restaurent(request):
     items = cart_items(request)
-    
+
     if request.method == 'POST':
         first_name = request.POST['first-name']
         last_name = request.POST['last-name']
@@ -564,15 +587,15 @@ def restaurent(request):
             ["yashparmar157000@gmail.com"],
             fail_silently=False
         )
-        return render(request, 'FoodWagon/restaurent.html', {'name': first_name + " " + last_name,'badge_value':items})
+        return render(request, 'FoodWagon/restaurent.html', {'name': first_name + " " + last_name, 'badge_value': items})
     reviews = ReviewOutlet.objects.all().order_by('id').reverse()
-    return render(request, 'FoodWagon/restaurent.html',{'reviews':reviews,'badge_value':items})
+    return render(request, 'FoodWagon/restaurent.html', {'reviews': reviews, 'badge_value': items})
 
 
 def venue(request):
     venue_list_distint_city = Venues.objects.values('City').distinct()
     items = cart_items(request)
-    
+
     if request.method == "POST":
         city = request.POST['city']
         Sor = request.POST['sort']
@@ -582,14 +605,18 @@ def venue(request):
         if city != "None":
             if Sor == "lowtohigh":
 
-                venue_list = Venues.objects.raw('select * from foodwagon_backend_venues where id not in (select venue_id from foodwagon_backend_ordered_venue where not("end" < %s or start > %s)) and "City" = %s order by "Price_per_Day"',[start,end,city])
+                venue_list = Venues.objects.raw(
+                    'select * from foodwagon_backend_venues where id not in (select venue_id from foodwagon_backend_ordered_venue where not("end" < %s or start > %s)) and "City" = %s order by "Price_per_Day"', [start, end, city])
             else:
-                venue_list = Venues.objects.raw('select * from foodwagon_backend_venues where id not in (select venue_id from foodwagon_backend_ordered_venue where not("end" < %s or start > %s)) and "City" = %s order by "Price_per_Day" desc',[start,end,city])
+                venue_list = Venues.objects.raw(
+                    'select * from foodwagon_backend_venues where id not in (select venue_id from foodwagon_backend_ordered_venue where not("end" < %s or start > %s)) and "City" = %s order by "Price_per_Day" desc', [start, end, city])
         else:
             if Sor == "lowtohigh":
-                venue_list = Venues.objects.raw('select * from foodwagon_backend_venues where id not in (select venue_id from foodwagon_backend_ordered_venue where not("end" < %s or start > %s)) order by "Price_per_Day"',[start,end])
+                venue_list = Venues.objects.raw(
+                    'select * from foodwagon_backend_venues where id not in (select venue_id from foodwagon_backend_ordered_venue where not("end" < %s or start > %s)) order by "Price_per_Day"', [start, end])
             else:
-                venue_list = Venues.objects.raw('select * from foodwagon_backend_venues where id not in (select venue_id from foodwagon_backend_ordered_venue where not("end" < %s or start > %s))  order by "Price_per_Day" desc',[start,end])
+                venue_list = Venues.objects.raw(
+                    'select * from foodwagon_backend_venues where id not in (select venue_id from foodwagon_backend_ordered_venue where not("end" < %s or start > %s))  order by "Price_per_Day" desc', [start, end])
         if len(venue_list) == 0:
             paginator = Paginator(venue_list, 1)
         else:
@@ -615,7 +642,7 @@ def venue(request):
             venues = paginator.page(paginator.num_pages)
     reviews = ReviewVenue.objects.all().order_by('id').reverse()
     venue_dict = {
-        'venues': venues, 'venues_list': venue_list_distint_city,'reviews':reviews,'badge_value':items
+        'venues': venues, 'venues_list': venue_list_distint_city, 'reviews': reviews, 'badge_value': items
     }
 
     return render(request, 'FoodWagon/venue.html', context=venue_dict)
@@ -642,4 +669,4 @@ def foodtruck(request):
         'trucks': trucks,
     }
     reviews = ReviewTruck.objects.all().order_by('id').reverse()
-    return render(request, 'FoodWagon/foodtruck.html', {'trucks': trucks, 'reviews':reviews,'badge_value':items})
+    return render(request, 'FoodWagon/foodtruck.html', {'trucks': trucks, 'reviews': reviews, 'badge_value': items})
