@@ -285,6 +285,11 @@
 
 
 <h1 class="text-center" style="margin-top:100px;margin-bottom:50px;">{{truck.Model_Name}}</h1>
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
+    {% endfor %}
+{% endif %}
 <div class="b text-center" >
     <p class="p" style="padding-top:30px !important;"><b>Description :</b>  {{truck.Description}} </p>
     <p class="p"><b>Price : </b>Rs. {{truck.Price}}</p>

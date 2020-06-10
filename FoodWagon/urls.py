@@ -20,8 +20,11 @@ from foodwagon_backend import views
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import include
+from django.urls import path
+from django.views.static import serve 
 
 urlpatterns = [
+     
     path('', views.index, name='index'),
     path('adminlogin/', views.adminlogin),
     path('catering/', views.catering, name='catering'),
@@ -56,6 +59,9 @@ urlpatterns = [
     path('review_chefID/<int:id>', views.review_chefID),
     path('review_truckID/<int:id>', views.review_truckID),
     path('cart/', views.cart),
+    path('payment/',views.payment),
+    path('pay/', views.initiate_payment, name='pay'),
+    path('callback/', views.callback, name='callback'),
     path('reset-password/', PasswordResetView.as_view(
         template_name="FoodWagon/password-reset.html"), name='password_reset'),
     path('reset-password/done/', PasswordResetDoneView.as_view(template_name='FoodWagon/password-reset-sent.html'),

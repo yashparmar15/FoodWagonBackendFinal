@@ -292,6 +292,8 @@
     <div class="row">
         <div class="col-12">
             <div class="table-responsive">
+                <form method='POST' action="/payment/">
+                {% csrf_token %}
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -343,7 +345,7 @@
                             <td></td>
                             <td></td>
                             <td>Total</td>
-                            <td class="text-right">{{order.get_cart_total}} Rs</td>
+                            <td> <input type="text" name = "totalamount" class="text-right" style="border:none"value="{{order.get_cart_total}}"> Rs</td>
                         </tr>
                         
                         
@@ -351,18 +353,23 @@
                 </table>
             </div>
         </div>
+        
         <div class="col mb-2">
             <div class="row">
                 <div class="col-sm-12  col-md-6">
                     <a href="/catering/" class="btn btn-block btn-light">Continue Shopping</a>
                 </div>
                 <div class="col-sm-12 col-md-6 text-right">
-                    <button class="btn btn-lg btn-block btn-success text-uppercase">Checkout</button>
+                    <button type = "submit"class="btn btn-lg btn-block btn-success text-uppercase">Checkout</button>
                 </div>
             </div>
         </div>
+        </form>
     </div>
 </div>
+{% if error %}
+    <h3>{{ error }}</h3>
+    {% endif %}
 
 
    

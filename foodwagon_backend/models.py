@@ -211,3 +211,15 @@ class ReviewTruckID(models.Model):
     truck_id = models.IntegerField(null = False , blank = False)
     Name = models.CharField(null = False , blank = False , max_length = 200)
     Review = models.CharField(null = False , blank = False , max_length = 1024)
+
+class Transactions(models.Model):
+    CustomerID = models.IntegerField()
+    made_on = models.DateTimeField(auto_now_add=True)
+    amount = models.IntegerField()
+    order_id = models.CharField(unique=True, max_length=255, null=True, blank=True)
+    checksum = models.CharField(max_length=255, null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        if self.order_id is None and self.made_on and self.id:
+            self.order_id = self.made_on.strftime('PAY2ME%Y%m%dODR') + str(self.id)
+        return super().save(*args, **kwargs)

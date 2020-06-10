@@ -26,9 +26,9 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 SECRET_KEY = 'j!uo*m(csp3ises&hi6-+l8w!0f(#t4yu*c(sddw44zn3+bcwn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -141,3 +141,14 @@ EMAIL_HOST_USER = 'ayan.adhya.18003@iitgoa.ac.in'
 EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+PAYTM_MERCHANT_ID = 'egODbR43722722502011'
+
+PAYTM_SECRET_KEY = 'mevX&O2lP4_f4Px@'
+
+PAYTM_WEBSITE = 'WEBSTAGING'
+
+PAYTM_CHANNEL_ID = 'WEB'
+
+PAYTM_INDUSTRY_TYPE_ID = 'Retail'
+
