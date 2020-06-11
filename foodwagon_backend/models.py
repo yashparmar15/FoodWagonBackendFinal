@@ -2,6 +2,9 @@ from django.db import models
 
 from django.contrib.postgres.fields import ArrayField
 from django.contrib.auth.models import User
+from django.utils.timezone import now
+import datetime
+
 
 class Venues(models.Model):
     Venue_Name = models.CharField(max_length=50, null=False, blank=False)
@@ -44,6 +47,25 @@ class Trucks(models.Model):
     def __str__(self):
         return str(self.Model_Name)
 
+        
+class Special(models.Model):
+    SPECIALITY_CHOICES = (
+        ('North Indian', 'North Indian'),
+        ('South Indian', 'South Indian'),
+        ('Gujarati', 'Gujarati'),
+        ('Bengali', 'Bengali'),
+        ('Bakery', 'Bakery'),
+        ('Marathi', 'Marathi'),
+        ('Continental', 'Continental'),
+        ('Jain Food', 'Jain Food'),
+        ('Rajasthani', 'Rajasthani'),
+        ('Punjabi', 'Punjabi'),
+    
+    )
+    speciality = models.CharField(max_length=100, null=True, blank=True)
+
+    def __str__(self):
+        return str(self.speciality)
 
 class Chef(models.Model):
     Work_As = ArrayField(ArrayField(models.CharField(
@@ -58,8 +80,10 @@ class Chef(models.Model):
     City = models.CharField(max_length=100, null=False, blank=False)
     Area = models.CharField(max_length=250, null=False, blank=False)
     Address = models.CharField(max_length=255, null=False, blank=False)
-    Speciality = ArrayField(ArrayField(models.CharField(
-        max_length=250, null=False, blank=False)))
+    # Speciality = ArrayField(ArrayField(models.CharField(
+    #     max_length=250, null=False, blank=False)))
+    Speciality = models.ManyToManyField(Special)
+
     Type = models.CharField(max_length=15, null=False, blank=False)
     ExpertIn = models.CharField(max_length=100, null=False, blank=False)
     License = models.CharField(max_length=5, null=False, blank=False)
@@ -129,7 +153,7 @@ class OrderItemTruck(models.Model):
     truck= models.ForeignKey(Trucks, on_delete=models.SET_NULL, blank= True, null=True)
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, blank= True, null=True)
     quantity = models.IntegerField(default=0, null=True, blank=True)
-    # date_added= models.DateTimeField(auto_now_add=True)
+
 
     @property
     def get_total(self):
@@ -140,20 +164,35 @@ class OrderItemVenue(models.Model):
     venue = models.ForeignKey(Venues, on_delete=models.SET_NULL, blank= True, null=True)
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, blank= True, null=True)
     quantity = models.IntegerField(default=0, null=True, blank=True)
-    date_added= models.DateTimeField(auto_now_add=True)
+    start = models.DateField(null=False, blank=False, default = now)
+    end = models.DateField(null=False, blank=False, default = now)
+
     @property
     def get_total(self):
-        total = self.venue.Price_per_Day * self.quantity
+        format = "%Y-%m-%d"
+        start = datetime.datetime.strptime(str(self.start), format)
+        end = datetime.datetime.strptime(str(self.end), format)
+        start = start.date()
+        end = end.date()
+        days = (end-start).days
+        total = self.venue.Price_per_Day * self.quantity * days
         return total
 
 class OrderItemChef(models.Model):
     chef = models.ForeignKey(Chef, on_delete=models.SET_NULL, blank= True, null=True)
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, blank= True, null=True)
     quantity = models.IntegerField(default=0, null=True, blank=True)
-    date_added= models.DateTimeField(auto_now_add=True)
+    start = models.DateField(null=False, blank=False, default = now)
+    end = models.DateField(null=False, blank=False, default = now)
     @property
     def get_total(self):
-        total = self.chef.Stipend * self.quantity
+        format = "%Y-%m-%d"
+        start = datetime.datetime.strptime(str(self.start), format)
+        end = datetime.datetime.strptime(str(self.end), format)
+        start = start.date()
+        end = end.date()
+        days = (end-start).days
+        total = self.chef.Stipend * self.quantity * days
         return total
 
 class ReviewIndex(models.Model):
@@ -190,3 +229,15 @@ class ReviewTruckID(models.Model):
     truck_id = models.IntegerField(null = False , blank = False)
     Name = models.CharField(null = False , blank = False , max_length = 200)
     Review = models.CharField(null = False , blank = False , max_length = 1024)
+
+class Transactions(models.Model):
+    CustomerID = models.IntegerField()
+    made_on = models.DateTimeField(auto_now_add=True)
+    amount = models.IntegerField()
+    order_id = models.CharField(unique=True, max_length=255, null=True, blank=True)
+    checksum = models.CharField(max_length=255, null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        if self.order_id is None and self.made_on and self.id:
+            self.order_id = self.made_on.strftime('PAY2ME%Y%m%dODR') + str(self.id)
+        return super().save(*args, **kwargs)

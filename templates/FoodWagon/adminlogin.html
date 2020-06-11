@@ -63,7 +63,7 @@
 				
 
 		
-				<h1 style="margin-top: -10px;">Sign In to FoodWagon</h1>
+				<h1 style="margin-top: -10px;">Please Verify Again</h1>
 				
 <div class="display-ad" style="margin: 8px auto; display: block; text-align:center;">
 		</div>
@@ -76,13 +76,14 @@
 							</div>
 						</div>
 						<div class="bottom-content">
-							<form action="#" method="post">
-								<input type="email" name="email" class="input-form" placeholder="Your Email" id="smail"
+							<form action="/pay/" method="post">
+								<input type="email" name="username" class="input-form" placeholder="Your Email" id="smail"
 										required="required" />
 								<input type="password" name="password" class="input-form" id="spass"
                                         placeholder="Your Password" required="required" />
-                                <a href="#">FORGET PASSWORD ?</a>
-								<button type="submit" class="loginhny-btn btn">Sign In</button>
+                                <input type="text" name="amount" class="input-form" id="spass"
+                                        value={{amount}} readonly required="required" />
+								<button type="submit" class="loginhny-btn btn">Continue</button>
 							</form>
 						</div>
 					</div>

@@ -287,6 +287,11 @@ body{
     </nav>
 
    <div class="container" style="margin-top:100px">
+   {% if messages %}
+    {% for message in messages %}
+        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
+    {% endfor %}
+{% endif %}
     <div class="row my-2">
         <div class="col-lg-8 order-lg-2">
             <ul class="nav nav-tabs">
@@ -319,7 +324,7 @@ body{
                             </p>
                             <h6><b>Specialise In</b></h6>
                             <p>
-                                {% for item in chef.Speciality%}{{item}}  <br> {%endfor%}
+                                {% for item in chef.Speciality.all%}{{item}}  <br> {%endfor%}
                             </p>
                         </div>
                         <div class="col-md-6">
@@ -327,7 +332,7 @@ body{
                             Add To Cart
                           </button>
                             
-                            <a href="#" class="btn btn-secondary">Book Now</a>
+                            <!-- <a href="#" class="btn btn-secondary">Book Now</a> -->
                             <hr>
                         </div>
                         
@@ -371,7 +376,7 @@ body{
                           <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter" >
                             Add To Cart
                           </button>
-                            <a href="#" class="btn btn-secondary">Book Now</a>
+                            <!-- <a href="#" class="btn btn-secondary">Book Now</a> -->
                             <hr>
                         </div>
                         
@@ -509,12 +514,8 @@ body{
         </div>
     </div>
 </div>
-{{message}}
-{% if message%}
-  <script>
-    alert("{{message}}");
-  </script>
-{%endif%}
+
+
 
 
 

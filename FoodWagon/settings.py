@@ -16,6 +16,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 Template_DIR = os.path.join(BASE_DIR, 'templates')
 Static_DIR = os.path.join(BASE_DIR, 'static')
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 
 # Quick-start development settings - unsuitable for production
@@ -136,8 +137,18 @@ FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'yashparmar157000@gmail.com'
+EMAIL_HOST_USER = 'ayan.adhya.18003@iitgoa.ac.in'
 EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+PAYTM_MERCHANT_ID = 'egODbR43722722502011'
+
+PAYTM_SECRET_KEY = 'mevX&O2lP4_f4Px@'
+
+PAYTM_WEBSITE = 'WEBSTAGING'
+
+PAYTM_CHANNEL_ID = 'WEB'
+
+PAYTM_INDUSTRY_TYPE_ID = 'Retail'
 
