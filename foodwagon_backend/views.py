@@ -118,10 +118,10 @@ def logoutUser(request):
 
 
 def chefbyid(request, id):
-
+    items = cart_items(request)
     chef_list = Chef.objects.get(id=id)
     reviews = ReviewChefID.objects.raw('select * from foodwagon_backend_reviewchefid where chef_id = %s order by id desc',[id])
-    chef_dict = {'chef': chef_list,'reviews':reviews,'badge_value':cart_item}
+    chef_dict = {'chef': chef_list,'reviews':reviews,'badge_value':items}
     return render(request, 'FoodWagon/chefbyid.html', context=chef_dict)
 
 
@@ -258,10 +258,9 @@ def cart(request):
         custmores = Customer.objects.all()
         print(custmores)
         customer = request.user.customer
-<<<<<<< HEAD
-=======
+
         # print(customer.email)
->>>>>>> 47a1a10489f2b9bb68312f2d6b8988346483ceea
+
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
         truck_items = order.orderitemtruck_set.all()
         venue_items = order.orderitemvenue_set.all()
@@ -274,10 +273,9 @@ def cart(request):
     else:
         items = []
     
-<<<<<<< HEAD
+
     items = cart_items(request)
-=======
->>>>>>> 47a1a10489f2b9bb68312f2d6b8988346483ceea
+
     context = {
         'truck_items': truck_items,
         'venue_items': venue_items,
@@ -349,36 +347,30 @@ def add_to_cart_chef(request,id):
         return redirect('/catering/{}'.format(id),{'badge_value':items,'message': message})
 
     
-<<<<<<< HEAD
 
-=======
 def delete_item_cart_truck(request,id):
     if request.user.is_authenticated:
         print(id)
         OrderItemTruck.objects.filter(id = id).delete()
         # print(curr_truck)
-        global cart_item
-        cart_item -= 1
-    return redirect('/cart',{'badge_value',cart_item})
+        items = cart_items(request)
+    return redirect('/cart',{'badge_value',items})
 
 def delete_item_cart_venue(request,id):
     if request.user.is_authenticated:
         print(id)
         OrderItemVenue.objects.filter(id = id).delete()
         # print(curr_truck)
-        global cart_item
-        cart_item -= 1
-    return redirect('/cart',{'badge_value',cart_item})
+        items = cart_items(request)
+    return redirect('/cart',{'badge_value',items})
 
 def delete_item_cart_chef(request,id):
     if request.user.is_authenticated:
         print(id)
         OrderItemChef.objects.filter(id = id).delete()
         # print(curr_truck)
-        global cart_item
-        cart_item -= 1
-    return redirect('/cart',{'badge_value',cart_item})
->>>>>>> 47a1a10489f2b9bb68312f2d6b8988346483ceea
+        items = cart_items(request)
+    return redirect('/cart',{'badge_value',items})
 
 
 
