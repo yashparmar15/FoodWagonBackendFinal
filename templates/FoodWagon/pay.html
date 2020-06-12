@@ -83,6 +83,10 @@
 								<input type="password" name="password" class="input-form" id="spass"
                                         placeholder="Your Password" required="required" />
                                 <label value="Amount to Pay" style="float:left; padding-left:2px"><b>Amount to Pay</b>   </label>
+                                {%if error%}
+                                    <br>
+                                    <label style="color:red;float:left; padding-left:2px"><b>*Invalid Username or Password</b>   </label>
+                                {%endif%}
                                 <input type="text" name="amount" class="input-form" id="spass"
                                         value={{amount}} readonly required="required" />
 								<button type="submit" class="loginhny-btn btn">Continue</button>

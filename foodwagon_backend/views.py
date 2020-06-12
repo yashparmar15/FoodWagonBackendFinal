@@ -664,7 +664,7 @@ def foodtruck(request):
             truck_list = Trucks.objects.all().order_by('Price')
         else:
             truck_list = Trucks.objects.all().order_by('Price').reverse()
-    paginator = Paginator(truck_list, 3)
+    paginator = Paginator(truck_list, 9)
     page = request.GET.get('page')
     try:
         trucks = paginator.page(page)
@@ -683,6 +683,7 @@ def payment(request):
         amount = request.POST['totalamount']
         return render(request,'FoodWagon/pay.html',{'amount':amount})
     return redirect('/cart')
+userid = 0
 
 def initiate_payment(request):
     
@@ -700,7 +701,7 @@ def initiate_payment(request):
     transaction = Transactions.objects.create(CustomerID = request.user.id , amount=amount)
     transaction.save()
     merchant_key = settings.PAYTM_SECRET_KEY
-
+    
     params = (
         ('MID', settings.PAYTM_MERCHANT_ID),
         ('ORDER_ID', str(transaction.order_id)),
@@ -728,12 +729,16 @@ def initiate_payment(request):
 
 @csrf_exempt
 def callback(request):
+    userid = request.user.id
     if request.method == 'POST':
         paytm_checksum = ''
         # print(request.body)
         # print(request.POST)
         received_data = dict(request.POST)
+        # print(received_data['STATUS'])
         # print(received_data)
+        if received_data['STATUS'] == ['TXN_SUCCESS']:
+            print(userid)
         paytm_params = {}
         paytm_checksum = received_data['CHECKSUMHASH'][0]
         for key, value in received_data.items():
