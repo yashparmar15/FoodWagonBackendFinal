@@ -159,9 +159,11 @@
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                <i class="fa fa-sign-in"></i>
-                {% if request.user.is_authenticated %} Logout {% else %} Login
-                {% endif %}
+                {% if request.user.is_authenticated %}
+                <i class="fas fa-sign-out-alt"></i>
+                Logout {% else %}
+                <i class="fas fa-sign-in-alt"></i>
+                Login {% endif %}
               </a>
 
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -795,7 +797,6 @@
       </div>
     </section>
 
-    
     <!-- progress ends -->
 
     <!-- parallax -->
@@ -850,81 +851,96 @@
           </button>
 
           <div class="container box" id="container-box">
-          {% if reviews%}
-          {% for review in reviews%}
-            <div class="{% if forloop.counter0|divisibleby:3 == 1%}
-                 card-a
-            {%endif%}{% if forloop.counter0|divisibleby:3 == 2%}
-                 card-b
-            {%endif%}{% if forloop.counter0|divisibleby:3 == 0%}
-                 card-c
-            {%endif%}">
+            {% if reviews%} {% for review in reviews%}
+            <div
+              class="{% if forloop.counter0|divisibleby:3 == 1%} card-a {%endif%}{% if forloop.counter0|divisibleby:3 == 2%} card-b {%endif%}{% if forloop.counter0|divisibleby:3 == 0%} card-c {%endif%}"
+            >
               <i class="fa fa-quote-left quotel"></i>
               <p class="card-customer-content" id="card-content">
-                <b>{{review.Name}}</b><br>
+                <b>{{review.Name}}</b><br />
                 {{review.Review}}
               </p>
               <i class="fa fa-quote-right quoter"></i>
             </div>
-          {%endfor%}
-          {%else%}
-            <h2> No Reviews Yet !</h2>
-          {%endif%}
+            {%endfor%} {%else%}
+            <h2>No Reviews Yet !</h2>
+            {%endif%}
           </div>
-
         </div>
       </div>
     </div>
     <div class="form-group text-center container">
-    {% if user.is_authenticated %}
-      <form method = 'POST' action="/review_index/">
-      {%csrf_token%}
-      <label for="comment" style="font-size:20px"><b>Comment:</b></label>
-      <textarea class="form-control" rows="5" id="comment" style="border-radius:10px;border:solid black 1px;margin-bottom:20px" name = "review"></textarea>
-      <input type = "submit" class="btn btn-secondary text-center">
-      
+      {% if user.is_authenticated %}
+      <form method="POST" action="/review_index/">
+        {%csrf_token%}
+        <label for="comment" style="font-size: 20px;"><b>Comment:</b></label>
+        <textarea
+          class="form-control"
+          rows="5"
+          id="comment"
+          style="
+            border-radius: 10px;
+            border: solid black 1px;
+            margin-bottom: 20px;
+          "
+          name="review"
+        ></textarea>
+        <input type="submit" class="btn btn-secondary text-center" />
       </form>
       {% else %}
-              <label for="comment" style="font-size:20px"><b>Comment:</b></label>
-      <textarea class="form-control" rows="5" id="comment" style="border-radius:10px;border:solid black 1px;margin-bottom:20px" name = "review"></textarea>
-      
-              <input type = "submit" class="btn btn-secondary text-center" data-toggle="modal"
-                data-target="#exampleModal1">
-              
+      <label for="comment" style="font-size: 20px;"><b>Comment:</b></label>
+      <textarea
+        class="form-control"
+        rows="5"
+        id="comment"
+        style="
+          border-radius: 10px;
+          border: solid black 1px;
+          margin-bottom: 20px;
+        "
+        name="review"
+      ></textarea>
 
-              <!-- Modal -->
-             
+      <input
+        type="submit"
+        class="btn btn-secondary text-center"
+        data-toggle="modal"
+        data-target="#exampleModal1"
+      />
+
+      <!-- Modal -->
+
       {% endif %}
     </div>
-     <div
-                class="modal fade"
-                id="exampleModal1"
-                tabindex="-1"
-                role="dialog"
-                aria-labelledby="exampleModalLabel"
-                aria-hidden="true"
-              >
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">
-                        Please Login
-                      </h5>
-                      <button
-                        type="button"
-                        class="close"
-                        data-dismiss="modal"
-                        aria-label="Close"
-                      >
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <a href="/login">Login</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
+    <div
+      class="modal fade"
+      id="exampleModal1"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              Please Login
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <a href="/login">Login</a>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- scroll bar for clients ENDS-->
     <section id="contact-section" style="padding-top: 50px;">
       <div class="container">

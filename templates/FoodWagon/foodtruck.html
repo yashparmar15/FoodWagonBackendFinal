@@ -131,9 +131,11 @@
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                <i class="fa fa-sign-in"></i>
-                {% if request.user.is_authenticated %} Logout {% else %} Login
-                {% endif %}
+              {% if request.user.is_authenticated %}
+              <i class="fas fa-sign-out-alt"></i>
+              Logout {% else %}
+              <i class="fas fa-sign-in-alt"></i>
+              Login {% endif %}
               </a>
 
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
