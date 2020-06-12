@@ -141,9 +141,8 @@ def logoutUser(request):
 def chefbyid(request, id):
     items = cart_items(request)
     chef_list = Chef.objects.get(id=id)
-    reviews = ReviewChefID.objects.raw(
-        'select * from foodwagon_backend_reviewchefid where chef_id = %s order by id desc', [id])
-    chef_dict = {'chef': chef_list, 'reviews': reviews, 'badge_value': items}
+    reviews = ReviewChefID.objects.raw('select * from foodwagon_backend_reviewchefid where chef_id = %s order by id desc',[id])
+    chef_dict = {'chef': chef_list,'reviews':reviews,'badge_value':items}
     return render(request, 'FoodWagon/chefbyid.html', context=chef_dict)
 
 
@@ -292,8 +291,8 @@ def cart(request):
         customer = request.user.customer
 
         # print(customer.email)
-        order, created = Order.objects.get_or_create(
-            customer=customer, complete=False)
+
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
         truck_items = order.orderitemtruck_set.all()
         venue_items = order.orderitemvenue_set.all()
         chef_items = order.orderitemchef_set.all()
@@ -304,8 +303,10 @@ def cart(request):
         # print(chef_items)
     else:
         items = []
+    
 
     items = cart_items(request)
+
     context = {
         'truck_items': truck_items,
         'venue_items': venue_items,
@@ -334,8 +335,16 @@ def add_to_cart_truck(request, id):
 
 def add_to_cart_venue(request, id):
     if request.user.is_authenticated:
+        format = "%Y-%m-%d"
         start = request.POST['start']
         end = request.POST['end']
+        start = datetime.datetime.strptime(start, format)
+        end = datetime.datetime.strptime(end, format)
+        start = start.date()
+        end = end.date()
+        days = (end-start).days
+        print(type(days))
+        # print(start.days)
         venues_available = Venues.objects.raw(
             'select id from foodwagon_backend_venues where id not in (select venue_id from foodwagon_backend_ordered_venue where not("end" < %s or start > %s))', [start, end])
         flag = False
@@ -347,7 +356,7 @@ def add_to_cart_venue(request, id):
             venue = Venues.objects.get(id=id)
             order, created = Order.objects.get_or_create(
                 customer=customer, complete=False)
-            curr_venue = OrderItemVenue(venue=venue, order=order, quantity=1)
+            curr_venue = OrderItemVenue(venue=venue, order=order, quantity=1, start = start, end = end)
             curr_venue.save()
             message = 'Succussfully added to cart'
             messages.success(request, 'Successfully Added to Cart.')
@@ -355,7 +364,7 @@ def add_to_cart_venue(request, id):
         else:
             message = "Can't add to cart"
             items = cart_items(request)
-            essages.warning(request, 'Sorry Venue is Booked in Specified Date')
+            messages.warning(request, 'Sorry Venue is Booked in Specified Date')
         return redirect('/venue/{}'.format(id), {'badge_value': items, 'message': "Hello"})
 
 
@@ -375,7 +384,7 @@ def add_to_cart_chef(request, id):
             # print(chef)
             order, created = Order.objects.get_or_create(
                 customer=customer, complete=False)
-            curr_chef = OrderItemChef(chef=chef, order=order, quantity=1)
+            curr_chef = OrderItemChef(chef=chef, order=order, quantity=1, start = start, end = end)
             curr_chef.save()
             message = 'Succussfully added to cart'
             items = cart_items(request)
@@ -388,19 +397,31 @@ def add_to_cart_chef(request, id):
         return redirect('/catering/{}'.format(id), {'badge_value': items, 'message': message})
 
 
-def delete_item_cart_truck(request, id):
-    if request.user.is_authenticated:
-        items = cart_items(request)
-        OrderItemTruck.objects.filter(id=id).delete()
-        items -= 1
-    return redirect('/cart', {'badge_value': items})
+    
 
-
-def delete_item_cart_venue(request, id):
+def delete_item_cart_truck(request,id):
     if request.user.is_authenticated:
+        print(id)
+        OrderItemTruck.objects.filter(id = id).delete()
+        # print(curr_truck)
         items = cart_items(request)
-        OrderItemVenue.objects.filter(id=id).delete()
-    return redirect('/cart', {'badge_value': items})
+    return redirect('/cart',{'badge_value',items})
+
+def delete_item_cart_venue(request,id):
+    if request.user.is_authenticated:
+        print(id)
+        OrderItemVenue.objects.filter(id = id).delete()
+        # print(curr_truck)
+        items = cart_items(request)
+    return redirect('/cart',{'badge_value',items})
+
+def delete_item_cart_chef(request,id):
+    if request.user.is_authenticated:
+        print(id)
+        OrderItemChef.objects.filter(id = id).delete()
+        # print(curr_truck)
+        items = cart_items(request)
+    return redirect('/cart',{'badge_value',items})
 
 
 def delete_item_cart_chef(request, id):
@@ -739,9 +760,14 @@ def callback(request):
         # print(received_data)
         if received_data['STATUS'] == ['TXN_SUCCESS']:
             print(userid)
+
+        order_id = received_data['ORDERID'][0]
+        
+        transaction = Transactions.objects.get(order_id = order_id)
         paytm_params = {}
         paytm_checksum = received_data['CHECKSUMHASH'][0]
         for key, value in received_data.items():
+            print(key)
             if key == 'CHECKSUMHASH':
                 paytm_checksum = value[0]
             else:
@@ -754,6 +780,27 @@ def callback(request):
         else:
             print("Checksum Mismatched")
             received_data['message'] = "Checksum Mismatched"
+        
+        if received_data['STATUS'] == ['TXN_SUCCESS']:
+            user_id = transaction.CustomerID
+            user = User.objects.get(id = user_id)
+            order_to_delete = Order.objects.get(customer = user.customer)
+            ordered_venues = OrderItemVenue.objects.filter( order = order_to_delete)
+            ordered_chefs = OrderItemChef.objects.filter( order = order_to_delete)
+
+            # print(ordered_venues[0].venue.id)
+            for v in ordered_venues:
+                curr_venue = Ordered_Venue(venue_id = v.venue.id, start = v.start, end = v.end)
+                curr_venue.save()
+            
+            for c in ordered_chefs:
+                curr_chef = Ordered_Chef(chef_id = c.chef.id, start = c.start, end = c.end)
+                curr_chef.save()
+
+            order_to_delete.delete()
+
 
         return render(request, 'FoodWagon/callback.html', context=received_data)
+        
+
 

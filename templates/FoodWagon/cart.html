@@ -312,7 +312,7 @@
                           <td>{{item.truck.Model_Name}}</td>
                           <td>{{item.truck.id}}</td>
                           <td><input class="form-control" type="text" value="{{item.quantity}}" readonly/></td>
-                          <td class="text-right">{{item.truck.Price}} Rs</td>
+                          <td class="text-right">{{item.get_total}} Rs</td>
                           <td class="text-right"><a href="/delete_item_cart_truck/{{item.id}}"class="btn btn-sm btn-danger"><i class="fa fa-trash" ></i> </a> </td>
                           <td class="text-right"><a href="/foodtruck/{{item.truck.id}}"class="btn btn-sm btn-primary"><i class="fa fa-eye"></i> </a> </td>
                         </tr>
@@ -323,7 +323,7 @@
                           <td>{{item.venue.Venue_Name}}</td>
                           <td>In Stock</td>
                           <td><input class="form-control" type="text" value="{{item.quantity}}" readonly/></td>
-                          <td class="text-right">{{item.venue.Price_per_Day}} Rs</td>
+                          <td class="text-right">{{item.get_total}} Rs</td>
                           <td class="text-right"><a href="/delete_item_cart_venue/{{item.id}}"class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </a> </td>
                           <td class="text-right"><a href="/venue/{{item.venue.id}}"class="btn btn-sm btn-primary"><i class="fa fa-eye"></i> </a> </td>
                         </tr>
@@ -334,7 +334,7 @@
                           <td>{{item.chef.Name}}</td>
                           <td>In stock</td>
                           <td><input class="form-control" type="text" value="{{item.quantity}}" readonly/></td>
-                          <td class="text-right">{{item.chef.Stipend}} Rs</td>
+                          <td class="text-right">{{item.get_total}} Rs</td>
                           <td class="text-right"><a href="/delete_item_cart_chef/{{item.id}}" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </a> </td>
                           <td class="text-right"><a href = "/catering/{{item.chef.id}}"class="btn btn-sm btn-primary"><i class="fa fa-eye"></i> </a> </td>
                         </tr>

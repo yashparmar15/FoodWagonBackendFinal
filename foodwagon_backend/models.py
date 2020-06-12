@@ -2,6 +2,9 @@ from django.db import models
 
 from django.contrib.postgres.fields import ArrayField
 from django.contrib.auth.models import User
+from django.utils.timezone import now
+import datetime
+
 
 class Venues(models.Model):
     Venue_Name = models.CharField(max_length=50, null=False, blank=False)
@@ -150,7 +153,7 @@ class OrderItemTruck(models.Model):
     truck= models.ForeignKey(Trucks, on_delete=models.SET_NULL, blank= True, null=True)
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, blank= True, null=True)
     quantity = models.IntegerField(default=0, null=True, blank=True)
-    # date_added= models.DateTimeField(auto_now_add=True)
+
 
     @property
     def get_total(self):
@@ -161,20 +164,35 @@ class OrderItemVenue(models.Model):
     venue = models.ForeignKey(Venues, on_delete=models.SET_NULL, blank= True, null=True)
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, blank= True, null=True)
     quantity = models.IntegerField(default=0, null=True, blank=True)
-    date_added= models.DateTimeField(auto_now_add=True)
+    start = models.DateField(null=False, blank=False, default = now)
+    end = models.DateField(null=False, blank=False, default = now)
+
     @property
     def get_total(self):
-        total = self.venue.Price_per_Day * self.quantity
+        format = "%Y-%m-%d"
+        start = datetime.datetime.strptime(str(self.start), format)
+        end = datetime.datetime.strptime(str(self.end), format)
+        start = start.date()
+        end = end.date()
+        days = (end-start).days + 1
+        total = self.venue.Price_per_Day * self.quantity * days
         return total
 
 class OrderItemChef(models.Model):
     chef = models.ForeignKey(Chef, on_delete=models.SET_NULL, blank= True, null=True)
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, blank= True, null=True)
     quantity = models.IntegerField(default=0, null=True, blank=True)
-    date_added= models.DateTimeField(auto_now_add=True)
+    start = models.DateField(null=False, blank=False, default = now)
+    end = models.DateField(null=False, blank=False, default = now)
     @property
     def get_total(self):
-        total = self.chef.Stipend * self.quantity
+        format = "%Y-%m-%d"
+        start = datetime.datetime.strptime(str(self.start), format)
+        end = datetime.datetime.strptime(str(self.end), format)
+        start = start.date()
+        end = end.date()
+        days = (end-start ).days + 1
+        total = self.chef.Stipend * self.quantity * days
         return total
 
 class ReviewIndex(models.Model):

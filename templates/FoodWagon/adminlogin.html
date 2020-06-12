@@ -57,44 +57,21 @@
 <body>
     <div id="myButton" style="z-index: 100000;"></div>
     <div class="se-pre-con"></div>
-	<section class="w3l-forms-23">
-		<div class="forms23-block-hny">
-			<div class="wrapper">
-				
+	<div class="container">
+    <h2>Callback Messsage: </h2>                    <br>
+    
+    
+    Transaction ID: {% for i in TXNID%} {{i}} {%endfor%}                              <br>
+    Order ID: {% for i in ORDERID%} {{i}} {%endfor%}                         <br>
+    Bank Transaction ID: {% for i in BANKTXNID%} {{i}} {%endfor%}                      <br>
+    Transaction Amount: {% for i in TXNAMOUNT%} {{i}} {%endfor%}                     <br>
+    Currency: {% for i in CURRENCY%} {{i}} {%endfor%}                       <br>
+    <h3> STATUS: {% for i in STATUS%} {{i}} {%endfor%} </h3>                 <br>
+    Bank Name: {% for i in BANKNAME%} {{i}} {%endfor%}                      <br>
+    Payment Mode: {% for i in PAYMENTMODE%} {{i}} {%endfor%}                  
 
-		
-				<h1 style="margin-top: -10px;">Please Verify Again</h1>
-				
-<div class="display-ad" style="margin: 8px auto; display: block; text-align:center;">
-		</div>
-				<div class="d-grid forms23-grids">
-					<div class="form23">
-						<div class="main-bg">
-							<a href="/" class="toindex"><h6 class="sec-one"></h6></a>
-							<div class="speci-login first-look">
-								
-							</div>
-						</div>
-						<div class="bottom-content">
-							<form action="/pay/" method="post">
-								<input type="email" name="username" class="input-form" placeholder="Your Email" id="smail"
-										required="required" />
-								<input type="password" name="password" class="input-form" id="spass"
-                                        placeholder="Your Password" required="required" />
-                                <input type="text" name="amount" class="input-form" id="spass"
-                                        value={{amount}} readonly required="required" />
-								<button type="submit" class="loginhny-btn btn">Continue</button>
-							</form>
-						</div>
-					</div>
-				</div>
-				<div class="copy-right text-center">
-					<p>Copyright © 2020 FoodWagon. All rights reserved | Design by
-						<a href="/" target="_blank" style="color: black !important; font-weight: bold;">FoodWagon</a></p>
-				</div>
-			</div>
-		</div>
-	</section>
+    </div>
+    <a href="/" class="btn btn-secondary">Home Page</a>
     <script>
             $(function () {
                 $('#myButton').floatingWhatsApp({

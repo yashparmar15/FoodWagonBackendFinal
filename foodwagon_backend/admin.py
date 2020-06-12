@@ -15,4 +15,6 @@ admin.site.register(OrderItemTruck)
 admin.site.register(OrderItemVenue)
 admin.site.register(OrderItemChef)
 admin.site.register(Order)
+admin.site.register(Transactions)
+
 

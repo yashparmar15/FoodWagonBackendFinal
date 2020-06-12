@@ -25,6 +25,7 @@ from django.views.static import serve
 
    
 urlpatterns = [
+
         
         path('', views.index, name='index'),
         path('adminlogin/', views.adminlogin),
@@ -73,6 +74,9 @@ urlpatterns = [
         path('reset-password/complete/',
             PasswordResetCompleteView.as_view(template_name='FoodWagon/password-reset-done.html'), name='password_reset_complete'),
     ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+     
+    
 
 handler404 = 'foodwagon_backend.views.error_404_view'
 handler500 = 'foodwagon_backend.views.error_500_view'
